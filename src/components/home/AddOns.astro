@@ -1,0 +1,71 @@
+---
+import { asset } from '../../lib/cdn';
+
+// Confirmed hidden on Desktop and Tablet in Figma (hidden="true" on both
+// frames) but visible on Mobile -- not a mistake, a genuine per-breakpoint
+// content difference. Rendered only below the md breakpoint (<768px).
+
+const ADDONS = [
+  {
+    icon: 'images/home/addons/icon-content.svg',
+    title: 'Content',
+    description: 'AI blog content engine based on relevant keywords and competitive analysis',
+    price: 'ISK 18.900',
+    features: ['16 articles per month', 'Automatic topic suggestions'],
+  },
+  {
+    icon: 'images/home/addons/icon-seo.svg',
+    title: 'SEO',
+    description: 'SEO optimization to rank higher in search results in partnership with Digido',
+    price: 'ISK 199.900',
+    features: ['SEO optimized content and structure', 'Analytics dashboard'],
+  },
+  {
+    icon: 'images/home/addons/icon-ads.svg',
+    title: 'Ads',
+    description: 'Ad designs for the most common social media platforms in partnership with Flóra',
+    price: 'ISK 30.000',
+    features: ['4 social media ad designs per month', '1080 × 1920 and 1920 × 1080'],
+  },
+];
+---
+
+<section class="hidden max-md:flex flex-col gap-8 items-center px-4 py-16 relative w-full bg-background">
+  <div class="flex flex-col gap-4 items-center text-center w-full">
+    <h2 class="font-heading text-h3 text-navy w-full">Optional add-ons</h2>
+    <p class="font-body font-normal text-body-md text-gray w-full">Extend your services with these optional add-ons.</p>
+  </div>
+
+  <div class="flex flex-col gap-4 items-start w-full">
+    {ADDONS.map((addon) => (
+      <div class="bg-light-gray flex flex-col gap-10 items-start p-6 rounded-2xl w-full">
+        <div class="flex flex-col gap-6 items-start w-full">
+          <div class="flex flex-col gap-4 items-start w-full">
+            <div class="flex items-start justify-between w-full">
+              <h3 class="font-heading text-h5 text-navy whitespace-nowrap">{addon.title}</h3>
+              <div class="flex items-center justify-center rounded-full size-8 bg-navy shrink-0">
+                <img src={asset(addon.icon)} alt="" class="size-5" />
+              </div>
+            </div>
+            <p class="font-body font-normal text-body-md text-gray w-full">{addon.description}</p>
+          </div>
+          <div class="flex gap-1 items-end w-full">
+            <p class="font-heading text-[28px] leading-[1.4] tracking-[-0.7px] text-navy whitespace-nowrap">{addon.price}</p>
+            <p class="font-body font-normal text-body-md text-gray">/ month</p>
+          </div>
+          <div class="flex flex-col gap-4 items-start w-full">
+            {addon.features.map((feature) => (
+              <div class="flex gap-2 items-start w-full">
+                <img src={asset('images/home/pricing/icon-check-dark.svg')} alt="" class="size-5 shrink-0" />
+                <p class="flex-1 font-body font-normal text-body-md text-navy">{feature}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+        <a href="#" class="bg-navy flex gap-3 items-center justify-center rounded-lg pl-4 pr-5 py-3 w-full">
+          <span class="font-body font-medium text-body-md text-background whitespace-nowrap">Get a quote</span>
+        </a>
+      </div>
+    ))}
+  </div>
+</section>

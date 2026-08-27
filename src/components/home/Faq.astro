@@ -1,0 +1,53 @@
+---
+import { asset } from '../../lib/cdn';
+
+// Figma shows all 5 answers permanently visible with a "Minus" icon on every
+// item, and no "Plus"/collapsed-state asset exists anywhere in the source.
+// Rendered as a static list rather than guessing at accordion open/close
+// behavior with no defined closed-state visual to match.
+
+const FAQS = [
+  {
+    q: 'What exactly does Hitels do?',
+    a: 'We provide two core services for hotels: custom website design and a direct booking engine. You can use either service individually, or combine both.',
+  },
+  {
+    q: 'Do I have to use both the website and the booking engine?',
+    a: 'No. Our services are completely modular. We can build you a new website, integrate our booking engine into your current site, or do both.',
+  },
+  {
+    q: 'How is the booking engine implemented?',
+    a: 'We handle the entire technical setup for you. We seamlessly integrate the engine into either your existing website or a new custom site we build.',
+  },
+  {
+    q: 'How is your platform different from Wordpress or Squarespace?',
+    a: 'We don\'t use DIY templates. We offer a premium, "done-for-you" service, custom-building your site in Framer for superior design, speed, and SEO.',
+  },
+  {
+    q: 'Who is this best for?',
+    a: 'Independent and boutique hotels looking to elevate their brand, increase direct bookings, and stop paying high commissions to OTAs.',
+  },
+];
+---
+
+<section class="flex flex-col items-center px-[100px] py-[112px] max-lg:px-10 max-lg:py-14 max-md:px-4 max-md:py-16 relative w-full bg-background">
+  <div class="flex gap-8 items-start justify-center max-lg:flex-col w-full">
+    <div class="flex flex-col items-start w-[498px] max-lg:w-full">
+      <h2 class="font-heading text-h3 text-navy w-full">Frequently asked questions</h2>
+    </div>
+    <div class="flex flex-1 flex-col gap-8 items-start min-w-0 w-full">
+      {FAQS.map((faq, i) => (
+        <>
+          <div class="flex gap-3 items-start w-full">
+            <div class="flex flex-1 flex-col gap-3 items-start min-w-0">
+              <h3 class="font-heading text-h6 text-navy w-full">{faq.q}</h3>
+              <p class="font-body font-normal text-body-md text-gray w-full">{faq.a}</p>
+            </div>
+            <img src={asset('images/home/faq/minus.svg')} alt="" class="size-6 shrink-0" />
+          </div>
+          {i < FAQS.length - 1 && <div class="border-t border-border w-full"></div>}
+        </>
+      ))}
+    </div>
+  </div>
+</section>

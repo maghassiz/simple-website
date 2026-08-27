@@ -1,0 +1,74 @@
+---
+import { asset } from '../../lib/cdn';
+---
+
+<section class="flex flex-col gap-16 max-lg:gap-14 max-md:gap-8 items-center px-[100px] py-[112px] max-lg:px-10 max-lg:py-14 max-md:px-4 max-md:py-16 relative w-full bg-background">
+  <div class="flex flex-col gap-4 items-center text-center w-[792px] max-w-full">
+    <h2 class="font-heading text-h3 text-navy w-full">You run the hotel, we run the website</h2>
+    <p class="font-body font-normal text-body-md text-gray w-full">
+      You are a hospitality expert, not a web developer. Stop wasting hours wrestling with broken integrations or restrictive templates. We handle the design, the tech, and the optimization—giving you peace of mind and more time to focus on your guests.
+    </p>
+  </div>
+
+  <div class="flex gap-8 items-stretch max-md:flex-col w-full">
+    <div class="bg-light-gray flex flex-1 flex-col gap-6 items-start p-8 rounded-2xl overflow-hidden">
+      <div class="flex flex-col gap-4 items-start w-full">
+        <h3 class="font-heading text-h5 text-navy w-full">UX &amp; Design Driven</h3>
+        <p class="font-body font-normal text-body-md text-gray w-full">
+          First impressions matter. We design visually stunning websites that reflect the unique atmosphere of your hotel.
+        </p>
+      </div>
+      <div class="h-[251px] w-full relative rounded-xl overflow-hidden">
+        <img src={asset('images/home/benefits/laptop-mockup.webp')} alt="Custom hotel website shown on a laptop" class="absolute inset-0 w-full h-full object-cover" />
+      </div>
+    </div>
+
+    <div class="bg-light-gray flex flex-1 flex-col gap-6 items-start justify-center p-8 rounded-2xl overflow-hidden">
+      <div class="flex flex-col gap-4 items-start w-full">
+        <h3 class="font-heading text-h5 text-navy w-full">Advanced SEO Optimization</h3>
+        <p class="font-body font-normal text-body-md text-gray w-full">
+          We build your site from the ground up with advanced technical SEO, ensuring your hotel stands out.
+        </p>
+      </div>
+      <div class="h-[251px] w-full relative">
+        <div class="absolute top-0 left-0 flex flex-col gap-0.5 items-start text-navy">
+          <p class="font-body font-normal text-body-sm w-full">Total clicks</p>
+          <p class="font-heading text-h6 w-full">5.5K</p>
+        </div>
+        <div class="absolute top-0 left-[119px] flex flex-col gap-0.5 items-start text-navy">
+          <p class="font-body font-normal text-body-sm w-full">Impressions</p>
+          <p class="font-heading text-h6 w-full">120K</p>
+        </div>
+        <div class="absolute top-0 right-0 flex flex-col gap-0.5 items-start text-navy">
+          <p class="font-body font-normal text-body-sm w-full">Avg. CTR</p>
+          <p class="font-heading text-h6 w-full">7.5%</p>
+        </div>
+        <img src={asset('images/home/benefits/chart-grid.svg')} alt="" class="absolute left-0 top-[77px] h-[132px] w-full" />
+        <img src={asset('images/home/benefits/chart-line.svg')} alt="Rising click-through-rate trend chart" class="absolute left-[11px] top-[102.5px] h-[72.5px] w-[307px]" />
+        <div class="absolute left-0 top-[233px] flex items-center justify-between w-full font-body font-normal text-body-sm text-navy text-center">
+          <p>1/1</p>
+          <p>6/1</p>
+          <p>14/1</p>
+          <p>20/1</p>
+          <p>28/1</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-light-gray flex flex-1 flex-col gap-6 items-start justify-center p-8 rounded-2xl overflow-hidden">
+      <div class="flex flex-col gap-4 items-start w-full">
+        <h3 class="font-heading text-h5 text-navy w-full">Data-Driven Performance</h3>
+        <p class="font-body font-normal text-body-md text-gray w-full">
+          Your site is meticulously crafted to guide visitors smoothly toward making a direct reservation.
+        </p>
+      </div>
+      <div class="h-[251px] w-full relative overflow-hidden" aria-hidden="true">
+        <img src={asset('images/home/benefits/ellipse-1.svg')} alt="" class="absolute h-[270px] w-[353px] -left-8 -top-[29px] rotate-[15.12deg]" />
+        <img src={asset('images/home/benefits/ellipse-2.svg')} alt="" class="absolute h-[279px] w-[356px] left-[4px] top-[2px] rotate-[162.69deg]" />
+        <img src={asset('images/home/benefits/ellipse-3.svg')} alt="" class="absolute h-[178px] w-[280px] left-10 top-[37px] rotate-[-0.28deg]" />
+        <img src={asset('images/home/benefits/ellipse-4.svg')} alt="" class="absolute h-[121px] w-[165px] left-[99px] top-[65px] rotate-[3.1deg]" />
+        <img src={asset('images/home/benefits/ellipse-5.svg')} alt="" class="absolute h-[88px] w-[136px] left-[111px] top-[81px] rotate-[3.1deg]" />
+      </div>
+    </div>
+  </div>
+</section>
