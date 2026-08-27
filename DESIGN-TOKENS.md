@@ -65,9 +65,23 @@ Per spec: Desktop = default, Tablet = `max-width: 1024px` (Tailwind `max-lg:`), 
 section — these are **not** simple reflows of each other. Confirmed real differences found in Hero:
 
 - **Texture overlay opacity** differs: `opacity-10` on Desktop, `opacity-40` on Tablet/Mobile.
-- **Background**: Desktop's gradient look comes entirely from the decorative blob SVG's own fill;
-  Tablet/Mobile *additionally* have an explicit `bg-gradient-to-b from-[#3d2c99] to-[#654aff]`
-  layer that Desktop doesn't have.
+- **Background is an animated gradient video, not a static fill** (corrected 2026-08-27). Figma's
+  export silently drops video fills to an empty, un-named `<div>` with no `src` — easy to miss since
+  it looks like dead markup rather than an error. Initially approximated with a static gradient
+  layer for Tablet/Mobile (Desktop's look came from the decorative blob's own fill); once the user
+  supplied the actual source video (`hitels_20_gradient_light.mp4`, uploaded to R2 directly), it
+  replaced that approximation entirely — same video used across all breakpoints. Transcoded from
+  4.6MB to 700KB (MP4, H.264) / 117KB (WebM, VP9), with a WebP poster frame for pre-load paint.
+  Rendered via `<video autoplay muted loop playsinline>` with WebM listed first (smaller) and MP4 as
+  fallback.
+  - **Loop point fix:** the raw source video isn't a seamless loop — its first and last frames show
+    the gradient band at visibly different angles (confirmed by diffing the actual frames, not just
+    eyeballing it), so playback jumped on every loop. Fixed by building a ping-pong version (forward
+    + the same footage reversed, concatenated) so playback always ends on the exact frame it started
+    from — verified the resulting boundary frames differ by only ~7/255 max pixel value (compression
+    noise, imperceptible), vs. a completely different gradient position before. Doubles duration
+    (10s -> 20s) and file size (700KB -> 1.4MB MP4, 117KB -> 270KB WebM) — still small enough not to
+    matter for a background video. Uploaded over the same R2 keys, no code change needed.
 - **Layout direction**: Desktop is a left-aligned two-column row (copy left, mockup right).
   Tablet/Mobile are centered and stacked.
 - **Body copy text differs by breakpoint** — not a truncation, genuinely different wording. Desktop/
