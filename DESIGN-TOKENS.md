@@ -99,8 +99,23 @@ section — these are **not** simple reflows of each other. Confirmed real diffe
   — deferred pending user direction, since it requires ~15 more image assets and is structurally
   unlike anything on the other breakpoints.
 - **"Add-ons" section visibility differs by breakpoint**: hidden (`hidden="true"` in Figma) on both
-  Desktop and Tablet, but **visible** on Mobile. Not yet built (still in the remaining sections), but
-  noted here so it isn't accidentally hidden on all breakpoints when it is.
+  Desktop and Tablet, but **visible** on Mobile. Built in `AddOns.astro` as `hidden max-md:flex` —
+  verified with Playwright that it's actually `display:none` on Desktop/Tablet and `display:flex`
+  only below 768px, not just "looks right in a screenshot."
+- **Stories, Pricing, and FAQ have real per-breakpoint layout differences beyond simple reflow**,
+  confirmed via source before building (each one contradicted an initial reflow assumption):
+  - **Stories** cards intentionally overflow their container at every breakpoint (confirmed via exact
+    pixel widths: 604/391/391 desktop, 532/391/391 tablet, 253/253/253 mobile) — a horizontal-scroll
+    card row (`overflow-x-auto` + scroll-snap), not a stack, at any breakpoint.
+  - **Pricing** cards stack vertically on **both** Tablet and Mobile (only Desktop uses the 3-column
+    row) — an exception to the more common "Desktop+Tablet row, Mobile stack" pattern seen elsewhere.
+  - **FAQ** stacks (title above questions) on Tablet, not just Mobile — Desktop is the only breakpoint
+    with the side-by-side layout.
+- **Footer link content genuinely differs on Mobile**, confirmed via source (not assumed): Desktop
+  and Tablet share "Product" (Booking Engine/Custom Website/Pricing) + "Company" (About us/Contact
+  us/Resources). Mobile has different "Product" links (Product Overview/Hitels Awards/Hotel Managers)
+  plus an entirely separate "Resources" column with its own sub-links, and a different "Company" list
+  (About Hitels/Contact Us/Book a Demo).
 - **Product Offerings' image treatment differs by breakpoint, confirmed via source (not a guess)**:
   Desktop/Tablet show a composited collage of miniature nested hotel-site mockups (dozens of
   sub-pixel elements, e.g. 2.9px font sizes — decorative, never meant to be legible). This was
@@ -117,6 +132,44 @@ was initially missed, built as a static `overflow-hidden` row instead. Fixed in 
 flex container, animates `translateX(0)` -> `translateX(-50%)` over 40s, linear, infinite). Since both
 copies are pixel-identical, the loop is seamless: the instant the first set scrolls fully offscreen,
 the second is sitting exactly where the first one started. Respects `prefers-reduced-motion`.
+
+## Judgment calls in the remaining sections (Testimonial through Footer)
+
+- **Testimonial prev/next arrows are not wired to anything.** Figma shows the buttons but only one
+  testimonial's content exists in the source — no second slide to cycle to. Rendered as shown rather
+  than building fake carousel logic with nothing to switch between.
+- **FAQ is a static list, not an interactive accordion.** Every question in Figma shows its answer
+  permanently visible with a "Minus" icon — there is no "Plus"/collapsed-state asset anywhere in the
+  source. Wiring up click-to-collapse would mean inventing a closed-state appearance with no design
+  reference for it, which contradicts "don't add features not present in Figma." If real accordion
+  behavior is wanted later, the closed-state visual needs to be defined first (likely a "Plus" icon).
+- **Pricing's third card background is a CSS gradient approximation**, not the exact source. The
+  original is a radial gradient defined via an inline SVG data-URI with a matrix transform (rotated
+  ellipse centered below the card's visible area). Approximated with a simple `bg-gradient-to-b`
+  matching the same color stops, since the effect is a subtle ambient glow, not precise content —
+  pixel-perfect fidelity here would add a large embedded SVG string for a difference not visible at
+  normal viewing distance. Flagged in case exact reproduction matters more than assumed.
+- **Decorative blob positioning in Footer uses one asset with responsive repositioning**, rather than
+  the 3 slightly different blob SVGs Figma exports per breakpoint (same simplification already applied
+  to Hero's blob, and for the same reason: it's a soft background glow, not precise content).
+
+## Footer background video (2026-08-27)
+
+Same animated-gradient-video treatment as Hero, added after the fact per the user's request. Source:
+`copy_of_hitels_20_gradient_light.mp4`, supplied directly to R2 (same pattern as Hero's video — not
+retrievable through Figma's export API, which only supports PNG/JPG/SVG/PDF). Gradient direction is
+inverted vs. Hero's (light top -> deep purple bottom, matching Footer's look rather than Hero's).
+
+Had the exact same non-seamless-loop issue as Hero's video (first/last frames diffed at max pixel
+value 43/255 before the fix) — fixed the same way, with a ping-pong (forward + reversed footage
+concatenated), bringing the loop boundary down to 7/255 (imperceptible). Transcoded 5.92MB -> 1.6MB
+(MP4) / 294KB (WebM) with a poster frame, same as Hero.
+
+**Verification note:** initial Playwright checks showed `currentTime` frozen at 0 immediately after
+page load, which looked like a broken/non-autoplaying video. Confirmed via `scrollIntoViewIfNeeded()`
+that this is Chromium deferring playback of off-screen `<video>` elements to save resources — it
+starts advancing normally once scrolled near/into view, exactly as a real visitor would experience.
+Not a bug; flagging so a future check doesn't waste time re-diagnosing the same non-issue.
 
 The "Framer Partner" badge is **not** a scrolling partner logo — per the original Figma data it's
 absolutely positioned, fixed at horizontal center, `z-10` above the scrolling track, with its own

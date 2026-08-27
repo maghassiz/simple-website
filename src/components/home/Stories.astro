@@ -1,0 +1,51 @@
+---
+import { asset } from '../../lib/cdn';
+
+// Cards intentionally overflow their container at every breakpoint (confirmed
+// via real pixel widths in the source: 604/391/391 desktop, 532/391/391
+// tablet, 253/253/253 mobile) -- a horizontal-scroll card row, not a
+// stack. overflow-x-auto + scroll-snap gives native touch/trackpad scroll.
+
+const CARDS = [
+  {
+    logo: 'images/home/stories/logo-exeter.svg',
+    logoWidth: 'w-[184px]',
+    image: 'images/home/stories/exeter-desktop.webp',
+    caption: 'Exeter increases direct bookings by 23%',
+    wide: true,
+  },
+  {
+    logo: 'images/home/stories/logo-oddsson.svg',
+    logoWidth: 'w-[116px]',
+    image: 'images/home/stories/oddsson-desktop.webp',
+    caption: 'Oddsson increases organic traffic by 76%',
+    wide: false,
+  },
+  {
+    logo: 'images/home/stories/logo-aurora.svg',
+    logoWidth: 'w-32',
+    image: 'images/home/stories/aurora-desktop.webp',
+    caption: 'Aurora Farm increases direct bookings by 20%',
+    wide: false,
+  },
+];
+---
+
+<section class="flex flex-col gap-16 max-lg:gap-14 max-md:gap-8 items-start px-[100px] py-[112px] max-lg:px-10 max-lg:py-14 max-md:px-4 max-md:py-16 relative w-full bg-background">
+  <div class="flex flex-col gap-6 items-center text-center w-full">
+    <p class="font-body font-normal text-body-md text-gray w-full">Customer stories</p>
+    <h2 class="font-heading text-h3 text-navy w-full">Proven to increase direct revenue</h2>
+  </div>
+
+  <div class="flex gap-8 max-md:gap-4 items-center w-full overflow-x-auto snap-x snap-mandatory pb-2">
+    {CARDS.map((card) => (
+      <div class={`flex flex-col gap-4 items-start justify-center shrink-0 snap-start ${card.wide ? 'w-[604px] max-lg:w-[532px] max-md:w-[253px]' : 'w-[391px] max-md:w-[253px]'}`}>
+        <div class="flex flex-col h-[440px] max-lg:h-[440px] max-md:h-80 items-start p-8 max-md:p-6 relative rounded-2xl shrink-0 w-full overflow-hidden">
+          <img src={asset(card.image)} alt="" class="absolute inset-0 w-full h-full object-cover" />
+          <img src={asset(card.logo)} alt="" class={`relative h-5 ${card.logoWidth}`} />
+        </div>
+        <p class="font-body font-normal text-body-md text-navy w-full">{card.caption}</p>
+      </div>
+    ))}
+  </div>
+</section>

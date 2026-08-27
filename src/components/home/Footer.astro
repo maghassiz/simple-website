@@ -1,0 +1,147 @@
+---
+import { asset } from '../../lib/cdn';
+// Footer link content genuinely differs on Mobile (confirmed via source, not
+// assumed): Desktop/Tablet share "Product" (Booking Engine/Custom Website/
+// Pricing) + "Company" (About us/Contact us/Resources). Mobile has different
+// "Product" links (Product Overview/Hitels Awards/Hotel Managers) plus an
+// extra standalone "Resources" column with its own sub-links, and a
+// different "Company" list (About Hitels/Contact Us/Book a Demo).
+---
+
+<footer class="flex flex-col gap-16 max-lg:gap-14 max-md:gap-8 items-center overflow-hidden pt-[416px] max-lg:pt-60 max-md:pt-40 pb-12 px-[100px] max-lg:px-10 max-md:px-4 relative w-full bg-navy">
+  <div aria-hidden class="absolute inset-0 pointer-events-none">
+    {/* Same animated-gradient-video treatment as Hero, using the user-supplied
+        copy_of_hitels_20_gradient_light.mp4 (inverted direction: light top ->
+        deep purple bottom, matching this section's look vs. Hero's dark-to-light). */}
+    <video
+      autoplay
+      muted
+      loop
+      playsinline
+      poster={asset('images/home/footer/footer-gradient-video-poster.webp')}
+      class="absolute inset-0 w-full h-full object-cover"
+    >
+      <source src={asset('images/home/footer/footer-gradient-video.webm')} type="video/webm" />
+      <source src={asset('images/home/footer/footer-gradient-video.mp4')} type="video/mp4" />
+    </video>
+    <div
+      class="hidden max-lg:block absolute inset-0 mix-blend-overlay opacity-40 bg-top-left"
+      style={`background-image: url('${asset('images/home/hero/hero-bg-texture.webp')}'); background-size: 1920px 1080px;`}
+    ></div>
+  </div>
+  <div
+    aria-hidden
+    class="absolute flex h-[500px] max-lg:h-[400px] items-center justify-center left-1/2 -translate-x-1/2 top-[-250px] max-lg:top-[-180px] w-[1600px] max-lg:w-[1200px] pointer-events-none rotate-180"
+  >
+    <img src={asset('images/home/footer/decorative-blob.svg')} alt="" class="h-full w-full" />
+  </div>
+
+  <div class="flex flex-col gap-10 items-center px-[212px] max-lg:px-0 relative w-full max-w-[1016px]">
+    <div class="flex flex-col gap-6 items-center text-center text-background w-full">
+      <h2 class="font-heading text-h2 w-full">Ready to turn your website into your most profitable booking channel?</h2>
+      <p class="font-body font-normal text-body-lg w-full">
+        Let's discuss how a bespoke digital presence can increase your direct bookings and save you thousands in commissions.
+      </p>
+    </div>
+    <div class="flex gap-4 items-start justify-center">
+      <a href="#" class="bg-yellow flex gap-3 items-center justify-center rounded-lg pl-4 pr-5 py-3">
+        <img src={asset('images/home/hero/icon-calendar-cta.svg')} alt="" class="size-5" />
+        <span class="font-body font-medium text-navy text-body-md whitespace-nowrap">Book a demo</span>
+      </a>
+      <a href="#" class="bg-background flex gap-3 items-center justify-center rounded-lg pl-4 pr-5 py-3">
+        <img src={asset('images/home/footer/icon-chat.svg')} alt="" class="size-5" />
+        <span class="font-body font-medium text-navy text-body-md whitespace-nowrap">Contact us</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="backdrop-blur-[30px] flex flex-col gap-[72px] max-lg:gap-14 max-md:gap-8 items-start relative w-full">
+    <div class="flex flex-col gap-5 items-start w-full">
+      <div class="flex flex-col gap-0.5 items-end w-[111px]">
+        <img src={asset('images/home/footer/hitels-logo.svg')} alt="Hitels" class="w-full aspect-[113/30.91]" />
+        <div class="flex gap-1 items-center">
+          <span class="font-body text-background text-[8.5px]">by</span>
+          <img src={asset('images/home/footer/by-revera.svg')} alt="Revera" class="h-[7.8px]" />
+        </div>
+      </div>
+
+      <div class="flex gap-8 items-start w-full max-lg:flex-col">
+        <div class="flex flex-col justify-between items-start self-stretch shrink-0 w-[604px] max-lg:w-full">
+          <p class="font-heading text-h6 text-background w-full">Say hi to your new hotel platform</p>
+          <div class="flex flex-col gap-3 items-start w-full">
+            <div class="flex gap-3 items-center w-full">
+              <img src={asset('images/home/footer/icon-phone.svg')} alt="" class="size-5" />
+              <p class="flex-1 font-body font-normal text-body-md text-background">+354 5478001</p>
+            </div>
+            <div class="flex gap-3 items-center w-full">
+              <img src={asset('images/home/footer/icon-envelope.svg')} alt="" class="size-5" />
+              <p class="flex-1 font-body font-normal text-body-md text-background">Join our mailing list</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Desktop + Tablet link columns (hidden below 768px, mobile uses different content) -->
+        <div class="hidden md:flex flex-1 gap-8 items-end">
+          <div class="flex flex-1 flex-col gap-4 items-start text-background">
+            <p class="font-body font-medium text-body-md w-full">Product</p>
+            <div class="flex flex-col gap-3 items-start font-body font-normal text-body-md w-full">
+              <p class="w-full">Booking Engine</p>
+              <p class="w-full">Custom Website</p>
+              <p class="w-full">Pricing</p>
+            </div>
+          </div>
+          <div class="flex flex-1 flex-col gap-4 items-start text-background">
+            <p class="font-body font-medium text-body-md w-full">Company</p>
+            <div class="flex flex-col gap-3 items-start font-body font-normal text-body-md w-full">
+              <p class="w-full">About us</p>
+              <p class="w-full">Contact us</p>
+              <p class="w-full">Resources</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile-only link columns (different labels + extra Resources column, confirmed via source) -->
+        <div class="hidden max-md:flex flex-col gap-4 items-start text-background w-full">
+          <p class="font-body font-medium text-body-md w-full">Product</p>
+          <div class="flex flex-col gap-3 items-start font-body font-normal text-body-md w-full">
+            <p class="w-full">Product Overview</p>
+            <p class="w-full">Hitels Awards</p>
+            <p class="w-full">Hotel Managers</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="hidden max-md:flex gap-8 items-start text-background w-full">
+        <div class="flex flex-1 flex-col gap-4 items-start">
+          <p class="font-body font-medium text-body-md w-full">Resources</p>
+          <div class="flex flex-col gap-3 items-start font-body font-normal text-body-md w-full">
+            <p class="w-full">Resource Center</p>
+            <p class="w-full">News</p>
+            <p class="w-full">Blog</p>
+          </div>
+        </div>
+        <div class="flex flex-1 flex-col gap-4 items-start">
+          <p class="font-body font-medium text-body-md w-full">Company</p>
+          <div class="flex flex-col gap-3 items-start font-body font-normal text-body-md w-full">
+            <p class="w-full">About Hitels</p>
+            <p class="w-full">Contact Us</p>
+            <p class="w-full">Book a Demo</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between max-lg:flex-col max-lg:gap-8 max-lg:items-start w-full">
+      <div class="flex gap-6 items-center shrink-0">
+        <a href="#" aria-label="Instagram"><img src={asset('images/home/footer/icon-instagram.svg')} alt="" class="size-6" /></a>
+        <a href="#" aria-label="Facebook"><img src={asset('images/home/footer/icon-facebook.svg')} alt="" class="size-[22px]" /></a>
+        <a href="#" aria-label="LinkedIn"><img src={asset('images/home/footer/icon-linkedin.svg')} alt="" class="size-6" /></a>
+      </div>
+      <div class="flex items-center justify-between max-lg:flex-wrap gap-4 font-body font-normal text-body-md text-background w-[604px] max-lg:w-full whitespace-nowrap">
+        <p>© 2024 Hitels. All rights reserved.</p>
+        <p>Cookie Settings</p>
+        <p>Privacy Policy</p>
+      </div>
+    </div>
+  </div>
+</footer>
