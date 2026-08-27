@@ -35,17 +35,30 @@ the Hitels brand — they belong to the embedded client portfolio mockups as des
 > `tracking-[-1.4px]` = 56 × -2.5%; the "Trusted by partners" text at 16px renders
 > `tracking-[-0.16px]` = 16 × -1%). Fixed in `global.css`; table below now shows the corrected px values.
 
-| Token | Size | Line-height | Letter-spacing |
-|---|---|---|---|
-| `text-h1` | 56px | 1.1 | -1.4px |
-| `text-h2` | 48px | 1.1 | -1.2px |
-| `text-h3` | 40px | 1.2 | -1.0px |
-| `text-h4` | 32px | 1.2 | -0.8px |
-| `text-h5` | 24px | 1.4 | -0.6px |
-| `text-h6` | 20px | 1.4 | -0.5px |
-| `text-body-lg` | 20px | 1.5 | -0.2px |
-| `text-body-md` | 16px | 1.5 | -0.16px |
-| `text-body-sm` | 14px | 1.5 | 0 |
+> **rem/em conversion (2026-08-28):** Figma uses the exact same font sizes at every breakpoint —
+> Desktop, Tablet, and Mobile all render identical `text-h1`...`text-body-sm` values, confirmed by
+> re-checking the Tablet/Mobile frames directly. There is no separate "tablet size" or "mobile size"
+> to pull from Figma. What we changed instead is the **unit**: sizes moved from flat `px` to `rem`
+> (relative to the root `html` font-size, default 16px) and letter-spacing moved from flat `px` to
+> `em` (relative to the element's own font-size), so both scale together if a user sets a browser/OS
+> font-size preference (accessibility zoom) — a pure a11y improvement with **zero visual change** at
+> the default 16px root size (1rem = 16px, so every value below renders pixel-identical to before).
+> Verified via a production build (`npm run build` + `npm run preview`): computed styles at the
+> default root size match the original px values exactly (e.g. h1 = 56px / -1.4px letter-spacing),
+> and simulating a 20px root font-size scales every heading and its letter-spacing proportionally
+> (h1 -> 70px / -1.75px) with zero console errors or failed requests across Desktop/Tablet/Mobile.
+
+| Token | Size (rem) | Size (px @ 16px root) | Line-height | Letter-spacing (em) |
+|---|---|---|---|---|
+| `text-h1` | 3.5rem | 56px | 1.1 | -0.025em (-1.4px) |
+| `text-h2` | 3rem | 48px | 1.1 | -0.025em (-1.2px) |
+| `text-h3` | 2.5rem | 40px | 1.2 | -0.025em (-1.0px) |
+| `text-h4` | 2rem | 32px | 1.2 | -0.025em (-0.8px) |
+| `text-h5` | 1.5rem | 24px | 1.4 | -0.025em (-0.6px) |
+| `text-h6` | 1.25rem | 20px | 1.4 | -0.025em (-0.5px) |
+| `text-body-lg` | 1.25rem | 20px | 1.5 | -0.01em (-0.2px) |
+| `text-body-md` | 1rem | 16px | 1.5 | -0.01em (-0.16px) |
+| `text-body-sm` | 0.875rem | 14px | 1.5 | 0em |
 
 ## Fonts
 
