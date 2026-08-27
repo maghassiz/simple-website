@@ -35,17 +35,17 @@ const OFFERINGS = [
 
   <div class="flex gap-8 items-center max-md:flex-col w-full">
     {OFFERINGS.map((offering) => (
-      <div class="flex flex-1 flex-col gap-8 items-start rounded-2xl w-full">
+      <div class="group flex flex-1 flex-col gap-8 items-start rounded-2xl w-full">
         <div class={`${offering.imageBg} h-[360px] max-lg:h-[280px] overflow-clip relative rounded-2xl shrink-0 w-full`}>
           <img
             src={asset(offering.desktopImage)}
             alt=""
-            class="block max-md:hidden absolute inset-0 max-w-none object-cover pointer-events-none size-full"
+            class="block max-md:hidden absolute inset-0 max-w-none object-cover pointer-events-none size-full transition-transform duration-300 ease-out group-hover:scale-105"
           />
           <img
             src={asset(offering.mobileImage)}
             alt=""
-            class="hidden max-md:block absolute inset-0 max-w-none object-cover pointer-events-none size-full"
+            class="hidden max-md:block absolute inset-0 max-w-none object-cover pointer-events-none size-full transition-transform duration-300 ease-out group-hover:scale-105"
           />
         </div>
         <div class="flex flex-col gap-6 items-start w-full">
