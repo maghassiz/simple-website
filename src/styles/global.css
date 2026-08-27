@@ -7,11 +7,15 @@
  * section shows other hotels' sites as portfolio pieces, not Hitels' own UI).
  */
 
-/* Garnett Medium — licensed font (Sharp Type Co.), self-hosted in public/fonts */
+/*
+ * Garnett Medium — licensed font (Sharp Type Co.), served from Cloudflare R2
+ * (not committed to git — commercial font EULAs often restrict redistribution).
+ * URL must match R2_PUBLIC_URL in .env; update both if the bucket/domain changes.
+ */
 @font-face {
   font-family: "Garnett Medium";
-  src: url("/fonts/Garnett-Medium.woff2") format("woff2"),
-       url("/fonts/Garnett-Medium.ttf") format("truetype");
+  src: url("https://pub-c73b90ae83684de4a5c23aeec6b7b01b.r2.dev/fonts/Garnett-Medium.woff2") format("woff2"),
+       url("https://pub-c73b90ae83684de4a5c23aeec6b7b01b.r2.dev/fonts/Garnett-Medium.ttf") format("truetype");
   font-weight: 500;
   font-style: normal;
   font-display: swap;

@@ -41,11 +41,14 @@ the Hitels brand — they belong to the embedded client portfolio mockups as des
 | `text-body-md` | 16px | 1.5 | -1px |
 | `text-body-sm` | 14px | 1.5 | 0 |
 
-## ⚠️ Action needed: fonts
+## Fonts
 
-- **Garnett Medium** is a licensed/commercial font, not on Google Fonts — it is NOT bundled yet.
-  `font-heading` currently falls back to `Georgia, serif`, which will look wrong. You'll need to
-  either supply the licensed font files (WOFF2) to self-host, or confirm a substitute.
+- **Garnett Medium** is a licensed/commercial font from Sharp Type Co. Sourced from the team's
+  Drive folder, converted TTF -> WOFF2, and served from Cloudflare R2 (not committed to git —
+  commercial font EULAs often restrict redistribution, even in a private repo). The `@font-face`
+  URL in `global.css` must match `R2_PUBLIC_URL` — see `scripts/upload-to-r2.mjs` for how assets
+  get pushed to the bucket, and `scripts/set-r2-cors.mjs` for the one-time CORS setup fonts need
+  (browsers enforce CORS on cross-origin fonts, unlike images).
 - **Inter** is free and available via Google Fonts — not yet linked in the project. Trivial to add
   once we start building real pages.
 
