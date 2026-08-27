@@ -1,0 +1,67 @@
+---
+import { asset } from '../../lib/cdn';
+
+const OFFERINGS = [
+  {
+    eyebrow: 'Custom websites',
+    headline: 'Award-winning design. Zero templates.',
+    body: "We design and build blazing-fast, visually stunning websites tailored perfectly to your brand. Built with advanced SEO to rank higher and flawless UX to keep guests on your site instead of bouncing to an aggregator.",
+    cta: 'Explore Custom Websites',
+    imageBg: 'bg-light-gray',
+    // Desktop/Tablet show a composited collage of mini hotel-site mockups (screenshotted
+    // as one flattened image — the source has dozens of sub-pixel nested elements that
+    // were never meant to be legible/functional). Mobile uses a single flat photo instead
+    // — confirmed as a real, distinct treatment in the Mobile frame, not a simplification.
+    desktopImage: 'images/home/product-offerings/custom-website-collage.webp',
+    mobileImage: 'images/home/product-offerings/mobile-custom-website-photo.webp',
+  },
+  {
+    eyebrow: 'Booking engine',
+    headline: 'Frictionless checkouts. Higher conversions.',
+    body: 'Turn browsing visitors into confirmed guests. We integrate a seamless, beautifully branded booking flow directly into your site, eliminating the frustration that causes cart abandonment.',
+    cta: 'Explore Hitels Booking Engine',
+    imageBg: 'bg-navy',
+    desktopImage: 'images/home/product-offerings/booking-engine-photo.webp',
+    mobileImage: 'images/home/product-offerings/mobile-booking-engine-photo.webp',
+  },
+];
+---
+
+<section class="flex flex-col gap-8 items-start px-[100px] py-[112px] max-lg:px-10 max-lg:py-14 max-lg:gap-14 max-md:px-4 max-md:py-16 max-md:gap-8 relative w-full bg-background">
+  <div class="flex flex-col gap-6 items-center text-center w-full">
+    <h2 class="font-heading text-h3 text-navy w-full">Everything you need to scale direct revenue</h2>
+    <p class="font-body font-normal text-body-md text-gray w-full">We don't just give you the tools; we build the engine for you.</p>
+  </div>
+
+  <div class="flex gap-8 items-center max-md:flex-col w-full">
+    {OFFERINGS.map((offering) => (
+      <div class="flex flex-1 flex-col gap-8 items-start rounded-2xl w-full">
+        <div class={`${offering.imageBg} h-[360px] max-lg:h-[280px] overflow-clip relative rounded-2xl shrink-0 w-full`}>
+          <img
+            src={asset(offering.desktopImage)}
+            alt=""
+            class="block max-md:hidden absolute inset-0 max-w-none object-cover pointer-events-none size-full"
+          />
+          <img
+            src={asset(offering.mobileImage)}
+            alt=""
+            class="hidden max-md:block absolute inset-0 max-w-none object-cover pointer-events-none size-full"
+          />
+        </div>
+        <div class="flex flex-col gap-6 items-start w-full">
+          <div class="flex flex-col gap-4 items-start w-full">
+            <div class="flex flex-col gap-3 items-start w-full">
+              <p class="font-body font-normal text-body-md text-gray w-full">{offering.eyebrow}</p>
+              <p class="font-heading text-h5 text-navy w-full">{offering.headline}</p>
+            </div>
+            <p class="font-body font-normal text-body-md text-gray w-full">{offering.body}</p>
+          </div>
+          <a href="#" class="bg-navy flex gap-2 items-center justify-center rounded px-3 py-2">
+            <span class="font-body font-medium text-background text-body-sm whitespace-nowrap">{offering.cta}</span>
+            <img src={asset('images/home/product-offerings/icon-arrow-right.svg')} alt="" class="size-4" />
+          </a>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

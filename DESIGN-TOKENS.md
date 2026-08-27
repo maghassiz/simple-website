@@ -87,6 +87,13 @@ section — these are **not** simple reflows of each other. Confirmed real diffe
 - **"Add-ons" section visibility differs by breakpoint**: hidden (`hidden="true"` in Figma) on both
   Desktop and Tablet, but **visible** on Mobile. Not yet built (still in the remaining sections), but
   noted here so it isn't accidentally hidden on all breakpoints when it is.
+- **Product Offerings' image treatment differs by breakpoint, confirmed via source (not a guess)**:
+  Desktop/Tablet show a composited collage of miniature nested hotel-site mockups (dozens of
+  sub-pixel elements, e.g. 2.9px font sizes — decorative, never meant to be legible). This was
+  captured as a single flattened screenshot image rather than hand-coded, since reconstructing
+  illegible sub-pixel content node-for-node would be both impractical and pointless. Mobile instead
+  shows a plain flat photo directly (`image60`/`image59` used without the `opacity-0` hack Desktop
+  applies to the same layer) — a real, distinct treatment, not a fallback/simplification on my part.
 
 ## Excluded from these tokens (and why)
 

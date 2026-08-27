@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Hero from '../components/home/Hero.astro';
 import PartnerLogos from '../components/home/PartnerLogos.astro';
+import ProductOfferings from '../components/home/ProductOfferings.astro';
 ---
 
 <html lang="en">
@@ -14,7 +15,12 @@ import PartnerLogos from '../components/home/PartnerLogos.astro';
 		<title>Hitels — Turn website visitors into direct bookings</title>
 	</head>
 	<body class="bg-background">
-		<Hero />
-		<PartnerLogos />
+		<header>
+			<Hero />
+		</header>
+		<main>
+			<PartnerLogos />
+			<ProductOfferings />
+		</main>
 	</body>
 </html>
