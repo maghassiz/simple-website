@@ -16,6 +16,17 @@ import PartnerLogosTrack from './PartnerLogosTrack.astro';
       <PartnerLogosTrack />
       <PartnerLogosTrack />
     </div>
+
+    {/* Fixed at center, above the scrolling track (z-10) — this is a static
+        "Built with Framer" badge, not a partner logo, so it doesn't scroll
+        with the rest. The gradient fades the scrolling logos to white as
+        they pass behind it instead of an abrupt cut. */}
+    <div class="absolute left-1/2 -translate-x-1/2 top-0 h-[92px] flex items-center gap-[6.909px] px-20 z-10">
+      <div class="absolute left-0 top-1/2 -translate-y-1/2 h-[45px] w-[223px] bg-gradient-to-r from-white/0 via-white to-white/0"></div>
+      <div class="relative h-16 w-[62.857px] shrink-0">
+        <img src="https://pub-c73b90ae83684de4a5c23aeec6b7b01b.r2.dev/images/home/hero/framer-badge-icon.svg" alt="Framer Partner" class="h-16 w-[62.857px]" />
+      </div>
+    </div>
   </div>
 </div>
 

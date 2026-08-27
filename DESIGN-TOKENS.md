@@ -97,6 +97,11 @@ flex container, animates `translateX(0)` -> `translateX(-50%)` over 40s, linear,
 copies are pixel-identical, the loop is seamless: the instant the first set scrolls fully offscreen,
 the second is sitting exactly where the first one started. Respects `prefers-reduced-motion`.
 
+The "Framer Partner" badge is **not** a scrolling partner logo — per the original Figma data it's
+absolutely positioned, fixed at horizontal center, `z-10` above the scrolling track, with its own
+white linear-gradient backdrop so logos passing behind it fade to white instead of an abrupt cut. It was
+initially (wrongly) included as a regular item inside the scrolling track. Fixed in `PartnerLogos.astro`.
+
 ## Excluded from these tokens (and why)
 
 Querying Figma variables against the full "Desktop - Home" page (node `43:3671`) initially
