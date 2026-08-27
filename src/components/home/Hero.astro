@@ -1,0 +1,63 @@
+---
+import Navigation from '../Navigation.astro';
+
+const R2_BASE = 'https://pub-c73b90ae83684de4a5c23aeec6b7b01b.r2.dev';
+---
+
+<div class="flex flex-col gap-[72px] h-[850px] items-center overflow-clip relative w-full bg-navy">
+  <div aria-hidden class="absolute inset-0 pointer-events-none">
+    <div
+      class="absolute inset-0 mix-blend-overlay opacity-10 bg-top-left"
+      style={`background-image: url('${R2_BASE}/images/home/hero/hero-bg-texture.webp'); background-size: 1920px 1080px;`}
+    ></div>
+  </div>
+
+  <div
+    aria-hidden
+    class="absolute flex h-[688.717px] items-center justify-center left-[-348.03px] top-[462.74px] w-[2142.156px] pointer-events-none"
+  >
+    <div class="rotate-[-4.09deg]">
+      <img src="/images/home/hero/decorative-blob.svg" alt="" class="h-[539.588px] w-[2109.027px] block" />
+    </div>
+  </div>
+
+  <Navigation />
+
+  <div class="flex items-center justify-between px-[100px] relative w-full">
+    <div class="flex flex-col gap-8 items-start w-[604px] mr-[-16px]">
+      <div class="flex flex-col gap-4 items-center text-background w-full">
+        <p class="font-heading text-h1 w-full">Turn website visitors into direct bookings</p>
+        <p class="font-body font-normal text-body-lg w-full">
+          We build award-winning, bespoke hotel websites and seamless booking engines. No templates. No DIY builders. Just a premium digital presence "done-for-you" from start to finish.
+        </p>
+      </div>
+      <div class="flex gap-4 items-start justify-center">
+        <a href="#" class="bg-yellow flex gap-3 items-center justify-center rounded-lg px-4 py-3">
+          <img src="/images/home/hero/icon-calendar-cta.svg" alt="" class="size-5" />
+          <span class="font-body font-medium text-navy text-body-md whitespace-nowrap">Book a demo</span>
+        </a>
+        <a href="#" class="bg-background flex gap-3 items-center justify-center rounded-lg pl-4 pr-5 py-3">
+          <img src="/images/home/hero/icon-chat.svg" alt="" class="size-5" />
+          <span class="font-body font-medium text-navy text-body-md whitespace-nowrap">Contact us</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="h-[598px] relative w-[652px]">
+      <div class="absolute h-[598px] left-[2px] top-0 w-[650px] overflow-hidden pointer-events-none">
+        <img
+          src={`${R2_BASE}/images/home/hero/mockup-desktop.webp`}
+          alt="Hitels booking engine shown on desktop"
+          class="absolute h-[119.79%] left-[-11.37%] max-w-none top-[-9.44%] w-[146.94%]"
+        />
+      </div>
+      <div class="absolute h-[292px] left-[497px] top-[306px] w-[152px] overflow-hidden pointer-events-none">
+        <img
+          src={`${R2_BASE}/images/home/hero/mockup-phone.webp`}
+          alt="Hitels booking engine shown on mobile"
+          class="absolute h-[123.48%] left-[-100.82%] max-w-none top-[-11.81%] w-[316.28%]"
+        />
+      </div>
+    </div>
+  </div>
+</div>

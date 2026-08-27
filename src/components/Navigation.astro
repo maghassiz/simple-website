@@ -1,0 +1,30 @@
+---
+// TODO: hrefs are placeholders until the corresponding pages exist
+// (Figma has Booking Engine, Custom Website, About Us, Pricing, and Contact Us
+// as distinct pages — routes will follow once those are built).
+const links = [
+  { label: 'Booking engine', href: '#' },
+  { label: 'Custom website', href: '#' },
+  { label: 'About us', href: '#' },
+  { label: 'Pricing', href: '#' },
+  { label: 'Resources', href: '#' },
+  { label: 'Contact us', href: '#' },
+];
+---
+
+<nav class="backdrop-blur-[18px] flex items-center justify-between px-[100px] py-4 relative w-full">
+  <a href="/" class="block h-6 w-[88px]">
+    <img src="/images/home/hero/hitels-logo.svg" alt="Hitels" class="h-full w-full" />
+  </a>
+  <div class="flex gap-6 items-center">
+    {links.map((link) => (
+      <a href={link.href} class="font-body font-medium text-background text-body-sm whitespace-nowrap">
+        {link.label}
+      </a>
+    ))}
+    <a href="#" class="bg-background flex gap-2 items-center rounded-lg pl-3 pr-4 py-2">
+      <img src="/images/home/hero/icon-calendar-nav.svg" alt="" class="size-4" />
+      <span class="font-body font-medium text-navy text-body-sm whitespace-nowrap">Book a demo</span>
+    </a>
+  </div>
+</nav>
