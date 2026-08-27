@@ -1,1 +1,66 @@
 @import "tailwindcss";
+
+/*
+ * Hitels brand tokens — extracted from Figma (fileKey 0bx3Si4ObEyKJ6XgLEETra),
+ * isolated from the hero section (node 122:28637) to avoid picking up colors
+ * from embedded client-site mockups elsewhere in the file (Product Offerings
+ * section shows other hotels' sites as portfolio pieces, not Hitels' own UI).
+ */
+@theme {
+  /* Colors */
+  --color-brand: #5D4BFF;      /* Primary/Brand — hero gradient, primary accent */
+  --color-navy: #130C3C;       /* Primary/Blue — dark backgrounds, headline text on light */
+  --color-yellow: #FFD641;     /* Primary/Yellow — primary CTA buttons */
+  --color-background: #FBFBFF; /* Primary/Background — page background */
+  --color-gray: #676479;       /* Secondary/Gray — muted/secondary text */
+  --color-basalt: #252625;     /* Secondary/Basalt Black — body copy on light bg */
+  --color-border: #E1E1EC;     /* Secondary/Border */
+  --color-light-gray: #F2F2F7; /* Secondary/Light Gray — subtle section backgrounds */
+  --color-brand-blue: #0C475C; /* Brand/Blue — secondary brand color */
+
+  /* Typography */
+  --font-heading: "Garnett Medium", Georgia, serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --text-h1: 56px;
+  --text-h1--line-height: 1.1;
+  --text-h1--letter-spacing: -2.5px;
+  --text-h1--font-weight: 500;
+
+  --text-h2: 48px;
+  --text-h2--line-height: 1.1;
+  --text-h2--letter-spacing: -2.5px;
+  --text-h2--font-weight: 500;
+
+  --text-h3: 40px;
+  --text-h3--line-height: 1.2;
+  --text-h3--letter-spacing: -2.5px;
+  --text-h3--font-weight: 500;
+
+  --text-h4: 32px;
+  --text-h4--line-height: 1.2;
+  --text-h4--letter-spacing: -2.5px;
+  --text-h4--font-weight: 500;
+
+  --text-h5: 24px;
+  --text-h5--line-height: 1.4;
+  --text-h5--letter-spacing: -2.5px;
+  --text-h5--font-weight: 500;
+
+  --text-h6: 20px;
+  --text-h6--line-height: 1.4;
+  --text-h6--letter-spacing: -2.5px;
+  --text-h6--font-weight: 500;
+
+  --text-body-lg: 20px;
+  --text-body-lg--line-height: 1.5;
+  --text-body-lg--letter-spacing: -1px;
+
+  --text-body-md: 16px;
+  --text-body-md--line-height: 1.5;
+  --text-body-md--letter-spacing: -1px;
+
+  --text-body-sm: 14px;
+  --text-body-sm--line-height: 1.5;
+  --text-body-sm--letter-spacing: 0px;
+}
