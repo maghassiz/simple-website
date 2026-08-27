@@ -109,6 +109,20 @@ section — these are **not** simple reflows of each other. Confirmed real diffe
   shows a plain flat photo directly (`image60`/`image59` used without the `opacity-0` hack Desktop
   applies to the same layer) — a real, distinct treatment, not a fallback/simplification on my part.
 
+## Partner logo ticker is an animated marquee, not a static row
+
+The Figma layer is literally named "Logo Ticker" — a static frame can't show that it moves, and this
+was initially missed, built as a static `overflow-hidden` row instead. Fixed in `PartnerLogosTrack.astro`
+(one full set of logos) + `PartnerLogos.astro` (renders the track twice back-to-back inside a `w-max`
+flex container, animates `translateX(0)` -> `translateX(-50%)` over 40s, linear, infinite). Since both
+copies are pixel-identical, the loop is seamless: the instant the first set scrolls fully offscreen,
+the second is sitting exactly where the first one started. Respects `prefers-reduced-motion`.
+
+The "Framer Partner" badge is **not** a scrolling partner logo — per the original Figma data it's
+absolutely positioned, fixed at horizontal center, `z-10` above the scrolling track, with its own
+white linear-gradient backdrop so logos passing behind it fade to white instead of an abrupt cut. It was
+initially (wrongly) included as a regular item inside the scrolling track. Fixed in `PartnerLogos.astro`.
+
 ## Excluded from these tokens (and why)
 
 Querying Figma variables against the full "Desktop - Home" page (node `43:3671`) initially

@@ -1,99 +1,52 @@
 ---
-// "Trusted by 19 partners" logo ticker. Faithfully reproduces each partner
-// mark from its exported Figma asset (some are plain SVGs, some are
-// gray-masked shapes) rather than redrawing them.
+import PartnerLogosTrack from './PartnerLogosTrack.astro';
+// "Trusted by 19 partners" logo ticker — an infinite auto-scrolling marquee
+// (the Figma layer is literally named "Logo Ticker"). Renders the logo set
+// twice back-to-back and animates a -50% translateX; since both copies are
+// identical, the loop is seamless — the instant the first set scrolls fully
+// offscreen, the second is sitting exactly where the first one started.
 ---
 
 <div class="flex flex-col gap-1 items-center py-4 relative w-full bg-background">
   <p class="font-body font-normal text-navy text-body-md text-center tracking-[-0.16px] w-full">
     Trusted by 19 partners and counting
   </p>
-  <div class="backdrop-blur-[25px] flex gap-16 items-center justify-center px-8 py-6 relative w-full overflow-hidden">
-    <div class="bg-gray h-8 opacity-10 w-px"></div>
-
-    <div class="h-[20.769px] w-[115.962px]">
-      <img src="https://pub-c73b90ae83684de4a5c23aeec6b7b01b.r2.dev/images/home/hero/partner-logo-4.svg" alt="Partner logo" class="h-[17.308px] w-[115.37px]" />
+  <div class="backdrop-blur-[25px] px-8 py-6 relative w-full overflow-hidden">
+    <div class="partner-ticker-track flex w-max">
+      <PartnerLogosTrack />
+      <PartnerLogosTrack />
     </div>
 
-    <div class="bg-gray h-8 opacity-10 w-px"></div>
-
-    <div class="h-[20.769px] w-[184.327px]">
-      <img src="https://pub-c73b90ae83684de4a5c23aeec6b7b01b.r2.dev/images/home/hero/partner-logo-5.svg" alt="Partner logo" class="h-[17.308px] w-[184.056px]" />
-    </div>
-
-    <div class="h-[34.615px] relative w-[171.635px]">
-      <div
-        class="absolute bg-gray h-[28.846px] left-0 top-[2.88px] w-[172.018px]"
-        style="mask-image: url('https://pub-c73b90ae83684de4a5c23aeec6b7b01b.r2.dev/images/home/hero/partner-logo-mask-1.png'); mask-size: 172.018px 28.846px; mask-repeat: no-repeat;"
-      ></div>
-    </div>
-
-    <div class="inline-grid place-items-start">
-      <div
-        class="bg-gray h-11 w-[59.42px] col-start-1 row-start-1"
-        style="mask-image: url('https://pub-c73b90ae83684de4a5c23aeec6b7b01b.r2.dev/images/home/hero/partner-logo-mask-2.png'); mask-size: 59.42px 44px; mask-repeat: no-repeat;"
-      ></div>
-    </div>
-
-    <div class="h-8 w-24 overflow-clip relative">
-      <img src="https://pub-c73b90ae83684de4a5c23aeec6b7b01b.r2.dev/images/home/hero/partner-logo-6.svg" alt="Partner logo" class="absolute inset-[6%_2.79%_6%_3.34%]" />
-    </div>
-
-    <div class="h-[10px] w-[226.25px] overflow-clip relative">
-      <img src="https://pub-c73b90ae83684de4a5c23aeec6b7b01b.r2.dev/images/home/hero/partner-logo-7.svg" alt="Partner logo" class="absolute inset-0" />
-    </div>
-
-    <img src="https://pub-c73b90ae83684de4a5c23aeec6b7b01b.r2.dev/images/home/hero/partner-logo-8.svg" alt="Partner logo" class="h-5 w-[93.181px]" />
-
-    <div class="h-6 w-[88px] overflow-clip relative">
-      <img src="https://pub-c73b90ae83684de4a5c23aeec6b7b01b.r2.dev/images/home/hero/partner-logo-9.svg" alt="Partner logo" class="absolute inset-[4.5%_0_4.52%_0]" />
-    </div>
-
-    <img src="https://pub-c73b90ae83684de4a5c23aeec6b7b01b.r2.dev/images/home/hero/partner-logo-10.svg" alt="Partner logo" class="h-4 w-32" />
-
-    <div class="flex gap-[10.286px] items-center">
-      <img src="https://pub-c73b90ae83684de4a5c23aeec6b7b01b.r2.dev/images/home/hero/icon-nav-badge.svg" alt="" class="size-6" />
-      <img src="https://pub-c73b90ae83684de4a5c23aeec6b7b01b.r2.dev/images/home/hero/nav-badge-text.svg" alt="" class="h-[10.252px] w-[114.132px]" />
-    </div>
-
-    <div class="h-7 w-[45px] overflow-clip relative">
-      <img src="https://pub-c73b90ae83684de4a5c23aeec6b7b01b.r2.dev/images/home/hero/partner-logo-11.svg" alt="Partner logo" class="absolute inset-[6.9%_3.12%_6.18%_3.12%]" />
-    </div>
-
-    <div class="flex flex-col gap-2 items-center justify-center px-5 w-[60px] relative">
-      <div
-        class="absolute bg-gray h-8 left-[2.45px] top-0 w-[55.111px]"
-        style="mask-image: url('https://pub-c73b90ae83684de4a5c23aeec6b7b01b.r2.dev/images/home/hero/partner-logo-mask-3.png'); mask-size: 55.273px 32px; mask-repeat: no-repeat;"
-      ></div>
-    </div>
-
-    <img src="https://pub-c73b90ae83684de4a5c23aeec6b7b01b.r2.dev/images/home/hero/partner-logo-12.svg" alt="Partner logo" class="h-7 w-[84px]" />
-
-    <div class="h-6 w-[78px] overflow-clip relative">
-      <div class="absolute h-[7.579px] right-[0.4%] top-[2.53px] left-[51.22%] overflow-clip">
-        <img src="https://pub-c73b90ae83684de4a5c23aeec6b7b01b.r2.dev/images/home/hero/partner-logo-13a.svg" alt="" class="absolute inset-[10.01%_70.44%_15.01%_3.29%]" />
-        <img src="https://pub-c73b90ae83684de4a5c23aeec6b7b01b.r2.dev/images/home/hero/partner-logo-13b.svg" alt="" class="absolute inset-[10.01%_3.54%_14.97%_31.94%]" />
-      </div>
-    </div>
-
-    <div class="h-6 w-[95.368px] overflow-clip relative" aria-label="Partner logo">
-      <div class="absolute h-[7.579px] right-0 top-[2.53px] w-[37.737px] overflow-clip">
-        <img src="https://pub-c73b90ae83684de4a5c23aeec6b7b01b.r2.dev/images/home/hero/partner-logo-14-mask.svg" alt="" class="absolute inset-[10.01%_3.54%_14.97%_3.29%]" />
-      </div>
-      <img src="https://pub-c73b90ae83684de4a5c23aeec6b7b01b.r2.dev/images/home/hero/partner-logo-14a.svg" alt="" class="absolute bottom-[2.95px] h-[9.587px] left-[85.22px] w-[9.133px]" />
-      <img src="https://pub-c73b90ae83684de4a5c23aeec6b7b01b.r2.dev/images/home/hero/partner-logo-14b.svg" alt="" class="absolute bottom-[2.95px] h-[9.284px] left-[68.7px] w-[15.575px]" />
-      <img src="https://pub-c73b90ae83684de4a5c23aeec6b7b01b.r2.dev/images/home/hero/partner-logo-14c.svg" alt="" class="absolute bottom-[2.64px] h-[9.891px] left-[58.46px] w-[10.004px]" />
-      <img src="https://pub-c73b90ae83684de4a5c23aeec6b7b01b.r2.dev/images/home/hero/partner-logo-14d.svg" alt="" class="absolute bottom-[2.8px] h-[12.278px] left-[50.62px] w-[7.219px]" />
-      <img src="https://pub-c73b90ae83684de4a5c23aeec6b7b01b.r2.dev/images/home/hero/partner-logo-14e.svg" alt="" class="absolute bottom-[2.95px] h-[9.587px] left-[40.72px] w-[9.133px]" />
-      <img src="https://pub-c73b90ae83684de4a5c23aeec6b7b01b.r2.dev/images/home/hero/partner-logo-14f.svg" alt="" class="absolute bottom-[2.95px] h-[9.284px] left-[24.2px] w-[15.575px]" />
-      <img src="https://pub-c73b90ae83684de4a5c23aeec6b7b01b.r2.dev/images/home/hero/partner-logo-14g.svg" alt="" class="absolute bottom-[2.64px] h-[9.891px] left-[13.96px] w-[10.004px]" />
-      <img src="https://pub-c73b90ae83684de4a5c23aeec6b7b01b.r2.dev/images/home/hero/partner-logo-14h.svg" alt="" class="absolute bottom-[2.95px] h-[13.566px] left-[1.36px] w-[11.823px]" />
-    </div>
-
-    <div class="flex gap-[6.909px] h-[92px] items-center px-20 relative">
-      <div class="size-16">
+    {/* Fixed at center, above the scrolling track (z-10) — this is a static
+        "Built with Framer" badge, not a partner logo, so it doesn't scroll
+        with the rest. The gradient fades the scrolling logos to white as
+        they pass behind it instead of an abrupt cut. */}
+    <div class="absolute left-1/2 -translate-x-1/2 top-0 h-[92px] flex items-center gap-[6.909px] px-20 z-10">
+      <div class="absolute left-0 top-1/2 -translate-y-1/2 h-[45px] w-[223px] bg-gradient-to-r from-white/0 via-white to-white/0"></div>
+      <div class="relative h-16 w-[62.857px] shrink-0">
         <img src="https://pub-c73b90ae83684de4a5c23aeec6b7b01b.r2.dev/images/home/hero/framer-badge-icon.svg" alt="Framer Partner" class="h-16 w-[62.857px]" />
       </div>
     </div>
   </div>
 </div>
+
+<style>
+  .partner-ticker-track {
+    animation: partner-ticker-scroll 40s linear infinite;
+  }
+
+  @keyframes partner-ticker-scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .partner-ticker-track {
+      animation: none;
+    }
+  }
+</style>
