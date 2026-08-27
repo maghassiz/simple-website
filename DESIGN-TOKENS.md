@@ -21,6 +21,9 @@ future generated page.
 | `light-gray` | `#F2F2F7` | `Secondary/Light Gray` | Subtle section backgrounds |
 | `brand-blue` | `#0C475C` | `Brand/Blue` | Secondary brand color (usage unconfirmed — flag if unused) |
 
+Confirmed with the user (2026-08-27): `Hotel/Dark Green` and `Primary/Moss Green` are **not** part of
+the Hitels brand — they belong to the embedded client portfolio mockups as described below.
+
 ## Typography
 
 - **Headings** — `Garnett Medium`, weight 500, negative letter-spacing (-2.5px)
