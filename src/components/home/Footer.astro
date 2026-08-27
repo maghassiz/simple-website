@@ -10,7 +10,20 @@ import { asset } from '../../lib/cdn';
 
 <footer class="flex flex-col gap-16 max-lg:gap-14 max-md:gap-8 items-center overflow-hidden pt-[416px] max-lg:pt-60 max-md:pt-40 pb-12 px-[100px] max-lg:px-10 max-md:px-4 relative w-full bg-navy">
   <div aria-hidden class="absolute inset-0 pointer-events-none">
-    <div class="hidden max-lg:block absolute inset-0 bg-gradient-to-b from-[#654aff] to-[#2d1e83]"></div>
+    {/* Same animated-gradient-video treatment as Hero, using the user-supplied
+        copy_of_hitels_20_gradient_light.mp4 (inverted direction: light top ->
+        deep purple bottom, matching this section's look vs. Hero's dark-to-light). */}
+    <video
+      autoplay
+      muted
+      loop
+      playsinline
+      poster={asset('images/home/footer/footer-gradient-video-poster.webp')}
+      class="absolute inset-0 w-full h-full object-cover"
+    >
+      <source src={asset('images/home/footer/footer-gradient-video.webm')} type="video/webm" />
+      <source src={asset('images/home/footer/footer-gradient-video.mp4')} type="video/mp4" />
+    </video>
     <div
       class="hidden max-lg:block absolute inset-0 mix-blend-overlay opacity-40 bg-top-left"
       style={`background-image: url('${asset('images/home/hero/hero-bg-texture.webp')}'); background-size: 1920px 1080px;`}

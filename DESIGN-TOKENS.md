@@ -153,6 +153,24 @@ the second is sitting exactly where the first one started. Respects `prefers-red
   the 3 slightly different blob SVGs Figma exports per breakpoint (same simplification already applied
   to Hero's blob, and for the same reason: it's a soft background glow, not precise content).
 
+## Footer background video (2026-08-27)
+
+Same animated-gradient-video treatment as Hero, added after the fact per the user's request. Source:
+`copy_of_hitels_20_gradient_light.mp4`, supplied directly to R2 (same pattern as Hero's video — not
+retrievable through Figma's export API, which only supports PNG/JPG/SVG/PDF). Gradient direction is
+inverted vs. Hero's (light top -> deep purple bottom, matching Footer's look rather than Hero's).
+
+Had the exact same non-seamless-loop issue as Hero's video (first/last frames diffed at max pixel
+value 43/255 before the fix) — fixed the same way, with a ping-pong (forward + reversed footage
+concatenated), bringing the loop boundary down to 7/255 (imperceptible). Transcoded 5.92MB -> 1.6MB
+(MP4) / 294KB (WebM) with a poster frame, same as Hero.
+
+**Verification note:** initial Playwright checks showed `currentTime` frozen at 0 immediately after
+page load, which looked like a broken/non-autoplaying video. Confirmed via `scrollIntoViewIfNeeded()`
+that this is Chromium deferring playback of off-screen `<video>` elements to save resources — it
+starts advancing normally once scrolled near/into view, exactly as a real visitor would experience.
+Not a bug; flagging so a future check doesn't waste time re-diagnosing the same non-issue.
+
 The "Framer Partner" badge is **not** a scrolling partner logo — per the original Figma data it's
 absolutely positioned, fixed at horizontal center, `z-10` above the scrolling track, with its own
 white linear-gradient backdrop so logos passing behind it fade to white instead of an abrupt cut. It was
