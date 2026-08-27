@@ -6,6 +6,17 @@
  * from embedded client-site mockups elsewhere in the file (Product Offerings
  * section shows other hotels' sites as portfolio pieces, not Hitels' own UI).
  */
+
+/* Garnett Medium — licensed font (Sharp Type Co.), self-hosted in public/fonts */
+@font-face {
+  font-family: "Garnett Medium";
+  src: url("/fonts/Garnett-Medium.woff2") format("woff2"),
+       url("/fonts/Garnett-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
   /* Colors */
   --color-brand: #5D4BFF;      /* Primary/Brand — hero gradient, primary accent */
