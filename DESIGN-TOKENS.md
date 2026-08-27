@@ -74,6 +74,14 @@ section — these are **not** simple reflows of each other. Confirmed real diffe
   4.6MB to 700KB (MP4, H.264) / 117KB (WebM, VP9), with a WebP poster frame for pre-load paint.
   Rendered via `<video autoplay muted loop playsinline>` with WebM listed first (smaller) and MP4 as
   fallback.
+  - **Loop point fix:** the raw source video isn't a seamless loop — its first and last frames show
+    the gradient band at visibly different angles (confirmed by diffing the actual frames, not just
+    eyeballing it), so playback jumped on every loop. Fixed by building a ping-pong version (forward
+    + the same footage reversed, concatenated) so playback always ends on the exact frame it started
+    from — verified the resulting boundary frames differ by only ~7/255 max pixel value (compression
+    noise, imperceptible), vs. a completely different gradient position before. Doubles duration
+    (10s -> 20s) and file size (700KB -> 1.4MB MP4, 117KB -> 270KB WebM) — still small enough not to
+    matter for a background video. Uploaded over the same R2 keys, no code change needed.
 - **Layout direction**: Desktop is a left-aligned two-column row (copy left, mockup right).
   Tablet/Mobile are centered and stacked.
 - **Body copy text differs by breakpoint** — not a truncation, genuinely different wording. Desktop/
