@@ -1,0 +1,78 @@
+---
+import { asset } from '../../lib/cdn';
+import ArrowLink from './ArrowLink.astro';
+
+interface Props {
+  label: string;
+  heading: string;
+  description: string;
+  image: string;
+  imageAlt: string;
+  imageFirst?: boolean;
+  imageBg?: string;
+  variant?: 'booking-engine' | 'custom-website';
+}
+
+const {
+  label,
+  heading,
+  description,
+  image,
+  imageAlt,
+  imageFirst = false,
+  imageBg = '',
+  variant = 'booking-engine',
+} = Astro.props;
+
+// The two pages this component serves diverge in 3 coupled ways (section
+// padding/gap/justify-center, image-wrapper height breakpoints, and content
+// column width strategy) -- kept as one variant switch rather than
+// independent props since picking one always implies the other two.
+const VARIANT_STYLES = {
+  'booking-engine': {
+    section: 'flex gap-[138px] items-center justify-center px-[100px] py-[112px] max-lg:flex-col max-lg:gap-8 max-lg:px-10 max-lg:py-14 max-md:px-4 max-md:py-16 relative w-full bg-background',
+    imageWrapper: 'h-[520px] max-lg:h-[380px] max-md:h-[240px] w-[604px] max-lg:w-full relative rounded-2xl shrink-0 overflow-hidden',
+    content: 'flex flex-col gap-8 items-start w-[498px] max-lg:w-full shrink-0',
+  },
+  'custom-website': {
+    section: 'flex items-center gap-[138px] max-lg:flex-col max-lg:gap-12 max-md:gap-8 px-[100px] py-[100px] max-lg:px-10 max-lg:py-10 max-md:px-4 max-md:py-10 relative w-full bg-background',
+    imageWrapper: 'h-[520px] max-lg:h-[464px] max-md:h-[295px] w-[604px] max-lg:w-full relative rounded-2xl shrink-0 overflow-hidden',
+    content: 'flex flex-1 flex-col gap-8 items-start w-full',
+  },
+};
+
+const styles = VARIANT_STYLES[variant];
+
+// The two variants use different DOM techniques to place the image, because
+// their mobile/tablet behavior actually differs: 'booking-engine' reorders
+// the image/content divs in the DOM itself (imageFirst governs stacking order
+// at every breakpoint, including the max-lg:flex-col stack). 'custom-website'
+// keeps the DOM order fixed as [image, content] and instead flips visual
+// order at desktop via flex-row-reverse -- since max-lg:flex-col switches to
+// column direction (where row-reverse has no effect), this makes the image
+// always appear first when stacked on Tablet/Mobile, matching the 4 original
+// per-section files this component replaced.
+const domImageFirst = variant === 'custom-website' ? true : imageFirst;
+const sectionClass = variant === 'custom-website' && !imageFirst ? `${styles.section} flex-row-reverse` : styles.section;
+---
+
+<section class={sectionClass}>
+  {domImageFirst && (
+    <div class={`${styles.imageWrapper} ${imageBg}`}>
+      <img src={asset(image)} alt={imageAlt} class="absolute inset-0 w-full h-full object-cover" />
+    </div>
+  )}
+  <div class={styles.content}>
+    <div class="flex flex-col gap-6 items-start w-full">
+      <span class="border border-gray font-body font-medium text-body-sm text-gray rounded px-2.5 pt-0.5 pb-1">{label}</span>
+      <h2 class="font-heading text-h3 text-navy w-full">{heading}</h2>
+    </div>
+    <p class="font-body font-normal text-body-md text-gray w-full">{description}</p>
+    <ArrowLink href="#" label="Learn more" />
+  </div>
+  {!domImageFirst && (
+    <div class={`${styles.imageWrapper} ${imageBg}`}>
+      <img src={asset(image)} alt={imageAlt} class="absolute inset-0 w-full h-full object-cover" />
+    </div>
+  )}
+</section>

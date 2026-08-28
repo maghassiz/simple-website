@@ -1,5 +1,7 @@
 ---
 import { asset } from '../../lib/cdn';
+import Button from './Button.astro';
+import ArrowLink from './ArrowLink.astro';
 
 const CARDS = [
   {
@@ -100,20 +102,10 @@ const CARDS = [
             ))}
           </div>
         </div>
-        <a
-          href="#"
-          class={`flex gap-3 items-center justify-center rounded-lg pl-4 pr-5 py-3 w-full ${
-            card.theme === 'dark' ? 'bg-background text-navy' : 'bg-navy text-background'
-          }`}
-        >
-          <span class="font-body font-medium text-body-md whitespace-nowrap">{card.cta}</span>
-        </a>
+        <Button href="#" label={card.cta} variant={card.theme === 'dark' ? 'secondary' : 'dark'} class="w-full" />
       </div>
     ))}
   </div>
 
-  <a href="#" class="flex gap-3 items-center justify-center rounded-lg">
-    <span class="font-body font-medium text-body-md text-navy whitespace-nowrap">View pricing details</span>
-    <img src={asset('images/home/pricing/icon-arrow-right.svg')} alt="" class="size-5" />
-  </a>
+  <ArrowLink href="#" label="View pricing details" />
 </section>

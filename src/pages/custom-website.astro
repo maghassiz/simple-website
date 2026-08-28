@@ -1,12 +1,54 @@
 ---
 import '../styles/global.css';
 import Hero from '../components/custom-website/Hero.astro';
-import CustomDesign from '../components/custom-website/CustomDesign.astro';
-import DataDriven from '../components/custom-website/DataDriven.astro';
-import VisualStorytelling from '../components/custom-website/VisualStorytelling.astro';
-import Support from '../components/custom-website/Support.astro';
-import Pricing from '../components/home/Pricing.astro';
-import Footer from '../components/home/Footer.astro';
+import FeatureSection from '../components/shared/FeatureSection.astro';
+import Pricing from '../components/shared/Pricing.astro';
+import Footer from '../components/shared/Footer.astro';
+
+// Source Figma asset for this card is an unrelated typography style-guide
+// screenshot (H1-H6 Lorem ipsum) — looks like a placeholder left behind by
+// the designer rather than the intended "Custom Design" screenshot. Reproduced
+// as exported; flag for a real asset swap once confirmed.
+const FEATURES = [
+  {
+    label: 'Design',
+    heading: 'Tailored to your identity',
+    description: "We don't do generic. Leveraging the power of Framer, we build everything custom from scratch based on your specific brand guidelines. Your digital presence will be entirely unique, setting you miles apart from competitors relying on rigid WordPress themes.",
+    image: 'images/custom-website/feature-custom-design.webp',
+    imageAlt: 'Placeholder typography style guide graphic (pending real asset from design)',
+    imageFirst: false,
+    variant: 'custom-website',
+  },
+  {
+    label: 'Conversion',
+    heading: 'Engineered to sell',
+    description: "A beautiful website is useless if it doesn't convert. With vast experience in the hospitality sector, we use data and proven user-behavior insights to craft layouts specifically designed to guide visitors smoothly toward the \"Book Now\" button.",
+    image: 'images/custom-website/feature-data-driven.webp',
+    imageAlt: 'Heatmap overlay on a hotel website mockup showing where visitors click and scroll',
+    imageFirst: true,
+    variant: 'custom-website',
+  },
+  {
+    label: 'Experience',
+    heading: 'Immersive Guest Experiences',
+    description: 'The guest experience starts long before they arrive at the lobby. Through engaging animations, blazing-fast load times, and compelling visual storytelling, we capture the unique atmosphere of your property and make guests fall in love with your hotel instantly.',
+    image: 'images/custom-website/feature-visual-storytelling.webp',
+    imageAlt: "An 'Offers: Midweek Escape' promo card animation on a hotel website",
+    imageFirst: false,
+    imageBg: 'bg-light-gray',
+    variant: 'custom-website',
+  },
+  {
+    label: 'Partnership',
+    heading: 'A true digital partnership',
+    description: 'We act as your dedicated digital team. From an initial deep-dive discovery workshop and comprehensive research to regular progress meetings and direct Slack communication, we handle the heavy lifting while keeping you completely in the loop.',
+    image: 'images/custom-website/feature-support.webp',
+    imageAlt: 'Slack conversation between the client and the Hitels team about a new page request',
+    imageFirst: true,
+    imageBg: 'bg-light-gray',
+    variant: 'custom-website',
+  },
+];
 ---
 
 <html lang="en">
@@ -23,10 +65,7 @@ import Footer from '../components/home/Footer.astro';
 			<Hero />
 		</header>
 		<main>
-			<CustomDesign />
-			<DataDriven />
-			<VisualStorytelling />
-			<Support />
+			{FEATURES.map((feature) => <FeatureSection {...feature} />)}
 			<Pricing />
 		</main>
 		<Footer />

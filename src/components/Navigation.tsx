@@ -13,6 +13,43 @@ const LINKS = [
   { label: 'Contact us', href: '#' },
 ];
 
+// Local mirror of shared/Button.astro's prop shape -- kept separate since
+// Astro components can't be imported into a React island.
+const VARIANT_STYLES = {
+  primary: 'bg-yellow text-navy',
+  secondary: 'bg-background text-navy',
+  dark: 'bg-navy text-background',
+};
+
+function CtaPill({
+  href,
+  label,
+  icon,
+  variant,
+  padding = 'pl-4 pr-5 py-3',
+  gap = 'gap-3',
+  iconSize = 'size-5',
+  textSize = 'text-body-md',
+  className = '',
+}: {
+  href: string;
+  label: string;
+  icon?: string;
+  variant: 'primary' | 'secondary' | 'dark';
+  padding?: string;
+  gap?: string;
+  iconSize?: string;
+  textSize?: string;
+  className?: string;
+}) {
+  return (
+    <a href={href} className={`${VARIANT_STYLES[variant]} flex ${gap} items-center justify-center rounded-lg ${padding} ${className}`}>
+      {icon && <img src={asset(icon)} alt="" className={iconSize} />}
+      <span className={`font-body font-medium ${textSize} whitespace-nowrap`}>{label}</span>
+    </a>
+  );
+}
+
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -50,10 +87,17 @@ export default function Navigation() {
             ))}
           </div>
           {/* Book a demo stays visible on tablet (only true mobile, <768px, drops it) — confirmed against the Tablet Home frame, which keeps this button next to the hamburger */}
-          <a href="#" className="hidden md:flex bg-background gap-2 items-center rounded-lg pl-3 pr-4 py-2">
-            <img src={asset('images/home/hero/icon-calendar-nav.svg')} alt="" className="size-4" />
-            <span className="font-body font-medium text-navy text-body-sm whitespace-nowrap">Book a demo</span>
-          </a>
+          <CtaPill
+            href="#"
+            label="Book a demo"
+            icon="images/home/hero/icon-calendar-nav.svg"
+            variant="secondary"
+            padding="pl-3 pr-4 py-2"
+            gap="gap-2"
+            iconSize="size-4"
+            textSize="text-body-sm"
+            className="hidden md:flex"
+          />
           <button
             type="button"
             className="lg:hidden block relative shrink-0 size-8"
@@ -118,10 +162,14 @@ export default function Navigation() {
               <p>hi@hitels.is</p>
               <p>+354 5478001</p>
             </div>
-            <a href="#" className="bg-yellow flex gap-3 items-center justify-center rounded-lg px-4 py-3 w-full">
-              <img src={asset('images/home/hero/icon-calendar-cta.svg')} alt="" className="size-5" />
-              <span className="font-body font-medium text-navy text-body-md whitespace-nowrap">Book a demo</span>
-            </a>
+            <CtaPill
+              href="#"
+              label="Book a demo"
+              icon="images/home/hero/icon-calendar-cta.svg"
+              variant="primary"
+              padding="px-4 py-3"
+              className="w-full"
+            />
           </div>
         </div>
       </div>

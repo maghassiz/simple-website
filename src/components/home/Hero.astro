@@ -1,5 +1,6 @@
 ---
 import Navigation from '../Navigation';
+import Button from '../shared/Button.astro';
 import { asset } from '../../lib/cdn';
 ---
 
@@ -51,14 +52,8 @@ import { asset } from '../../lib/cdn';
         </p>
       </div>
       <div class="flex gap-4 items-start justify-center max-md:w-full">
-        <a href="#" class="bg-yellow flex gap-3 items-center justify-center rounded-lg px-4 py-3 max-md:flex-1">
-          <img src={asset('images/home/hero/icon-calendar-cta.svg')} alt="" class="size-5" />
-          <span class="font-body font-medium text-navy text-body-md whitespace-nowrap">Book a demo</span>
-        </a>
-        <a href="#" class="bg-background flex gap-3 items-center justify-center rounded-lg pl-4 pr-5 py-3 max-md:flex-1 max-md:pl-3">
-          <img src={asset('images/home/hero/icon-chat.svg')} alt="" class="size-5" />
-          <span class="font-body font-medium text-navy text-body-md whitespace-nowrap">Contact us</span>
-        </a>
+        <Button href="#" label="Book a demo" icon="images/home/hero/icon-calendar-cta.svg" variant="primary" padding="px-4 py-3" class="max-md:flex-1" />
+        <Button href="#" label="Contact us" icon="images/home/hero/icon-chat.svg" variant="secondary" padding="pl-4 pr-5 py-3 max-md:pl-3" class="max-md:flex-1" />
       </div>
     </div>
 
