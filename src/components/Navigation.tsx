@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react';
 import { asset } from '../lib/cdn';
 
 // TODO: hrefs are placeholders until the corresponding pages exist
-// (Figma has Booking Engine, Custom Website, About Us, Pricing, and Contact Us
-// as distinct pages — routes will follow once those are built).
+// (Figma has About Us, Pricing, and Contact Us as distinct pages — routes
+// will follow once those are built).
 const LINKS = [
-  { label: 'Booking engine', href: '#', badge: 'New' },
-  { label: 'Custom website', href: '#' },
+  { label: 'Booking engine', href: '/booking-engine', badge: 'New' },
+  { label: 'Custom website', href: '/custom-website' },
   { label: 'Pricing', href: '#' },
   { label: 'About us', href: '#' },
   { label: 'Resources', href: '#' },
