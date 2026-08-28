@@ -1,0 +1,27 @@
+---
+import { asset } from '../../lib/cdn';
+import Navigation from '../Navigation';
+
+interface Props {
+  title: string;
+  backHref?: string;
+}
+
+const { title, backHref = '/blog' } = Astro.props;
+---
+
+<div class="flex flex-col items-center w-full bg-background">
+  <Navigation client:load variant="light" />
+
+  <div class="flex flex-col gap-8 items-start px-[206px] max-lg:px-10 max-md:px-4 pt-20 max-lg:pt-14 max-md:pt-10 relative w-full">
+    <a href={backHref} class="flex gap-3 items-center">
+      <img src={asset('images/home/testimonial/arrow-left.svg')} alt="" class="size-5" />
+      <span class="font-body font-medium text-body-md text-navy">Back</span>
+    </a>
+    <h1 class="font-heading text-h1 max-md:text-h3 text-navy w-full">{title}</h1>
+  </div>
+
+  <div class="flex justify-center px-[100px] max-lg:px-10 max-md:px-4 pt-20 max-lg:pt-14 max-md:pt-10 relative w-full">
+    <div class="h-[660px] max-lg:h-[420px] max-md:h-[220px] w-full max-w-[1240px] rounded-2xl bg-light-gray"></div>
+  </div>
+</div>

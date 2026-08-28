@@ -1,0 +1,26 @@
+---
+import '../styles/global.css';
+import Navigation from '../components/Navigation';
+import PostGrid from '../components/blog/PostGrid.astro';
+import Footer from '../components/shared/Footer.astro';
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Resources — Hitels</title>
+	</head>
+	<body class="bg-background">
+		<header>
+			<Navigation client:load variant="light" />
+		</header>
+		<main>
+			<PostGrid />
+		</main>
+		<Footer />
+	</body>
+</html>

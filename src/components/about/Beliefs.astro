@@ -1,0 +1,28 @@
+---
+const BELIEFS = [
+  {
+    title: 'Frictionless Experiences',
+    description: 'We believe the guest experience starts long before check-in. We believe that removing friction is the fastest way to increase direct revenue.',
+  },
+  {
+    title: 'Data Over Assumptions',
+    description: 'We believe in using hard data, analytics, and continuous optimization to turn beautiful websites into highly profitable booking channels.',
+  },
+  {
+    title: 'True Partnership',
+    description: 'We believe in dedicated support, regular progress meetings, and actively working alongside you to scale your business.',
+  },
+];
+---
+
+<section class="flex flex-col gap-14 max-lg:gap-10 max-md:gap-8 items-center px-[100px] py-[100px] max-lg:px-10 max-lg:py-10 max-md:px-4 max-md:py-10 relative w-full bg-background">
+  <h2 class="font-heading text-h3 text-navy text-center w-[816px] max-w-full">What we believe</h2>
+  <div class="flex gap-8 items-start max-md:flex-col w-full">
+    {BELIEFS.map((belief) => (
+      <div class="flex flex-1 flex-col gap-2 items-start w-full">
+        <p class="font-heading text-h6 text-navy w-full">{belief.title}</p>
+        <p class="font-body font-normal text-body-md text-gray w-full">{belief.description}</p>
+      </div>
+    ))}
+  </div>
+</section>
