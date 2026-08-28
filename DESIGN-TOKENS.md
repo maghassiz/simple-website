@@ -68,8 +68,10 @@ the Hitels brand — they belong to the embedded client portfolio mockups as des
   URL in `global.css` must match `R2_PUBLIC_URL` — see `scripts/upload-to-r2.mjs` for how assets
   get pushed to the bucket, and `scripts/set-r2-cors.mjs` for the one-time CORS setup fonts need
   (browsers enforce CORS on cross-origin fonts, unlike images).
-- **Inter** is free and available via Google Fonts — not yet linked in the project. Trivial to add
-  once we start building real pages.
+- **Inter** is free (SIL Open Font License), unlike Garnett Medium — no R2/licensing workaround
+  needed. Self-hosted via the `@fontsource/inter` npm package (weights 400/500 only, matching the
+  `font-normal`/`font-medium` usage in the codebase), imported in `global.css`. Bundled by Vite like
+  any other dependency — zero external network requests, no manual asset upload.
 
 ## Responsive breakpoints
 
