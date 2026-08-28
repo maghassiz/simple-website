@@ -1,5 +1,5 @@
 ---
-import '../styles/global.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/custom-website/Hero.astro';
 import FeatureSection from '../components/shared/FeatureSection.astro';
 import Pricing from '../components/shared/Pricing.astro';
@@ -51,23 +51,16 @@ const FEATURES = [
 ];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Custom Website Design — Hitels</title>
-	</head>
-	<body class="bg-background">
-		<header>
-			<Hero />
-		</header>
-		<main>
-			{FEATURES.map((feature) => <FeatureSection {...feature} />)}
-			<Pricing />
-		</main>
-		<Footer />
-	</body>
-</html>
+<BaseLayout
+	title="Custom Website Design — Hitels"
+	description="We design and build award-winning hotel websites from scratch. No templates — just bespoke, data-driven design engineered to bypass OTAs and capture direct bookings."
+>
+	<header>
+		<Hero />
+	</header>
+	<main>
+		{FEATURES.map((feature) => <FeatureSection {...feature} />)}
+		<Pricing />
+	</main>
+	<Footer />
+</BaseLayout>

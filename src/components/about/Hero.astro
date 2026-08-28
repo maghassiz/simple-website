@@ -14,19 +14,19 @@ import { asset } from '../../lib/cdn';
 
   <div class="flex gap-16 items-center justify-between px-[100px] max-lg:flex-col max-lg:gap-12 max-lg:px-10 max-md:px-4 py-[90px] max-lg:py-16 max-md:py-12 relative w-full max-w-[1440px]">
     <div class="flex flex-col gap-8 items-start relative w-[604px] max-w-full">
-      <div class="flex flex-col gap-4 items-start text-background w-full">
+      <div data-reveal class="flex flex-col gap-4 items-start text-background w-full">
         <h1 class="font-heading text-h1 max-md:text-h3 w-full">We build the engine that drive hotels forward.</h1>
         <p class="font-body font-normal text-body-lg max-md:text-body-md w-full">
           Hitels is a specialized digital agency and software provider on a mission to help hoteliers take back control of their revenue, their online presence, and their guest relationships.
         </p>
       </div>
-      <div class="flex gap-4 items-start justify-center max-md:w-full">
-        <Button href="#" label="Book a demo" icon="images/home/hero/icon-calendar-cta.svg" variant="primary" padding="px-4 py-3" class="max-md:flex-1" />
-        <Button href="#" label="Contact us" icon="images/home/hero/icon-chat.svg" variant="secondary" padding="pl-4 pr-5 py-3 max-md:pl-3" class="max-md:flex-1" />
+      <div data-reveal style="--reveal-delay: 150ms" class="flex gap-4 items-start justify-center max-md:w-full">
+        <Button href="/contact-us" label="Book a demo" icon="images/home/hero/icon-calendar-cta.svg" variant="primary" padding="px-4 py-3" class="max-md:flex-1" />
+        <Button href="/contact-us" label="Contact us" icon="images/home/hero/icon-chat.svg" variant="secondary" padding="pl-4 pr-5 py-3 max-md:pl-3" class="max-md:flex-1" />
       </div>
     </div>
 
-    <div class="h-[578px] max-lg:h-[420px] max-md:h-[320px] w-[498px] max-lg:w-full relative rounded-2xl shrink-0 overflow-hidden">
+    <div data-reveal="fade" style="--reveal-delay: 250ms" class="h-[578px] max-lg:h-[420px] max-md:h-[320px] w-[498px] max-lg:w-full relative rounded-2xl shrink-0 overflow-hidden">
       <img
         src={asset('images/about/hero/photo.webp')}
         alt="A guest checking in at a hotel reception desk"

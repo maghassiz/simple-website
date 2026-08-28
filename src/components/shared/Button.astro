@@ -26,13 +26,16 @@ const {
 } = Astro.props;
 
 const VARIANT_STYLES = {
-  primary: 'bg-yellow text-navy',
-  secondary: 'bg-background text-navy',
-  dark: 'bg-navy text-background',
+  primary: 'bg-yellow text-navy hover:bg-brand hover:text-background',
+  secondary: 'bg-background text-navy hover:bg-navy hover:text-background',
+  dark: 'bg-navy text-background hover:bg-background hover:text-navy hover:border-navy',
 };
 ---
 
-<a href={href} class={`${VARIANT_STYLES[variant]} flex ${gap} items-center justify-center rounded-lg ${padding} ${className}`}>
+<a
+  href={href}
+  class={`${VARIANT_STYLES[variant]} flex ${gap} items-center justify-center rounded-lg border-2 border-transparent transition-colors duration-300 ${padding} ${className}`}
+>
   {icon && <img src={asset(icon)} alt="" class={iconSize} />}
   <span class={`font-body font-medium ${textSize} whitespace-nowrap`}>{label}</span>
 </a>

@@ -32,14 +32,14 @@ const ADDONS = [
 ---
 
 <section class="hidden max-md:flex flex-col gap-8 items-center px-4 py-16 relative w-full max-w-[1440px] mx-auto bg-background">
-  <div class="flex flex-col gap-4 items-center text-center w-full">
+  <div data-reveal class="flex flex-col gap-4 items-center text-center w-full">
     <h2 class="font-heading text-h3 text-navy w-full">Optional add-ons</h2>
     <p class="font-body font-normal text-body-md text-gray w-full">Extend your services with these optional add-ons.</p>
   </div>
 
   <div class="flex flex-col gap-4 items-start w-full">
-    {ADDONS.map((addon) => (
-      <div class="bg-light-gray flex flex-col gap-10 items-start p-6 rounded-2xl w-full">
+    {ADDONS.map((addon, i) => (
+      <div data-reveal style={`--reveal-delay: ${i * 100}ms`} class="bg-light-gray flex flex-col gap-10 items-start p-6 rounded-2xl w-full">
         <div class="flex flex-col gap-6 items-start w-full">
           <div class="flex flex-col gap-4 items-start w-full">
             <div class="flex items-start justify-between w-full">
@@ -63,7 +63,7 @@ const ADDONS = [
             ))}
           </div>
         </div>
-        <Button href="#" label="Get a quote" variant="dark" class="w-full" />
+        <Button href="/contact-us" label="Get a quote" variant="dark" class="w-full" />
       </div>
     ))}
   </div>

@@ -1,0 +1,362 @@
+---
+import { sanityClient } from 'sanity:client';
+import { asset } from '../../lib/cdn';
+
+// Instagram-style stories: a tappable avatar tray (mobile hero only) that
+// opens a full-screen, auto-advancing viewer. Figma: node 6:1534 (tray
+// placement) and nodes under 156:* (per-slide detail screens).
+//
+// Two content archetypes among the CMS `story` docs, keyed off `storyTitle`
+// (only the "Hitels" intro row has one):
+//  - "intro": solid-brand-purple gradient, heading + description + outlined CTA
+//  - "case-study": full-bleed photo + floating website-preview screenshot,
+//    description + pill CTA linking to the hotel's live site
+// A final, non-CMS "closing" slide (storiesClosingCard singleton) always
+// plays last as a bumper.
+
+interface Story {
+  projectName: string;
+  storyTitle?: string;
+  description?: string;
+  backgroundImageUrl?: string;
+  backgroundImageAlt?: string;
+  websitePreviewUrl?: string;
+  websitePreviewAlt?: string;
+  buttonText?: string;
+  buttonLink?: string;
+}
+
+interface ClosingCard {
+  heading: string;
+  backgroundImageUrl?: string;
+  backgroundImageAlt?: string;
+  features?: { iconUrl?: string; text?: string }[];
+  buttonText?: string;
+  buttonLink?: string;
+}
+
+const stories = await sanityClient.fetch<Story[]>(
+  `*[_type == "story"] | order(order asc){ projectName, storyTitle, description, backgroundImageUrl, backgroundImageAlt, websitePreviewUrl, websitePreviewAlt, buttonText, buttonLink }`
+);
+const closingCard = await sanityClient.fetch<ClosingCard | null>(
+  `*[_type == "storiesClosingCard"][0]{ heading, backgroundImageUrl, backgroundImageAlt, features, buttonText, buttonLink }`
+);
+
+// Bare CSV domains (e.g. "aurorafarmhotel.is") have no scheme; internal paths
+// ("/contact-us", "#") are left as-is.
+function resolveLink(link?: string): string | undefined {
+  if (!link) return undefined;
+  if (link.startsWith('/') || link.startsWith('#') || link.startsWith('http://') || link.startsWith('https://')) return link;
+  return `https://${link}`;
+}
+
+type Slide =
+  | { kind: 'intro'; name: string; backgroundImageUrl?: string; backgroundImageAlt?: string; heading: string; description?: string; buttonText?: string; buttonLink?: string }
+  | { kind: 'case-study'; name: string; backgroundImageUrl?: string; backgroundImageAlt?: string; websitePreviewUrl?: string; websitePreviewAlt?: string; description?: string; buttonText?: string; buttonLink?: string }
+  | { kind: 'closing'; name: string; backgroundImageUrl?: string; backgroundImageAlt?: string; heading: string; features: { iconUrl?: string; text?: string }[]; buttonText?: string; buttonLink?: string };
+
+const slides: Slide[] = stories.map((story) =>
+  story.storyTitle
+    ? {
+        kind: 'intro',
+        name: story.projectName,
+        backgroundImageUrl: story.backgroundImageUrl,
+        backgroundImageAlt: story.backgroundImageAlt,
+        heading: story.storyTitle,
+        description: story.description,
+        buttonText: story.buttonText,
+        buttonLink: resolveLink(story.buttonLink),
+      }
+    : {
+        kind: 'case-study',
+        name: story.projectName,
+        backgroundImageUrl: story.backgroundImageUrl,
+        backgroundImageAlt: story.backgroundImageAlt,
+        websitePreviewUrl: story.websitePreviewUrl,
+        websitePreviewAlt: story.websitePreviewAlt,
+        description: story.description,
+        buttonText: story.buttonText,
+        buttonLink: resolveLink(story.buttonLink),
+      }
+);
+
+if (closingCard) {
+  slides.push({
+    kind: 'closing',
+    name: 'Get a quote',
+    backgroundImageUrl: closingCard.backgroundImageUrl,
+    backgroundImageAlt: closingCard.backgroundImageAlt,
+    heading: closingCard.heading,
+    features: closingCard.features ?? [],
+    buttonText: closingCard.buttonText,
+    buttonLink: resolveLink(closingCard.buttonLink),
+  });
+}
+
+const STORY_DURATION_MS = 6000;
+---
+
+{slides.length > 0 && (
+  <div class="hidden max-md:block relative w-full" data-hero-stories data-duration={STORY_DURATION_MS}>
+    <div class="story-tray flex gap-3 items-start w-full overflow-x-auto px-4 py-2" data-story-tray>
+      {slides.map((slide, i) => (
+        <button
+          type="button"
+          data-open-story={i}
+          class="flex flex-col shrink-0 w-[104px] h-[120px] rounded-lg overflow-hidden relative text-left"
+        >
+          {slide.backgroundImageUrl && (
+            <img src={slide.backgroundImageUrl} alt="" class="absolute inset-0 w-full h-full object-cover" />
+          )}
+          <div class="absolute inset-x-0 top-0 h-9 bg-gradient-to-b from-black/40 to-transparent"></div>
+          <div class="relative flex gap-2 items-center p-2">
+            <div class="flex items-center justify-center shrink-0 size-5 rounded-full bg-[#130c3c]">
+              <img src={asset('images/home/stories/story-badge.svg')} alt="" class="h-2 w-2.5" />
+            </div>
+            <p class="flex-1 min-w-0 font-body font-medium text-[12px] text-background truncate">{slide.name}</p>
+          </div>
+        </button>
+      ))}
+    </div>
+
+    <div class="story-viewer fixed inset-0 z-50 bg-black" data-story-viewer hidden>
+      {slides.map((slide, i) => (
+        <div
+          class="story-panel absolute inset-0 h-dvh w-full overflow-hidden"
+          data-story-panel
+          hidden={i !== 0}
+        >
+          {slide.backgroundImageUrl && (
+            <img
+              src={slide.backgroundImageUrl}
+              alt={slide.backgroundImageAlt ?? ''}
+              class="absolute inset-0 w-full h-full object-cover"
+            />
+          )}
+
+          {slide.kind !== 'case-study' && (
+            <div class="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-[#654aff] via-[#654aff]/60 to-transparent"></div>
+          )}
+
+          {slide.kind === 'case-study' && (
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
+          )}
+
+          {/* Progress bar */}
+          <div class="absolute top-4 inset-x-4 flex gap-1.5 items-start">
+            {slides.map((_, segmentIndex) => (
+              <div class="story-progress-track flex-1 h-[2px] rounded-full overflow-hidden bg-background/30">
+                <div
+                  class:list={[
+                    'story-progress-fill h-full bg-background',
+                    segmentIndex < i && 'is-complete',
+                    segmentIndex === i && 'is-active',
+                  ]}
+                  style={`--duration: ${STORY_DURATION_MS / 1000}s`}
+                  data-progress-active={segmentIndex === i ? true : undefined}
+                />
+              </div>
+            ))}
+          </div>
+
+          {/* Header */}
+          <div class="absolute top-[37px] inset-x-4 flex items-center justify-between">
+            <div class="flex flex-1 min-w-0 gap-2 items-center">
+              <div class="flex items-center justify-center shrink-0 size-8 rounded-full bg-[#130c3c]">
+                <img src={asset('images/home/stories/story-badge.svg')} alt="" class="h-3 w-4" />
+              </div>
+              <p class="flex-1 min-w-0 font-body font-medium text-body-md text-background truncate">{slide.name}</p>
+            </div>
+            <button type="button" data-story-close aria-label="Close" class="shrink-0 size-8">
+              <img src={asset('images/home/stories/close-x.svg')} alt="" class="size-8" />
+            </button>
+          </div>
+
+          {/* Case-study: floating website preview card */}
+          {slide.kind === 'case-study' && slide.websitePreviewUrl && (
+            <div class="absolute inset-x-5 top-1/2 -translate-y-1/2 rounded-md overflow-hidden shadow-lg">
+              <img src={slide.websitePreviewUrl} alt={slide.websitePreviewAlt ?? ''} class="w-full h-auto object-cover" />
+            </div>
+          )}
+
+          {/* Intro / case-study text + CTA */}
+          {(slide.kind === 'intro' || slide.kind === 'case-study') && (
+            <div class="absolute bottom-8 inset-x-0 flex flex-col gap-8 items-start px-5">
+              <div class="flex flex-col gap-3 items-start text-background w-full">
+                {slide.kind === 'intro' && (
+                  <p class="font-heading text-h5 w-full">{slide.heading}</p>
+                )}
+                {slide.description && (
+                  <p class="font-body font-normal text-body-md opacity-80 w-full">{slide.description}</p>
+                )}
+              </div>
+              {slide.kind === 'intro' && slide.buttonText && slide.buttonLink && (
+                <a
+                  href={slide.buttonLink}
+                  class="border border-background flex gap-2 items-center justify-center rounded px-3 py-2 text-background font-body font-medium text-body-sm"
+                >
+                  {slide.buttonText}
+                </a>
+              )}
+              {slide.kind === 'case-study' && slide.buttonText && slide.buttonLink && (
+                <a
+                  href={slide.buttonLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex gap-3 items-center justify-center rounded-lg text-background font-body font-medium text-body-md"
+                >
+                  {slide.buttonText}
+                  <img src={asset('images/home/stories/arrow-right.svg')} alt="" class="size-5" />
+                </a>
+              )}
+            </div>
+          )}
+
+          {/* Closing bumper */}
+          {slide.kind === 'closing' && (
+            <div class="absolute bottom-0 inset-x-0 flex flex-col gap-8 items-start bg-[#5d4bff] px-5 py-6">
+              <div class="flex flex-col gap-4 items-start w-full">
+                <p class="font-heading text-h6 text-background w-full">{slide.heading}</p>
+                <div class="flex flex-col gap-2.5 items-start w-full">
+                  {slide.features.map((feature, featureIndex) => (
+                    <>
+                      <div class="flex gap-3 items-center w-full">
+                        {feature.iconUrl && <img src={feature.iconUrl} alt="" class="size-5 shrink-0" />}
+                        <p class="flex-1 font-body font-normal text-body-md text-background">{feature.text}</p>
+                      </div>
+                      {featureIndex < slide.features.length - 1 && <div class="border-t border-background/20 w-full"></div>}
+                    </>
+                  ))}
+                </div>
+              </div>
+              {slide.buttonText && slide.buttonLink && (
+                <a
+                  href={slide.buttonLink}
+                  class="border border-background flex gap-2 items-center justify-center rounded px-3 py-2 text-background font-body font-medium text-body-sm"
+                >
+                  {slide.buttonText}
+                </a>
+              )}
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+)}
+
+<style>
+  .story-tray {
+    scrollbar-width: none;
+  }
+
+  .story-tray::-webkit-scrollbar {
+    display: none;
+  }
+
+  .story-progress-fill {
+    width: 0%;
+  }
+
+  .story-progress-fill.is-complete {
+    width: 100%;
+  }
+
+  .story-progress-fill.is-active {
+    animation: story-progress-fill var(--duration, 6s) linear forwards;
+  }
+
+  @keyframes story-progress-fill {
+    from {
+      width: 0%;
+    }
+    to {
+      width: 100%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .story-progress-fill.is-active {
+      animation: none;
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-hero-stories]').forEach((root) => {
+    const tray = root.querySelector<HTMLElement>('[data-story-tray]');
+    const viewer = root.querySelector<HTMLElement>('[data-story-viewer]');
+    if (!tray || !viewer) return;
+
+    const panels = Array.from(viewer.querySelectorAll<HTMLElement>('[data-story-panel]'));
+    const duration = Number(root.dataset.duration) || 6000;
+    let current = 0;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+
+    function clearTimer() {
+      if (timer) {
+        clearTimeout(timer);
+        timer = undefined;
+      }
+    }
+
+    function restartActiveFill(panel: HTMLElement) {
+      const fill = panel.querySelector<HTMLElement>('[data-progress-active]');
+      if (!fill) return;
+      fill.classList.remove('is-active');
+      void fill.offsetWidth;
+      fill.classList.add('is-active');
+    }
+
+    function show(index: number) {
+      clearTimer();
+      current = Math.max(0, Math.min(index, panels.length - 1));
+      panels.forEach((panel, i) => {
+        panel.hidden = i !== current;
+      });
+      const panel = panels[current];
+      restartActiveFill(panel);
+      timer = setTimeout(() => {
+        if (current < panels.length - 1) show(current + 1);
+        else close();
+      }, duration);
+    }
+
+    function open(index: number) {
+      viewer!.hidden = false;
+      document.body.style.overflow = 'hidden';
+      show(index);
+    }
+
+    function close() {
+      clearTimer();
+      viewer!.hidden = true;
+      document.body.style.overflow = '';
+    }
+
+    tray.querySelectorAll<HTMLButtonElement>('[data-open-story]').forEach((button) => {
+      button.addEventListener('click', () => open(Number(button.dataset.openStory)));
+    });
+
+    viewer.querySelectorAll<HTMLButtonElement>('[data-story-close]').forEach((button) => {
+      button.addEventListener('click', close);
+    });
+
+    panels.forEach((panel) => {
+      panel.addEventListener('click', (event) => {
+        const target = event.target as HTMLElement;
+        if (target.closest('a, button')) return;
+        const rect = panel.getBoundingClientRect();
+        const x = (event as MouseEvent).clientX - rect.left;
+        if (x < rect.width / 2) {
+          if (current > 0) show(current - 1);
+          else restartActiveFill(panel);
+        } else {
+          if (current < panels.length - 1) show(current + 1);
+          else close();
+        }
+      });
+    });
+  });
+</script>

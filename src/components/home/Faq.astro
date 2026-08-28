@@ -1,49 +1,61 @@
 ---
+import { sanityClient } from 'sanity:client';
 import { asset } from '../../lib/cdn';
 
-// Figma shows all 5 answers permanently visible with a "Minus" icon on every
-// item, and no "Plus"/collapsed-state asset exists anywhere in the source.
-// Rendered as a static list rather than guessing at accordion open/close
-// behavior with no defined closed-state visual to match.
+// No "Plus"/collapsed-state icon asset exists in the source — only "Minus".
+// The plus is synthesized from two overlaid copies of minus.svg: one fixed
+// horizontal bar, one that rotates 90deg <-> 0deg to form/collapse the
+// vertical stroke of the "+".
+const faqs = await sanityClient.fetch<{ question: string; answer: string }[]>(
+  `*[_type == "faq"] | order(order asc){ question, answer }`
+);
+const FAQS = faqs.map((f) => ({ q: f.question, a: f.answer }));
 
-const FAQS = [
-  {
-    q: 'What exactly does Hitels do?',
-    a: 'We provide two core services for hotels: custom website design and a direct booking engine. You can use either service individually, or combine both.',
-  },
-  {
-    q: 'Do I have to use both the website and the booking engine?',
-    a: 'No. Our services are completely modular. We can build you a new website, integrate our booking engine into your current site, or do both.',
-  },
-  {
-    q: 'How is the booking engine implemented?',
-    a: 'We handle the entire technical setup for you. We seamlessly integrate the engine into either your existing website or a new custom site we build.',
-  },
-  {
-    q: 'How is your platform different from Wordpress or Squarespace?',
-    a: 'We don\'t use DIY templates. We offer a premium, "done-for-you" service, custom-building your site in Framer for superior design, speed, and SEO.',
-  },
-  {
-    q: 'Who is this best for?',
-    a: 'Independent and boutique hotels looking to elevate their brand, increase direct bookings, and stop paying high commissions to OTAs.',
-  },
-];
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQS.map((faq) => ({
+    '@type': 'Question',
+    name: faq.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.a,
+    },
+  })),
+};
 ---
+
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} is:inline />
 
 <section class="flex flex-col items-center px-[100px] py-[112px] max-lg:px-10 max-lg:py-14 max-md:px-4 max-md:py-16 relative w-full max-w-[1440px] mx-auto bg-background">
   <div class="flex gap-8 items-start justify-center max-lg:flex-col w-full">
-    <div class="flex flex-col items-start w-[498px] max-lg:w-full">
+    <div data-reveal class="flex flex-col items-start w-[498px] max-lg:w-full">
       <h2 class="font-heading text-h3 text-navy w-full">Frequently asked questions</h2>
     </div>
-    <div class="flex flex-1 flex-col gap-8 items-start min-w-0 w-full">
+    <div data-reveal style="--reveal-delay: 120ms" class="flex flex-1 flex-col gap-8 items-start min-w-0 w-full" data-faq-list>
       {FAQS.map((faq, i) => (
         <>
-          <div class="flex gap-3 items-start w-full">
-            <div class="flex flex-1 flex-col gap-3 items-start min-w-0">
-              <h3 class="font-heading text-h6 text-navy w-full">{faq.q}</h3>
-              <p class="font-body font-normal text-body-md text-gray w-full">{faq.a}</p>
+          <div class="faq-item flex flex-col w-full" class:list={{ 'is-open': i === 0 }} data-faq-item>
+            <h3 class="w-full">
+              <button
+                type="button"
+                class="faq-trigger flex gap-3 items-start justify-between w-full text-left cursor-pointer"
+                aria-expanded={i === 0 ? 'true' : 'false'}
+                aria-controls={`faq-panel-${i}`}
+                id={`faq-trigger-${i}`}
+              >
+                <span class="font-heading text-h6 text-navy flex-1 min-w-0">{faq.q}</span>
+                <span class="faq-icon relative size-6 shrink-0" aria-hidden="true">
+                  <img src={asset('images/home/faq/minus.svg')} alt="" class="absolute inset-0 size-6" />
+                  <img src={asset('images/home/faq/minus.svg')} alt="" class="faq-icon-vertical absolute inset-0 size-6" />
+                </span>
+              </button>
+            </h3>
+            <div class="faq-panel grid" id={`faq-panel-${i}`} role="region" aria-labelledby={`faq-trigger-${i}`}>
+              <div class="min-h-0 overflow-hidden">
+                <p class="font-body font-normal text-body-md text-gray w-full pt-3">{faq.a}</p>
+              </div>
             </div>
-            <img src={asset('images/home/faq/minus.svg')} alt="" class="size-6 shrink-0" />
           </div>
           {i < FAQS.length - 1 && <div class="border-t border-border w-full"></div>}
         </>
@@ -51,3 +63,54 @@ const FAQS = [
     </div>
   </div>
 </section>
+
+<style>
+  .faq-panel {
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.35s ease;
+  }
+
+  .faq-item.is-open .faq-panel {
+    grid-template-rows: 1fr;
+  }
+
+  .faq-icon-vertical {
+    transform: rotate(90deg);
+    transition: transform 0.3s ease;
+  }
+
+  .faq-item.is-open .faq-icon-vertical {
+    transform: rotate(0deg);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .faq-panel,
+    .faq-icon-vertical {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-faq-list]').forEach((list) => {
+    const items = Array.from(list.querySelectorAll<HTMLElement>('[data-faq-item]'));
+
+    items.forEach((item) => {
+      const trigger = item.querySelector<HTMLButtonElement>('.faq-trigger');
+
+      trigger?.addEventListener('click', () => {
+        const wasOpen = item.classList.contains('is-open');
+
+        items.forEach((other) => {
+          other.classList.remove('is-open');
+          other.querySelector<HTMLButtonElement>('.faq-trigger')?.setAttribute('aria-expanded', 'false');
+        });
+
+        if (!wasOpen) {
+          item.classList.add('is-open');
+          trigger.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+  });
+</script>

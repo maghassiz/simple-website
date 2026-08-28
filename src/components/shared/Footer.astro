@@ -1,12 +1,11 @@
 ---
 import { asset } from '../../lib/cdn';
 import Button from './Button.astro';
-// Footer link content genuinely differs on Mobile (confirmed via source, not
-// assumed): Desktop/Tablet share "Product" (Booking Engine/Custom Website/
-// Pricing) + "Company" (About us/Contact us/Resources). Mobile has different
-// "Product" links (Product Overview/Hitels Awards/Hotel Managers) plus an
-// extra standalone "Resources" column with its own sub-links, and a
-// different "Company" list (About Hitels/Contact Us/Book a Demo).
+// Footer link columns ("Product" / "Company") are the same on every
+// breakpoint. The Figma mobile spec originally had a different, larger set
+// of links here (an extra "Resources" column, several placeholder "#"
+// links) — dropped per 2026-08-28 request as outdated; mobile now just
+// reuses the desktop link set.
 ---
 
 <footer class="flex flex-col gap-16 max-lg:gap-14 max-md:gap-8 items-center overflow-hidden pt-[416px] max-lg:pt-60 max-md:pt-40 pb-12 px-[100px] max-lg:px-10 max-md:px-4 relative w-full bg-navy">
@@ -39,14 +38,14 @@ import Button from './Button.astro';
 
   <div class="flex flex-col gap-10 items-center px-[212px] max-lg:px-0 relative w-full max-w-[1016px]">
     <div class="flex flex-col gap-6 items-center text-center text-background w-full">
-      <h2 class="font-heading text-h2 w-full">Ready to turn your website into your most profitable booking channel?</h2>
-      <p class="font-body font-normal text-body-lg w-full">
+      <h2 data-reveal class="font-heading text-h2 w-full">Ready to turn your website into your most profitable booking channel?</h2>
+      <p data-reveal style="--reveal-delay: 100ms" class="font-body font-normal text-body-lg w-full">
         Let's discuss how a bespoke digital presence can increase your direct bookings and save you thousands in commissions.
       </p>
     </div>
     <div class="flex gap-4 items-start justify-center">
-      <Button href="#" label="Book a demo" icon="images/home/hero/icon-calendar-cta.svg" variant="primary" />
-      <Button href="#" label="Contact us" icon="images/home/footer/icon-chat.svg" variant="secondary" />
+      <Button href="/contact-us" label="Book a demo" icon="images/home/hero/icon-calendar-cta.svg" variant="primary" />
+      <Button href="/contact-us" label="Contact us" icon="images/home/footer/icon-chat.svg" variant="secondary" />
     </div>
   </div>
 
@@ -64,63 +63,36 @@ import Button from './Button.astro';
         <div class="flex flex-col justify-between items-start self-stretch shrink-0 w-[604px] max-lg:w-full">
           <p class="font-heading text-h6 text-background w-full">Say hi to your new hotel platform</p>
           <div class="flex flex-col gap-3 items-start w-full">
-            <div class="flex gap-3 items-center w-full">
+            <a href="#" class="flex gap-3 items-center w-full hover:underline">
               <img src={asset('images/home/footer/icon-phone.svg')} alt="" class="size-5" />
               <p class="flex-1 font-body font-normal text-body-md text-background">+354 5478001</p>
-            </div>
-            <div class="flex gap-3 items-center w-full">
+            </a>
+            <a href="#" class="flex gap-3 items-center w-full hover:underline">
               <img src={asset('images/home/footer/icon-envelope.svg')} alt="" class="size-5" />
               <p class="flex-1 font-body font-normal text-body-md text-background">Join our mailing list</p>
-            </div>
+            </a>
           </div>
         </div>
 
-        <!-- Desktop + Tablet link columns (hidden below 768px, mobile uses different content) -->
-        <div class="hidden md:flex flex-1 gap-8 items-end">
+        <!-- Same Product + Company columns on every breakpoint (mobile previously had
+             its own extra "Resources" column and several placeholder "#" links — that
+             was the outdated Figma mobile spec; simplified to match desktop). -->
+        <div class="flex flex-1 gap-8 items-start md:items-end">
           <div class="flex flex-1 flex-col gap-4 items-start text-background">
             <p class="font-body font-medium text-body-md w-full">Product</p>
             <div class="flex flex-col gap-3 items-start font-body font-normal text-body-md w-full">
-              <p class="w-full">Booking Engine</p>
-              <p class="w-full">Custom Website</p>
-              <p class="w-full">Pricing</p>
+              <a href="/booking-engine" class="w-full hover:underline">Booking Engine</a>
+              <a href="/custom-website" class="w-full hover:underline">Custom Website</a>
+              <a href="/pricing" class="w-full hover:underline">Pricing</a>
             </div>
           </div>
           <div class="flex flex-1 flex-col gap-4 items-start text-background">
             <p class="font-body font-medium text-body-md w-full">Company</p>
             <div class="flex flex-col gap-3 items-start font-body font-normal text-body-md w-full">
-              <p class="w-full">About us</p>
-              <p class="w-full">Contact us</p>
-              <p class="w-full">Resources</p>
+              <a href="/about-us" class="w-full hover:underline">About us</a>
+              <a href="/contact-us" class="w-full hover:underline">Contact us</a>
+              <a href="/blog" class="w-full hover:underline">Resources</a>
             </div>
-          </div>
-        </div>
-
-        <!-- Mobile-only link columns (different labels + extra Resources column, confirmed via source) -->
-        <div class="hidden max-md:flex flex-col gap-4 items-start text-background w-full">
-          <p class="font-body font-medium text-body-md w-full">Product</p>
-          <div class="flex flex-col gap-3 items-start font-body font-normal text-body-md w-full">
-            <p class="w-full">Product Overview</p>
-            <p class="w-full">Hitels Awards</p>
-            <p class="w-full">Hotel Managers</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="hidden max-md:flex gap-8 items-start text-background w-full">
-        <div class="flex flex-1 flex-col gap-4 items-start">
-          <p class="font-body font-medium text-body-md w-full">Resources</p>
-          <div class="flex flex-col gap-3 items-start font-body font-normal text-body-md w-full">
-            <p class="w-full">Resource Center</p>
-            <p class="w-full">News</p>
-            <p class="w-full">Blog</p>
-          </div>
-        </div>
-        <div class="flex flex-1 flex-col gap-4 items-start">
-          <p class="font-body font-medium text-body-md w-full">Company</p>
-          <div class="flex flex-col gap-3 items-start font-body font-normal text-body-md w-full">
-            <p class="w-full">About Hitels</p>
-            <p class="w-full">Contact Us</p>
-            <p class="w-full">Book a Demo</p>
           </div>
         </div>
       </div>
@@ -134,9 +106,34 @@ import Button from './Button.astro';
       </div>
       <div class="flex items-center justify-between max-lg:flex-wrap gap-4 font-body font-normal text-body-md text-background w-[604px] max-lg:w-full whitespace-nowrap">
         <p>© 2024 Hitels. All rights reserved.</p>
-        <p>Cookie Settings</p>
-        <p>Privacy Policy</p>
+        <a href="/cookie-policy" class="hover:underline">Cookie Settings</a>
+        <a href="/privacy-policy" class="hover:underline">Privacy Policy</a>
       </div>
     </div>
   </div>
 </footer>
+
+<script>
+  // Sitewide scroll reveal: fades/rises any [data-reveal] element into place
+  // the first time it enters the viewport, then stops watching it (a one-time
+  // entrance, not a repeating scroll effect). Lives here because Footer is
+  // the one component every page includes, so this only needs to exist once.
+  const revealEls = document.querySelectorAll<HTMLElement>('[data-reveal]');
+
+  if (revealEls.length && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-revealed');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: '0px 0px -80px 0px' }
+    );
+    revealEls.forEach((el) => observer.observe(el));
+  } else {
+    revealEls.forEach((el) => el.classList.add('is-revealed'));
+  }
+</script>

@@ -1,26 +1,19 @@
 ---
-import '../styles/global.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/contact/Hero.astro';
 import ContactForm from '../components/contact/ContactForm';
 import Footer from '../components/shared/Footer.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Contact us — Hitels</title>
-	</head>
-	<body class="bg-background">
-		<header>
-			<Hero />
-		</header>
-		<main>
-			<ContactForm client:load />
-		</main>
-		<Footer />
-	</body>
-</html>
+<BaseLayout
+	title="Contact us — Hitels"
+	description="Get in touch with Hitels. We'll get to know your team's needs and see how our hotel website and booking engine products fit, with expert advice from our consultants."
+>
+	<header>
+		<Hero />
+	</header>
+	<main>
+		<ContactForm client:load />
+	</main>
+	<Footer />
+</BaseLayout>

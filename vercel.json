@@ -1,3 +1,23 @@
 {
-  "framework": "astro"
+  "framework": "astro",
+  "redirects": [
+    { "source": "/course-en", "destination": "/about-us", "permanent": true },
+    { "source": "/course-is", "destination": "/about-us", "permanent": true },
+    { "source": "/direct-booking", "destination": "/about-us", "permanent": true },
+    { "source": "/cookie-policy", "destination": "/", "permanent": true },
+    { "source": "/godo", "destination": "/booking-engine", "permanent": true },
+    { "source": "/godo-updated", "destination": "/booking-engine", "permanent": true },
+    { "source": "/hotelmanagers", "destination": "/", "permanent": true },
+    { "source": "/showroom", "destination": "/custom-website", "permanent": true },
+    { "source": "/skilmalar-is", "destination": "/", "permanent": true },
+    { "source": "/new/custom-website", "destination": "/custom-website", "permanent": true },
+    { "source": "/new/blog/master-direct-bookins-with-hitels", "destination": "/blog/master-direct-bookins-with-hitels", "permanent": true },
+    { "source": "/new/blog/master-direct-bookins-with-hitels/", "destination": "/blog/master-direct-bookins-with-hitels", "permanent": true },
+    { "source": "/new/blog/how-a-great-hotel-website-builds-trust-before-check-in", "destination": "/blog/how-a-great-hotel-website-builds-trust-before-check-in", "permanent": true },
+    { "source": "/new/blog/how-a-great-hotel-website-builds-trust-before-check-in/", "destination": "/blog/how-a-great-hotel-website-builds-trust-before-check-in", "permanent": true },
+    { "source": "/new/blog/how-to-respond-to-negative-hotel-reviews", "destination": "/blog/how-to-respond-to-negative-hotel-reviews", "permanent": true },
+    { "source": "/new/blog/how-to-respond-to-negative-hotel-reviews/", "destination": "/blog/how-to-respond-to-negative-hotel-reviews", "permanent": true },
+    { "source": "/new/pricing", "destination": "/pricing", "permanent": true },
+    { "source": "/new/home", "destination": "/", "permanent": true }
+  ]
 }

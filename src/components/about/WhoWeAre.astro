@@ -7,15 +7,15 @@ const STATS = [
 ---
 
 <section class="flex gap-[138px] items-center px-[100px] py-[100px] max-lg:flex-col max-lg:gap-10 max-lg:px-10 max-lg:py-10 max-md:px-4 max-md:py-10 relative w-full max-w-[1440px] mx-auto bg-background">
-  <div class="flex flex-col gap-8 items-start w-[498px] max-lg:w-full shrink-0">
+  <div data-reveal class="flex flex-col gap-8 items-start w-[498px] max-lg:w-full shrink-0">
     <h2 class="font-heading text-h3 text-navy w-full">Who we are</h2>
     <p class="font-body font-normal text-body-md text-gray w-full">
       We are a group of digital experts with a deep passion for the hotel industry. We were founded with a vision of transforming the hotel industry from indirect bookings to direct.
     </p>
   </div>
   <div class="flex flex-1 gap-8 max-md:gap-4 items-center w-full">
-    {STATS.map((stat) => (
-      <div class="flex flex-1 flex-col gap-2 items-start">
+    {STATS.map((stat, i) => (
+      <div data-reveal style={`--reveal-delay: ${120 + i * 100}ms`} class="flex flex-1 flex-col gap-2 items-start">
         <p class="font-heading text-[4rem] leading-[1.2] tracking-[-0.025em] max-md:text-h2 text-navy w-full">{stat.value}</p>
         <p class="font-body font-normal text-body-md text-gray w-full">{stat.label}</p>
       </div>

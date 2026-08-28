@@ -58,11 +58,11 @@ const sectionClass = variant === 'custom-website' && !imageFirst ? `${styles.sec
 
 <section class={sectionClass}>
   {domImageFirst && (
-    <div class={`${styles.imageWrapper} ${imageBg}`}>
+    <div data-reveal="fade" class={`${styles.imageWrapper} ${imageBg}`}>
       <img src={asset(image)} alt={imageAlt} class="absolute inset-0 w-full h-full object-cover" />
     </div>
   )}
-  <div class={styles.content}>
+  <div data-reveal style="--reveal-delay: 120ms" class={styles.content}>
     <div class="flex flex-col gap-6 items-start w-full">
       <span class="border border-gray font-body font-medium text-body-sm text-gray rounded px-2.5 pt-0.5 pb-1">{label}</span>
       <h2 class="font-heading text-h3 text-navy w-full">{heading}</h2>
@@ -71,7 +71,7 @@ const sectionClass = variant === 'custom-website' && !imageFirst ? `${styles.sec
     <ArrowLink href="#" label="Learn more" />
   </div>
   {!domImageFirst && (
-    <div class={`${styles.imageWrapper} ${imageBg}`}>
+    <div data-reveal="fade" style="--reveal-delay: 120ms" class={`${styles.imageWrapper} ${imageBg}`}>
       <img src={asset(image)} alt={imageAlt} class="absolute inset-0 w-full h-full object-cover" />
     </div>
   )}
