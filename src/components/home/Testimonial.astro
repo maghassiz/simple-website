@@ -1,36 +1,86 @@
 ---
 import { asset } from '../../lib/cdn';
 
-// The prev/next arrows are present in Figma but only one testimonial's
-// content exists in the source (no second slide to cycle to) — rendered as
-// shown, not wired into fake carousel logic with nothing to switch between.
+// Second testimonial reuses Óskar's photo as a placeholder until the real
+// photo for Karítas is uploaded to R2 — swap `photo` below once available.
+const testimonials = [
+  {
+    photo: 'images/home/testimonial/photo.webp',
+    alt: 'Óskar, Hotels Manager',
+    quote: `"We were thrilled with Hitels' customized solutions for our website. Their expertise in creating a stylish and intuitive online presence has transformed how we connect with our guests. The new site not only looks superb but also enhances our customer interaction, leading to a notable increase in direct bookings."`,
+    name: 'Óskar',
+    role: 'Hotels Manager',
+  },
+  {
+    photo: 'images/home/testimonial/photo.webp',
+    alt: 'Karítas K. McCrann, Hotels Manager',
+    quote: `"Working with Hitels on our websites redesign was a truly enjoyable process. From start to finish, their clear communication and flexible approach made everything run smoothly. The team was not only professional but also really easy to work with, always open to our ideas and changes. We're excited to see how these new sites will boost our online presence, drive more engagement, and increase direct bookings—it's already looking very promising!"`,
+    name: 'Karítas K. McCrann',
+    role: 'Hotels Manager',
+  },
+];
 ---
 
-<section class="flex gap-[138px] items-start justify-center px-[100px] py-[112px] max-lg:flex-col max-lg:items-center max-lg:gap-8 max-lg:px-10 max-lg:py-14 max-md:px-4 max-md:py-16 relative w-full bg-background">
+<section class="flex gap-[138px] items-start justify-center px-[100px] py-[112px] max-lg:flex-col max-lg:items-center max-lg:gap-8 max-lg:px-10 max-lg:py-14 max-md:px-4 max-md:py-16 relative w-full bg-background" data-testimonial-carousel>
   <div class="h-[465px] w-[392px] max-lg:h-[320px] max-lg:w-full relative rounded-2xl shrink-0 overflow-hidden">
-    <img
-      src={asset('images/home/testimonial/photo.webp')}
-      alt="Óskar, Hotels Manager"
-      class="absolute inset-0 w-full h-full object-cover"
-    />
+    {testimonials.map((t, i) => (
+      <img
+        src={asset(t.photo)}
+        alt={t.alt}
+        class="testimonial-photo absolute inset-0 w-full h-full object-cover"
+        data-index={i}
+        hidden={i !== 0}
+      />
+    ))}
   </div>
-  <div class="flex flex-1 flex-col items-start justify-between max-lg:justify-start max-lg:gap-14 w-full">
-    <p class="font-heading text-h4 text-navy w-full">
-      "We were thrilled with Hitels' customized solutions for our website. Their expertise in creating a stylish and intuitive online presence has transformed how we connect with our guests. The new site not only looks superb but also enhances our customer interaction, leading to a notable increase in direct bookings."
-    </p>
+  <div class="flex flex-1 flex-col items-start justify-between w-full">
+    {testimonials.map((t, i) => (
+      <p class="testimonial-quote font-heading text-h4 text-navy w-full" data-index={i} hidden={i !== 0}>
+        {t.quote}
+      </p>
+    ))}
     <div class="flex gap-5 items-center justify-center w-full">
       <div class="flex flex-1 flex-col gap-1 items-start justify-center">
-        <p class="font-heading text-h6 text-navy w-full">Óskar</p>
-        <p class="font-body font-normal text-body-md text-gray w-full">Hotels Manager</p>
+        {testimonials.map((t, i) => (
+          <div class="testimonial-meta" data-index={i} hidden={i !== 0}>
+            <p class="font-heading text-h6 text-navy w-full">{t.name}</p>
+            <p class="font-body font-normal text-body-md text-gray w-full">{t.role}</p>
+          </div>
+        ))}
       </div>
       <div class="flex gap-2.5 items-center shrink-0">
-        <button type="button" aria-label="Previous testimonial" class="bg-light-gray flex items-center justify-center rounded-full p-3.5 size-12">
+        <button type="button" aria-label="Previous testimonial" data-direction="-1" class="bg-light-gray flex items-center justify-center rounded-full p-3.5 size-12">
           <img src={asset('images/home/testimonial/arrow-left.svg')} alt="" class="size-5" />
         </button>
-        <button type="button" aria-label="Next testimonial" class="bg-light-gray flex items-center justify-center rounded-full p-3.5 size-12">
+        <button type="button" aria-label="Next testimonial" data-direction="1" class="bg-light-gray flex items-center justify-center rounded-full p-3.5 size-12">
           <img src={asset('images/home/testimonial/arrow-right.svg')} alt="" class="size-5" />
         </button>
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  document.querySelectorAll('[data-testimonial-carousel]').forEach((carousel) => {
+    const groups = ['.testimonial-photo', '.testimonial-quote', '.testimonial-meta'].map((selector) =>
+      carousel.querySelectorAll(selector)
+    );
+    const total = groups[0].length;
+    let current = 0;
+
+    function show(index: number) {
+      current = (index + total) % total;
+      groups.forEach((group) => {
+        group.forEach((el) => {
+          (el as HTMLElement).hidden = Number((el as HTMLElement).dataset.index) !== current;
+        });
+      });
+    }
+
+    carousel.querySelectorAll<HTMLButtonElement>('[data-direction]').forEach((button) => {
+      button.addEventListener('click', () => {
+        show(current + Number(button.dataset.direction));
+      });
+    });
+  });
+</script>
