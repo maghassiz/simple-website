@@ -12,12 +12,13 @@ const LINKS = [
   { label: 'Contact us', href: '/contact-us' },
 ];
 
-// Local mirror of shared/Button.astro's prop shape -- kept separate since
-// Astro components can't be imported into a React island.
+// Local mirror of shared/Button.astro's prop shape (styles kept in sync by
+// hand) -- kept separate since Astro components can't be imported into a
+// React island.
 const VARIANT_STYLES = {
-  primary: 'bg-yellow text-navy',
-  secondary: 'bg-background text-navy',
-  dark: 'bg-navy text-background',
+  primary: 'bg-yellow text-navy hover:bg-brand hover:text-background',
+  secondary: 'bg-background text-navy hover:bg-navy hover:text-background',
+  dark: 'bg-navy text-background hover:bg-background hover:text-navy hover:border-navy',
 };
 
 function CtaPill({
@@ -42,7 +43,10 @@ function CtaPill({
   className?: string;
 }) {
   return (
-    <a href={href} className={`${VARIANT_STYLES[variant]} flex ${gap} items-center justify-center rounded-lg ${padding} ${className}`}>
+    <a
+      href={href}
+      className={`${VARIANT_STYLES[variant]} flex ${gap} items-center justify-center rounded-lg border-2 border-transparent transition-colors duration-300 ${padding} ${className}`}
+    >
       {icon && <img src={asset(icon)} alt="" className={iconSize} />}
       <span className={`font-body font-medium ${textSize} whitespace-nowrap`}>{label}</span>
     </a>
@@ -136,7 +140,7 @@ export default function Navigation({ variant = 'dark' }: NavigationProps) {
             </div>
             {/* Book a demo stays visible on tablet (only true mobile, <768px, drops it) — confirmed against the Tablet Home frame, which keeps this button next to the hamburger */}
             <CtaPill
-              href="#"
+              href="/contact-us"
               label="Book a demo"
               icon={isLight ? 'images/home/hero/icon-calendar-nav-white.svg' : 'images/home/hero/icon-calendar-nav.svg'}
               variant={isLight ? 'dark' : 'secondary'}
@@ -212,7 +216,7 @@ export default function Navigation({ variant = 'dark' }: NavigationProps) {
               <p>+354 5478001</p>
             </div>
             <CtaPill
-              href="#"
+              href="/contact-us"
               label="Book a demo"
               icon="images/home/hero/icon-calendar-cta.svg"
               variant="primary"

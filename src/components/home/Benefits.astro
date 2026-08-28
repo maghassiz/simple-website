@@ -3,7 +3,7 @@ import { asset } from '../../lib/cdn';
 ---
 
 <section class="flex flex-col gap-16 max-lg:gap-14 max-md:gap-8 items-center px-[100px] py-[112px] max-lg:px-10 max-lg:py-14 max-md:px-4 max-md:py-16 relative w-full max-w-[1440px] mx-auto bg-background">
-  <div class="flex flex-col gap-4 items-center text-center w-[792px] max-w-full">
+  <div data-reveal class="flex flex-col gap-4 items-center text-center w-[792px] max-w-full">
     <h2 class="font-heading text-h3 text-navy w-full">You run the hotel, we run the website</h2>
     <p class="font-body font-normal text-body-md text-gray w-full">
       You are a hospitality expert, not a web developer. Stop wasting hours wrestling with broken integrations or restrictive templates. We handle the design, the tech, and the optimization—giving you peace of mind and more time to focus on your guests.
@@ -11,7 +11,7 @@ import { asset } from '../../lib/cdn';
   </div>
 
   <div class="flex gap-8 items-stretch max-md:flex-col w-full">
-    <div class="bg-light-gray flex flex-1 flex-col gap-6 items-start p-8 rounded-2xl overflow-hidden">
+    <div data-reveal class="bg-light-gray flex flex-1 flex-col gap-6 items-start p-8 rounded-2xl overflow-hidden">
       <div class="flex flex-col gap-4 items-start w-full">
         <h3 class="font-heading text-h5 text-navy w-full">UX &amp; Design Driven</h3>
         <p class="font-body font-normal text-body-md text-gray w-full">
@@ -23,28 +23,42 @@ import { asset } from '../../lib/cdn';
       </div>
     </div>
 
-    <div class="bg-light-gray flex flex-1 flex-col gap-6 items-start justify-center p-8 rounded-2xl overflow-hidden">
+    <div data-reveal style="--reveal-delay: 120ms" class="bg-light-gray flex flex-1 flex-col gap-6 items-start justify-center p-8 rounded-2xl overflow-hidden">
       <div class="flex flex-col gap-4 items-start w-full">
         <h3 class="font-heading text-h5 text-navy w-full">Advanced SEO Optimization</h3>
         <p class="font-body font-normal text-body-md text-gray w-full">
           We build your site from the ground up with advanced technical SEO, ensuring your hotel stands out.
         </p>
       </div>
-      <div class="h-[251px] w-full relative">
+      <div class="h-[251px] w-full relative" data-chart-reveal>
         <div class="absolute top-0 left-0 flex flex-col gap-0.5 items-start text-navy">
           <p class="font-body font-normal text-body-sm w-full">Total clicks</p>
-          <p class="font-heading text-h6 w-full">5.5K</p>
+          <p class="chart-count font-heading text-h6 w-full" data-target="5.5" data-suffix="K">0K</p>
         </div>
         <div class="absolute top-0 left-[119px] flex flex-col gap-0.5 items-start text-navy">
           <p class="font-body font-normal text-body-sm w-full">Impressions</p>
-          <p class="font-heading text-h6 w-full">120K</p>
+          <p class="chart-count font-heading text-h6 w-full" data-target="120" data-suffix="K">0K</p>
         </div>
         <div class="absolute top-0 right-0 flex flex-col gap-0.5 items-start text-navy">
           <p class="font-body font-normal text-body-sm w-full">Avg. CTR</p>
-          <p class="font-heading text-h6 w-full">7.5%</p>
+          <p class="chart-count font-heading text-h6 w-full" data-target="7.5" data-suffix="%">0%</p>
         </div>
         <img src={asset('images/home/benefits/chart-grid.svg')} alt="" class="absolute left-0 top-[77px] h-[132px] w-full" />
-        <img src={asset('images/home/benefits/chart-line.svg')} alt="Rising click-through-rate trend chart" class="absolute left-[11px] top-[102.5px] h-[72.5px] w-[307px]" />
+        <svg
+          role="img"
+          aria-label="Rising click-through-rate trend chart"
+          preserveAspectRatio="none"
+          viewBox="0 0 307.736 74.521"
+          class="absolute left-0 top-[102.5px] h-[72.5px] w-full"
+        >
+          <path
+            class="chart-reveal-path"
+            d="M0.297569 73.399L38.7976 61.399L77.2976 54.899L115.298 61.399L153.798 73.399L191.798 39.899L229.798 30.399L268.298 19.899L307.298 0.89899"
+            stroke="#5D4BFF"
+            stroke-width="2"
+            fill="none"
+          />
+        </svg>
         <div class="absolute left-0 top-[233px] flex items-center justify-between w-full font-body font-normal text-body-sm text-navy text-center">
           <p>1/1</p>
           <p>6/1</p>
@@ -55,20 +69,135 @@ import { asset } from '../../lib/cdn';
       </div>
     </div>
 
-    <div class="bg-light-gray flex flex-1 flex-col gap-6 items-start justify-center p-8 rounded-2xl overflow-hidden">
+    <div data-reveal style="--reveal-delay: 240ms" class="bg-light-gray flex flex-1 flex-col gap-6 items-start justify-center p-8 rounded-2xl overflow-hidden">
       <div class="flex flex-col gap-4 items-start w-full">
         <h3 class="font-heading text-h5 text-navy w-full">Data-Driven Performance</h3>
         <p class="font-body font-normal text-body-md text-gray w-full">
           Your site is meticulously crafted to guide visitors smoothly toward making a direct reservation.
         </p>
       </div>
-      <div class="h-[251px] w-full relative overflow-hidden" aria-hidden="true">
-        <img src={asset('images/home/benefits/ellipse-1.svg')} alt="" class="absolute h-[270px] w-[353px] -left-8 -top-[29px] rotate-[15.12deg]" />
-        <img src={asset('images/home/benefits/ellipse-2.svg')} alt="" class="absolute h-[279px] w-[356px] left-[4px] top-[2px] rotate-[162.69deg]" />
-        <img src={asset('images/home/benefits/ellipse-3.svg')} alt="" class="absolute h-[178px] w-[280px] left-10 top-[37px] rotate-[-0.28deg]" />
-        <img src={asset('images/home/benefits/ellipse-4.svg')} alt="" class="absolute h-[121px] w-[165px] left-[99px] top-[65px] rotate-[3.1deg]" />
-        <img src={asset('images/home/benefits/ellipse-5.svg')} alt="" class="absolute h-[88px] w-[136px] left-[111px] top-[81px] rotate-[3.1deg]" />
+      <div class="h-[251px] w-full relative overflow-hidden" aria-hidden="true" data-cursor-parallax>
+        <div class="parallax-item absolute h-[270px] w-[353px] -left-8 -top-[29px]" data-depth="0.05">
+          <img src={asset('images/home/benefits/ellipse-1.svg')} alt="" class="block h-full w-full rotate-[15.12deg]" />
+        </div>
+        <div class="parallax-item absolute h-[279px] w-[356px] left-[4px] top-[2px]" data-depth="0.08">
+          <img src={asset('images/home/benefits/ellipse-2.svg')} alt="" class="block h-full w-full rotate-[162.69deg]" />
+        </div>
+        <div class="parallax-item absolute h-[178px] w-[280px] left-10 top-[37px]" data-depth="0.04">
+          <img src={asset('images/home/benefits/ellipse-3.svg')} alt="" class="block h-full w-full rotate-[-0.28deg]" />
+        </div>
+        <div class="parallax-item absolute h-[121px] w-[165px] left-[99px] top-[65px]" data-depth="0.07">
+          <img src={asset('images/home/benefits/ellipse-4.svg')} alt="" class="block h-full w-full rotate-[3.1deg]" />
+        </div>
+        <div class="parallax-item absolute h-[88px] w-[136px] left-[111px] top-[81px]" data-depth="0.1">
+          <img src={asset('images/home/benefits/ellipse-5.svg')} alt="" class="block h-full w-full rotate-[3.1deg]" />
+        </div>
       </div>
     </div>
   </div>
 </section>
+
+<style>
+  .chart-reveal-path {
+    transition: stroke-dashoffset 1.1s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .chart-reveal-path {
+      stroke-dashoffset: 0 !important;
+      transition: none;
+    }
+  }
+
+  .parallax-item {
+    transition: transform 0.2s ease-out;
+    will-change: transform;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .parallax-item {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const chart = document.querySelector('[data-chart-reveal]');
+  const chartPath = chart?.querySelector<SVGPathElement>('.chart-reveal-path');
+  const countEls = chart?.querySelectorAll<HTMLElement>('.chart-count') ?? [];
+
+  if (chartPath) {
+    const length = chartPath.getTotalLength();
+    chartPath.style.strokeDasharray = `${length}`;
+    chartPath.style.strokeDashoffset = `${length}`;
+  }
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function animateCount(el: HTMLElement, duration = 1200) {
+    const target = parseFloat(el.dataset.target ?? '0');
+    const suffix = el.dataset.suffix ?? '';
+    const decimals = target % 1 !== 0 ? 1 : 0;
+
+    if (prefersReducedMotion) {
+      el.textContent = `${target.toFixed(decimals)}${suffix}`;
+      return;
+    }
+
+    const start = performance.now();
+
+    function tick(now: number) {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = `${(target * eased).toFixed(decimals)}${suffix}`;
+      if (progress < 1) requestAnimationFrame(tick);
+    }
+
+    requestAnimationFrame(tick);
+  }
+
+  if (chart) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            if (chartPath) chartPath.style.strokeDashoffset = '0';
+            countEls.forEach((el) => animateCount(el));
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.4 }
+    );
+    observer.observe(chart);
+  }
+
+  if (!prefersReducedMotion) {
+    document.querySelectorAll<HTMLElement>('[data-cursor-parallax]').forEach((container) => {
+      const items = Array.from(container.querySelectorAll<HTMLElement>('.parallax-item')).map((item) => ({
+        el: item,
+        depth: parseFloat(item.dataset.depth ?? '0.05'),
+      }));
+
+      container.addEventListener('mousemove', (event) => {
+        const rect = container.getBoundingClientRect();
+        // -1 (left/top edge) to 1 (right/bottom edge), 0 at center
+        const relX = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
+        const relY = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
+
+        items.forEach(({ el, depth }) => {
+          const moveX = relX * depth * rect.width;
+          const moveY = relY * depth * rect.height;
+          el.style.transform = `translate(${moveX}px, ${moveY}px)`;
+        });
+      });
+
+      container.addEventListener('mouseleave', () => {
+        items.forEach(({ el }) => {
+          el.style.transform = '';
+        });
+      });
+    });
+  }
+</script>

@@ -1,0 +1,43 @@
+---
+import { toHTML } from '@portabletext/to-html';
+import type { PortableTextBlock } from '@portabletext/types';
+
+interface Props {
+  body: PortableTextBlock[];
+}
+
+const { body } = Astro.props;
+
+const HEADING_CLASSES: Record<string, string> = {
+  h2: 'font-heading text-h4 text-navy',
+  h3: 'font-heading text-h5 text-navy',
+  h4: 'font-heading text-h6 text-navy',
+};
+
+const html = toHTML(body ?? [], {
+  components: {
+    block: {
+      normal: ({ children }) => `<p class="font-body font-normal text-body-md text-gray">${children}</p>`,
+      h2: ({ children }) => `<h2 class="${HEADING_CLASSES.h2}">${children}</h2>`,
+      h3: ({ children }) => `<h3 class="${HEADING_CLASSES.h3}">${children}</h3>`,
+      h4: ({ children }) => `<h4 class="${HEADING_CLASSES.h4}">${children}</h4>`,
+    },
+    list: {
+      bullet: ({ children }) => `<ul class="list-disc flex flex-col gap-2 pt-2">${children}</ul>`,
+      number: ({ children }) => `<ol class="list-decimal flex flex-col gap-2 pt-2">${children}</ol>`,
+    },
+    listItem: {
+      bullet: ({ children }) => `<li class="ms-6 font-body font-normal text-body-md text-gray">${children}</li>`,
+      number: ({ children }) => `<li class="ms-6 font-body font-normal text-body-md text-gray">${children}</li>`,
+    },
+    marks: {
+      link: ({ value, children }) =>
+        `<a href="${value?.href ?? '#'}" class="underline text-navy" target="${value?.href?.startsWith('http') ? '_blank' : '_self'}" rel="noopener noreferrer">${children}</a>`,
+    },
+  },
+});
+---
+
+<section class="flex flex-col items-start px-[312px] max-lg:px-10 max-md:px-4 pt-20 max-lg:pt-14 max-md:pt-10 relative w-full max-w-[1440px] mx-auto">
+  <div class="flex flex-col gap-4 w-full" set:html={html} />
+</section>

@@ -1,20 +1,14 @@
 ---
-import '../styles/global.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/not-found/Hero.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Page Not Found — Hitels</title>
-	</head>
-	<body class="bg-background">
-		<main>
-			<Hero />
-		</main>
-	</body>
-</html>
+<BaseLayout
+	title="Page Not Found — Hitels"
+	description="The page you're looking for doesn't exist or has been moved."
+	noindex
+>
+	<main>
+		<Hero />
+	</main>
+</BaseLayout>

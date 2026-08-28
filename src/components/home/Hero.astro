@@ -1,6 +1,7 @@
 ---
 import Navigation from '../Navigation';
 import Button from '../shared/Button.astro';
+import HeroStories from './HeroStories.astro';
 import { asset } from '../../lib/cdn';
 ---
 
@@ -31,16 +32,18 @@ import { asset } from '../../lib/cdn';
     aria-hidden
     class="absolute flex h-[688.717px] items-center justify-center left-[-348.03px] top-[462.74px] w-[2142.156px] pointer-events-none"
   >
-    <div class="rotate-[-4.09deg]">
-      <img src={asset('images/home/hero/decorative-blob.svg')} alt="" class="h-[539.588px] w-[2109.027px] block" />
+    <div class="rotate-[-4.09deg] h-full w-full">
+      <img src={asset('images/home/hero/decorative-blob.svg')} alt="" class="h-full w-full block object-fill" />
     </div>
   </div>
 
   <Navigation client:load />
 
+  <HeroStories />
+
   <div class="flex items-center justify-between px-[100px] max-lg:flex-col max-lg:px-10 max-md:px-4 max-lg:text-center relative w-full max-w-[1440px] mx-auto">
     <div class="flex flex-col gap-8 items-start max-lg:items-center w-[604px] max-lg:w-full mr-[-16px] max-lg:mr-0">
-      <div class="flex flex-col gap-4 items-center text-background w-full">
+      <div data-reveal class="flex flex-col gap-4 items-center text-background w-full">
         <p class="font-heading text-h1 w-full">Turn website visitors into direct bookings</p>
         {/* Desktop/Tablet use the full copy; Mobile uses shorter copy — confirmed
             distinct wording per breakpoint in the source, not a truncation */}
@@ -51,13 +54,13 @@ import { asset } from '../../lib/cdn';
           We build award-winning, bespoke hotel websites and seamless booking engines. No templates. No DIY builders. Just a premium digital presence "done-for-you" from start to finish.
         </p>
       </div>
-      <div class="flex gap-4 items-start justify-center max-md:w-full">
-        <Button href="#" label="Book a demo" icon="images/home/hero/icon-calendar-cta.svg" variant="primary" padding="px-4 py-3" class="max-md:flex-1" />
-        <Button href="#" label="Contact us" icon="images/home/hero/icon-chat.svg" variant="secondary" padding="pl-4 pr-5 py-3 max-md:pl-3" class="max-md:flex-1" />
+      <div data-reveal style="--reveal-delay: 150ms" class="flex gap-4 items-start justify-center max-md:w-full">
+        <Button href="/contact-us" label="Book a demo" icon="images/home/hero/icon-calendar-cta.svg" variant="primary" padding="px-4 py-3" class="max-md:flex-1" />
+        <Button href="/contact-us" label="Contact us" icon="images/home/hero/icon-chat.svg" variant="secondary" padding="pl-4 pr-5 py-3 max-md:pl-3" class="max-md:flex-1" />
       </div>
     </div>
 
-    <div class="h-[598px] w-[652px] max-lg:h-[451px] max-lg:w-[464px] max-md:h-[327px] max-md:w-full relative">
+    <div data-reveal="fade" style="--reveal-delay: 250ms" class="h-[598px] w-[652px] max-lg:h-[451px] max-lg:w-[464px] max-md:h-[327px] max-md:w-full relative">
       <div class="absolute inset-0 max-lg:left-0 max-lg:w-full overflow-hidden pointer-events-none">
         <img
           src={asset('images/home/hero/mockup-desktop.webp')}

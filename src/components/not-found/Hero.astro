@@ -18,10 +18,12 @@ import { asset } from '../../lib/cdn';
   </div>
 
   <div class="flex flex-col gap-8 items-center px-4 relative text-center w-[604px] max-w-full">
-    <div class="flex flex-col gap-4 items-center text-background w-full">
+    <div data-reveal class="flex flex-col gap-4 items-center text-background w-full">
       <p class="font-heading font-medium text-[144px] max-lg:text-[104px] max-md:text-[72px] leading-[1.1] tracking-[-0.025em] w-full">404</p>
       <p class="font-body font-normal text-body-lg w-full">The page you are looking for doesn&rsquo;t exist or has been moved.</p>
     </div>
-    <Button href="/" label="Back to homepage" variant="primary" padding="px-5 py-3" />
+    <div data-reveal style="--reveal-delay: 150ms">
+      <Button href="/" label="Back to homepage" variant="primary" padding="px-5 py-3" />
+    </div>
   </div>
 </div>

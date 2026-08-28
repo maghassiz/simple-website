@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/cookie-policy/Hero.astro';
+import PolicyContent from '../components/cookie-policy/PolicyContent.astro';
+import Footer from '../components/shared/Footer.astro';
+---
+
+<BaseLayout
+	title="Cookie Policy — Hitels"
+	description="Learn how Hitels uses cookies and similar tracking technologies when you visit our website."
+>
+	<header>
+		<Hero />
+	</header>
+	<main>
+		<PolicyContent />
+	</main>
+	<Footer />
+</BaseLayout>

@@ -46,7 +46,7 @@ const TEAM = [
 ---
 
 <section class="flex flex-col gap-[72px] max-lg:gap-10 max-md:gap-8 items-start px-[100px] py-[100px] max-lg:px-10 max-lg:py-10 max-md:px-4 max-md:py-10 relative w-full max-w-[1440px] mx-auto bg-background">
-  <div class="flex flex-col gap-8 items-center text-center px-[211px] max-lg:px-0 relative w-full">
+  <div data-reveal class="flex flex-col gap-8 items-center text-center px-[211px] max-lg:px-0 relative w-full">
     <h2 class="font-heading text-h3 text-navy w-full">People behind smarter hotel websites</h2>
     <p class="font-body font-normal text-body-md text-gray w-full">
       Most booking engines look like an afterthought. We go further than any competitor to ensure a seamless transition from your website to the checkout. Starting in Figma, we meticulously tailor the typography, colors, and UI components so the engine feels like a natural, premium extension of your brand.
@@ -54,8 +54,8 @@ const TEAM = [
   </div>
 
   <div data-team-carousel class="flex gap-8 items-start w-full overflow-x-auto snap-x snap-mandatory pb-2 scroll-smooth">
-    {TEAM.map((member) => (
-      <div class="flex flex-col gap-6 items-start shrink-0 snap-start w-[286px]">
+    {TEAM.map((member, i) => (
+      <div data-reveal style={`--reveal-delay: ${i * 100}ms`} class="flex flex-col gap-6 items-start shrink-0 snap-start w-[286px]">
         <div class="h-[352px] relative rounded-lg shrink-0 w-full overflow-hidden bg-[linear-gradient(171deg,#33258c_1.7%,#654aff_37.3%,#eae8ff_94.3%)]">
           <img src={asset(member.photo)} alt={member.name} class={`absolute ${member.inset} w-full h-full object-cover`} />
         </div>

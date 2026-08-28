@@ -17,6 +17,11 @@ import PartnerLogosTrack from './PartnerLogosTrack.astro';
       <PartnerLogosTrack />
     </div>
 
+    {/* Edge fades — logos scroll out from behind these into view instead of
+        popping in/out at the hard clip edge created by overflow-hidden. */}
+    <div class="absolute left-0 top-0 h-full w-16 md:w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none"></div>
+    <div class="absolute right-0 top-0 h-full w-16 md:w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none"></div>
+
     {/* Fixed at center, above the scrolling track (z-10) — this is a static
         "Built with Framer" badge, not a partner logo, so it doesn't scroll
         with the rest. The gradient fades the scrolling logos to white as

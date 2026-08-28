@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/privacy-policy/Hero.astro';
+import PolicyContent from '../components/privacy-policy/PolicyContent.astro';
+import Footer from '../components/shared/Footer.astro';
+---
+
+<BaseLayout
+	title="Privacy Policy — Hitels"
+	description="Learn how Hitels collects, uses, and protects your personal information across our website and services."
+>
+	<header>
+		<Hero />
+	</header>
+	<main>
+		<PolicyContent />
+	</main>
+	<Footer />
+</BaseLayout>

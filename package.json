@@ -9,11 +9,14 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "import:framer": "node --env-file=.env scripts/framer-import/import.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^6.0.4",
+    "@astrojs/sitemap": "^3.7.3",
     "@fontsource/inter": "^5.3.0",
+    "@portabletext/to-html": "^6.0.0",
     "@sanity/astro": "^3.5.1",
     "@sanity/client": "^8.3.0",
     "@sanity/vision": "^6.11.0",
@@ -30,6 +33,12 @@
     "esbuild": true
   },
   "devDependencies": {
-    "@aws-sdk/client-s3": "^3.1119.0"
+    "@astrojs/check": "^0.9.10",
+    "@aws-sdk/client-s3": "^3.1119.0",
+    "@portabletext/block-tools": "^6.0.0",
+    "@sanity/schema": "^6.11.0",
+    "csv-parse": "^7.0.2",
+    "jsdom": "^25.0.1",
+    "typescript": "^6.0.3"
   }
 }

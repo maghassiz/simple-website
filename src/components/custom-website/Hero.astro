@@ -24,19 +24,19 @@ import { asset } from '../../lib/cdn';
   <Navigation client:load />
 
   <div class="flex flex-col gap-8 items-center px-[100px] max-lg:px-10 max-md:px-4 relative w-full max-w-[1032px] text-center">
-    <div class="flex flex-col gap-4 items-center text-background w-full">
+    <div data-reveal class="flex flex-col gap-4 items-center text-background w-full">
       <h1 class="font-heading text-h1 max-md:text-h3 w-full">Your hotel is unique. Your website should be too.</h1>
       <p class="font-body font-normal text-body-lg max-md:text-[1.125rem] w-full">
         We design and build award-winning hotel websites from scratch. No templates. Just bespoke, data-driven design engineered to bypass OTAs and capture direct bookings.
       </p>
     </div>
-    <div class="flex gap-4 items-start justify-center max-md:flex-col max-md:w-full">
-      <Button href="#" label="Contact us" icon="images/home/hero/icon-chat.svg" variant="primary" padding="px-4 py-3" class="max-md:w-full" />
+    <div data-reveal style="--reveal-delay: 150ms" class="flex gap-4 items-start justify-center max-md:flex-col max-md:w-full">
+      <Button href="/contact-us" label="Contact us" icon="images/home/hero/icon-chat.svg" variant="primary" padding="px-4 py-3" class="max-md:w-full" />
       <Button href="#pricing" label="View pricing" icon="images/custom-website/icon-tag.svg" variant="secondary" class="max-md:w-full" />
     </div>
   </div>
 
-  <div class="relative w-full max-w-[1440px] px-[100px] max-lg:px-10 max-md:px-4 pb-[100px] max-lg:pb-16 max-md:pb-10">
+  <div data-reveal="fade" style="--reveal-delay: 250ms" class="relative w-full max-w-[1440px] px-[100px] max-lg:px-10 max-md:px-4 pb-[100px] max-lg:pb-16 max-md:pb-10">
     {/* Flattened as one collage image (real portfolio site mockups), same treatment
         ProductOfferings uses for its collage — the source has dozens of sub-pixel
         nested elements never meant to be legible/functional on their own. */}

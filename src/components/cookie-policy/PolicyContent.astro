@@ -1,0 +1,79 @@
+---
+interface Policy {
+	title: string;
+	intro?: string;
+	description?: string;
+	list?: string[];
+}
+
+const POLICIES: Policy[] = [
+	{
+		title: 'What are Cookies?',
+		description: 'Cookies are small text files that are stored on your device (computer, smartphone, or tablet) when you visit a website. They help enhance your browsing experience by remembering your preferences, analyzing website performance, and delivering personalized content and advertisements.',
+	},
+	{
+		title: 'Types of Cookies We Use',
+		intro: 'Hitels uses the following types of cookies:',
+		list: [
+			'Essential Cookies: necessary for the website to function properly, such as authentication and security cookies.',
+			'Analytical Cookies: used to analyze website usage and performance, such as Google Analytics cookies.',
+			'Functional Cookies: enable enhanced website functionality and customization, such as remembering your language preferences.',
+			'Advertising Cookies: used to deliver targeted advertisements based on your interests and browsing behavior.',
+		],
+	},
+	{
+		title: 'How We Use Cookies',
+		intro: 'We use cookies for various purposes, including:',
+		list: [
+			'Improving website performance and functionality.',
+			'Analyzing website traffic and usage trends.',
+			'Personalizing content and advertisements.',
+			'Remembering your preferences and settings.',
+		],
+	},
+	{
+		title: 'Third-Party Cookies',
+		description: 'We may also use third-party cookies from service providers such as Google Analytics and advertising networks to analyze website traffic and deliver targeted advertisements. These third-party cookies are subject to their own privacy policies.',
+	},
+	{
+		title: 'Changes to this Cookie Policy',
+		description: 'We may update this Cookie Policy from time to time, and any changes will be posted on this page. We encourage you to review this Cookie Policy periodically for any updates.',
+	},
+];
+---
+
+<section class="flex flex-col items-start px-[312px] max-lg:px-10 max-md:px-4 pt-20 max-lg:pt-14 max-md:pt-10 relative w-full max-w-[1440px] mx-auto">
+	<div class="flex flex-col gap-12 items-start w-full">
+		<p data-reveal class="font-body font-normal text-body-md text-gray w-full">
+			This Cookie Policy explains how Hitels uses cookies and similar tracking technologies when you visit our
+			website. By accessing or using Hitels, you consent to the use of cookies in accordance with this Cookie
+			Policy.
+		</p>
+
+		{POLICIES.map((policy) => (
+			<div class="flex flex-col gap-4 items-start w-full">
+				<h2 class="font-heading text-h5 text-navy w-full">{policy.title}</h2>
+				{policy.list ? (
+					<div class="flex flex-col gap-2 w-full">
+						<p class="font-body font-normal text-body-md text-gray w-full">{policy.intro}</p>
+						<ol class="list-decimal flex flex-col gap-2 pt-2">
+							{policy.list.map((item) => (
+								<li class="ms-6 font-body font-normal text-body-md text-gray">{item}</li>
+							))}
+						</ol>
+					</div>
+				) : (
+					<p class="font-body font-normal text-body-md text-gray w-full">{policy.description}</p>
+				)}
+			</div>
+		))}
+
+		<div class="flex flex-col gap-4 items-start w-full">
+			<h2 class="font-heading text-h5 text-navy w-full">Contact Us</h2>
+			<p class="font-body font-normal text-body-md text-gray w-full">
+				If you have any questions or concerns about this Cookie Policy or our use of cookies, please contact us at{' '}
+				<a href="mailto:birgir@revera.is" class="text-brand hover:underline">birgir@revera.is</a>
+			</p>
+		</div>
+	</div>
+</section>
