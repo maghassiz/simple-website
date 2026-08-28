@@ -26,7 +26,7 @@ import Button from './Button.astro';
       <source src={asset('images/home/footer/footer-gradient-video.mp4')} type="video/mp4" />
     </video>
     <div
-      class="hidden max-lg:block absolute inset-0 mix-blend-overlay opacity-40 bg-top-left"
+      class="hidden max-lg:block absolute inset-0 mix-blend-overlay opacity-0 bg-top-left"
       style={`background-image: url('${asset('images/home/hero/hero-bg-texture.webp')}'); background-size: 1920px 1080px;`}
     ></div>
   </div>
@@ -50,7 +50,7 @@ import Button from './Button.astro';
     </div>
   </div>
 
-  <div class="backdrop-blur-[30px] flex flex-col gap-[72px] max-lg:gap-14 max-md:gap-8 items-start relative w-full">
+  <div class="flex flex-col gap-[72px] max-lg:gap-14 max-md:gap-8 items-start relative w-full max-w-[1440px] mx-auto">
     <div class="flex flex-col gap-5 items-start w-full">
       <div class="flex flex-col gap-0.5 items-end w-[111px]">
         <img src={asset('images/home/footer/hitels-logo.svg')} alt="Hitels" class="w-full aspect-[113/30.91]" />
