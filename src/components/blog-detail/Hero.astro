@@ -13,7 +13,7 @@ const { title, backHref = '/blog' } = Astro.props;
 <div class="flex flex-col items-center w-full bg-background">
   <Navigation client:load variant="light" />
 
-  <div class="flex flex-col gap-8 items-start px-[206px] max-lg:px-10 max-md:px-4 pt-20 max-lg:pt-14 max-md:pt-10 relative w-full">
+  <div class="flex flex-col gap-8 items-start px-[206px] max-lg:px-10 max-md:px-4 pt-20 max-lg:pt-14 max-md:pt-10 relative w-full max-w-[1440px] mx-auto">
     <a href={backHref} class="flex gap-3 items-center">
       <img src={asset('images/home/testimonial/arrow-left.svg')} alt="" class="size-5" />
       <span class="font-body font-medium text-body-md text-navy">Back</span>
