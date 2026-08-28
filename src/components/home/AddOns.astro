@@ -1,5 +1,6 @@
 ---
 import { asset } from '../../lib/cdn';
+import Button from '../shared/Button.astro';
 
 // Confirmed hidden on Desktop and Tablet in Figma (hidden="true" on both
 // frames) but visible on Mobile -- not a mistake, a genuine per-breakpoint
@@ -62,9 +63,7 @@ const ADDONS = [
             ))}
           </div>
         </div>
-        <a href="#" class="bg-navy flex gap-3 items-center justify-center rounded-lg pl-4 pr-5 py-3 w-full">
-          <span class="font-body font-medium text-body-md text-background whitespace-nowrap">Get a quote</span>
-        </a>
+        <Button href="#" label="Get a quote" variant="dark" class="w-full" />
       </div>
     ))}
   </div>

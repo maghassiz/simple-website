@@ -1,0 +1,15 @@
+---
+import { asset } from '../../lib/cdn';
+
+interface Props {
+  href: string;
+  label: string;
+}
+
+const { href, label } = Astro.props;
+---
+
+<a href={href} class="flex gap-3 items-center justify-center rounded-lg">
+  <span class="font-body font-medium text-body-md text-navy whitespace-nowrap">{label}</span>
+  <img src={asset('images/home/pricing/icon-arrow-right.svg')} alt="" class="size-5" />
+</a>
