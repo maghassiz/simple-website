@@ -4,7 +4,7 @@ import Button from '../shared/Button.astro';
 import { asset } from '../../lib/cdn';
 ---
 
-<div class="flex flex-col items-center overflow-hidden relative w-full bg-gradient-to-b from-[#3d2c99] to-[#654aff] to-50%">
+<div data-hero class="flex flex-col items-center overflow-hidden relative w-full bg-gradient-to-b from-[#3d2c99] to-[#654aff] to-50%">
   <div aria-hidden class="absolute inset-0 mix-blend-overlay opacity-40 bg-top-left pointer-events-none" style={`background-image: url('${asset('images/home/hero/hero-bg-texture.webp')}'); background-size: 1920px 1080px;`}></div>
   <div aria-hidden class="absolute h-[777px] left-[-323px] top-[366px] w-[2109px] pointer-events-none">
     <img src={asset('images/booking-engine/hero/decorative-blob.svg')} alt="" class="h-full w-full" />

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { asset } from '../lib/cdn';
 
 // TODO: hrefs are placeholders until the corresponding pages exist
@@ -58,7 +58,13 @@ type NavigationProps = {
 
 export default function Navigation({ variant = 'dark' }: NavigationProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const isLight = variant === 'light';
+  const [navHeight, setNavHeight] = useState(0);
+  // Tracks whether the page has been scrolled past its hero section (marked with
+  // data-hero on the hero's root element) -- only relevant for variant="dark", since
+  // "light" pages have no hero to leave and are always in the light-on-white state.
+  const [scrolledPastHero, setScrolledPastHero] = useState(false);
+  const navRef = useRef<HTMLElement>(null);
+  const isLight = variant === 'light' || scrolledPastHero;
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? 'hidden' : '';
@@ -76,45 +82,81 @@ export default function Navigation({ variant = 'dark' }: NavigationProps) {
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [isOpen]);
 
+  // Nav is fixed (out of flow), so measure its own height to reserve the
+  // equivalent space where it sits in the document via the spacer below.
+  useEffect(() => {
+    const measure = () => setNavHeight(navRef.current?.offsetHeight ?? 0);
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
+  }, []);
+
+  useEffect(() => {
+    if (variant !== 'dark') return;
+    const heroEl = navRef.current?.closest('[data-hero]');
+    if (!heroEl) return;
+    // rootMargin pulls the observation line down by the nav's own height, so the
+    // switch fires exactly when the hero has fully scrolled out from under the nav.
+    const observer = new IntersectionObserver(
+      ([entry]) => setScrolledPastHero(!entry.isIntersecting),
+      { rootMargin: `-${navHeight}px 0px 0px 0px`, threshold: 0 }
+    );
+    observer.observe(heroEl);
+    return () => observer.disconnect();
+  }, [variant, navHeight]);
+
   return (
     <>
+      {/* Reserves the nav's space in normal flow now that the nav itself is fixed. */}
+      <div style={navHeight ? { height: navHeight } : undefined} aria-hidden="true" />
       <nav
-        className={`backdrop-blur-[18px] flex items-center justify-between px-4 lg:px-[100px] py-4 relative w-full ${isOpen ? 'max-lg:invisible' : ''}`}
+        ref={navRef}
+        className={`fixed top-0 inset-x-0 z-50 transition-colors duration-300 ${isLight ? 'bg-background/70' : 'bg-transparent'} backdrop-blur-[18px] w-full ${isOpen ? 'max-lg:invisible' : ''}`}
       >
-        <a href="/" className="block h-6 w-[88px]">
-          <img src={asset(isLight ? 'images/home/nav/mobile-menu-logo-dark.svg' : 'images/home/hero/hitels-logo.svg')} alt="Hitels" className="h-full w-full" />
-        </a>
+        <div className="flex items-center justify-between px-4 lg:px-[100px] py-4 max-w-[1440px] mx-auto">
+          <a href="/" className="block h-6 w-[88px]">
+            <img src={asset(isLight ? 'images/home/nav/mobile-menu-logo-dark.svg' : 'images/home/hero/hitels-logo.svg')} alt="Hitels" className="h-full w-full" />
+          </a>
 
-        <div className="flex gap-6 items-center">
-          <div className="hidden lg:flex gap-6 items-center">
-            {LINKS.map((link) => (
-              <a key={link.label} href={link.href} className={`font-body font-medium ${isLight ? 'text-navy' : 'text-background'} text-body-sm whitespace-nowrap`}>
-                {link.label}
-              </a>
-            ))}
+          <div className="flex gap-6 items-center">
+            <div className="hidden lg:flex gap-6 items-center">
+              {LINKS.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className={`group relative font-body font-medium ${isLight ? 'text-navy' : 'text-background'} text-body-sm whitespace-nowrap py-1`}
+                >
+                  {link.label}
+                  <span
+                    aria-hidden="true"
+                    className={`absolute left-0 -bottom-0.5 h-px w-full origin-left scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100 ${isLight ? 'bg-navy' : 'bg-background'}`}
+                  />
+                </a>
+              ))}
+            </div>
+            {/* Book a demo stays visible on tablet (only true mobile, <768px, drops it) — confirmed against the Tablet Home frame, which keeps this button next to the hamburger */}
+            <CtaPill
+              href="#"
+              label="Book a demo"
+              icon={isLight ? 'images/home/hero/icon-calendar-nav-white.svg' : 'images/home/hero/icon-calendar-nav.svg'}
+              variant={isLight ? 'dark' : 'secondary'}
+              padding="pl-3 pr-4 py-2"
+              gap="gap-2"
+              iconSize="size-4"
+              textSize="text-body-sm"
+              className="hidden md:flex"
+            />
+            <button
+              type="button"
+              className="lg:hidden block relative shrink-0 size-8"
+              aria-expanded={isOpen}
+              aria-controls="mobile-menu"
+              aria-label="Open menu"
+              onClick={() => setIsOpen(true)}
+            >
+              <img src={asset(isLight ? 'images/home/nav/mobile-nav-hamburger-navy.svg' : 'images/home/nav/mobile-nav-hamburger.svg')} alt="" className="size-full" />
+            </button>
           </div>
-          {/* Book a demo stays visible on tablet (only true mobile, <768px, drops it) — confirmed against the Tablet Home frame, which keeps this button next to the hamburger */}
-          <CtaPill
-            href="#"
-            label="Book a demo"
-            icon={isLight ? 'images/home/hero/icon-calendar-nav-white.svg' : 'images/home/hero/icon-calendar-nav.svg'}
-            variant={isLight ? 'dark' : 'secondary'}
-            padding="pl-3 pr-4 py-2"
-            gap="gap-2"
-            iconSize="size-4"
-            textSize="text-body-sm"
-            className="hidden md:flex"
-          />
-          <button
-            type="button"
-            className="lg:hidden block relative shrink-0 size-8"
-            aria-expanded={isOpen}
-            aria-controls="mobile-menu"
-            aria-label="Open menu"
-            onClick={() => setIsOpen(true)}
-          >
-            <img src={asset(isLight ? 'images/home/nav/mobile-nav-hamburger-navy.svg' : 'images/home/nav/mobile-nav-hamburger.svg')} alt="" className="size-full" />
-          </button>
         </div>
       </nav>
 
