@@ -1,0 +1,23 @@
+---
+interface Props {
+  heading: string;
+  paragraphs: string[];
+  list?: string[];
+}
+
+const { heading, paragraphs, list } = Astro.props;
+---
+
+<section class="flex flex-col items-start px-[312px] max-lg:px-10 max-md:px-4 pt-20 max-lg:pt-14 max-md:pt-10 relative w-full">
+  <div class="flex flex-col gap-8 items-start w-full">
+    <h2 class="font-heading text-h4 text-navy w-full">{heading}</h2>
+    <div class="flex flex-col gap-4 font-body font-normal text-body-md text-gray w-full">
+      {paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+      {list && (
+        <ul class="list-disc flex flex-col gap-2 pt-2">
+          {list.map((item) => <li class="ms-6">{item}</li>)}
+        </ul>
+      )}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,98 @@
+---
+import '../styles/global.css';
+import Hero from '../components/blog-detail/Hero.astro';
+import BlogSection from '../components/shared/BlogSection.astro';
+import Footer from '../components/shared/Footer.astro';
+
+// Template page for a single blog post. Content below is the placeholder
+// article from Figma -- swap TITLE and SECTIONS for real post data once a
+// CMS/content source is wired up.
+const TITLE = 'Stop paying 20% to OTAs. Start driving direct bookings.';
+
+const SECTIONS = [
+  {
+    heading: 'What does it mean when your guest spends more time waiting for your website to load than deciding to book?',
+    paragraphs: [
+      "Iceland is one of Europe's most visited destinations per capita. But many of its hotel websites don't reflect that. They're often slow, outdated, and hard to use – especially on mobile, where most travel decisions now happen.",
+      "In early 2025, we reviewed over 500 hotel websites across the country. What we found wasn't surprising – but it was telling. Technical debt, visual inconsistency, and broken booking flows are holding back an industry that should be leading the digital hospitality experience.",
+    ],
+  },
+  {
+    heading: "Most websites haven't been updated in years",
+    paragraphs: [
+      "Over 60% of the websites we reviewed showed no sign of redesign since before 2020. Many still run on outdated WordPress themes, use deprecated plugins, or rely on DIY builders that haven't aged well.",
+      "These sites may technically work – but they often feel years behind. Fonts are mismatched, layouts break on mobile, and page structures don't reflect how guests actually search or decide.",
+      'In some cases, hotels had clearly renovated their physical space – but left the digital front door untouched.',
+    ],
+  },
+  {
+    heading: 'Booking engines are common – but brand continuity is rare',
+    paragraphs: [
+      'Nearly all Icelandic hotels now use booking engines, with most powered by Godo and BookingFactory (both operated by GODO). These systems are widely trusted in the market and offer proven booking functionality.',
+      "The challenge isn't the software – it's how hotels implement it. In many cases, the booking experience happens on a separate domain with different styling, fonts, and flow. That disjointed handoff breaks continuity and subtly erodes trust.",
+      "From a guest's perspective, it often feels like leaving the hotel's site entirely to make a payment – right at the most sensitive moment of conversion.",
+    ],
+  },
+  {
+    heading: 'Google Lighthouse scores show consistent underperformance',
+    paragraphs: ['We ran every site through Google Lighthouse. The average Performance score was 43 out of 100.'],
+    list: [
+      'SEO scores fared slightly better, but only 18% of sites passed all four core categories: Performance, Accessibility, Best Practices, and SEO.',
+      'Sites with large uncompressed images, outdated JavaScript, or slow third-party embeds often scored below 30.',
+      "This isn't just technical trivia. Google uses these scores as part of its ranking algorithm. If your hotel site loads slowly, isn't mobile-friendly, or lacks proper structure, it's less likely to show up when guests are actively searching.",
+    ],
+  },
+  {
+    heading: 'Mobile experience is the biggest liability',
+    paragraphs: [
+      'For guests browsing on their phones – often tired, traveling, or short on time – frustration comes fast.',
+      "Menus that don't open. Booking buttons that slide off-screen. Image sliders that take 10+ seconds to load. These issues aren't rare. They're widespread.",
+      "Even among newer hotel brands, mobile optimization was often incomplete. It's a missed opportunity, given that over 70% of travel-related traffic now comes from mobile.",
+    ],
+  },
+  {
+    heading: 'SEO basics are frequently overlooked',
+    paragraphs: [
+      'More than half of the sites we analyzed were missing meta titles, image alt text, or consistent use of H1 headings. Others had duplicate page content or bloated code that made crawling difficult.',
+      'Some sites had no language declarations – making it harder to serve the right version to international audiences.',
+      'Without these basics, hotels are making it harder for search engines (and guests) to find them at all.',
+    ],
+  },
+  {
+    heading: 'But some hotels are getting it right',
+    paragraphs: [
+      'Hotels like Bryggjan Boutique and Vintage Hotel have launched modern, mobile-first websites that balance branding with performance.',
+      'Others – including Hótel Múli, Konvin, and Black Sand Hotel – are currently developing fully custom websites on the Hitels platform, with a focus on fast performance, and visual storytelling that reflects their identity.',
+      "These hotels aren't just updating their websites. They're building direct booking channels that compete with the OTAs.",
+    ],
+  },
+  {
+    heading: "Conclusion: A better website isn't about trends – it's about trust",
+    paragraphs: [
+      "Most Icelandic hotel websites aren't broken. They're just behind. And in today's market, that has real consequences.",
+      "Guests expect clarity, speed, and trust. They want to feel confident from the first scroll to the final step of booking. That doesn't require flashy features or expensive rebuilds – it requires attention to detail and a platform that's built to perform.",
+      "As more hotels invest in modern websites, the gap will grow. Those who stay still risk getting left behind – not because their rooms are worse, but because their websites never gave guests the chance to find out.",
+    ],
+  },
+];
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{TITLE} — Hitels</title>
+	</head>
+	<body class="bg-background">
+		<header>
+			<Hero title={TITLE} />
+		</header>
+		<main>
+			{SECTIONS.map((section) => <BlogSection {...section} />)}
+		</main>
+		<Footer />
+	</body>
+</html>

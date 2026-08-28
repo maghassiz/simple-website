@@ -30,6 +30,7 @@ export default defineConfig({
       PUBLIC_SANITY_PROJECT_ID: envField.string({ context: 'client', access: 'public' }),
       PUBLIC_SANITY_DATASET: envField.string({ context: 'client', access: 'public', default: 'production' }),
       R2_PUBLIC_URL: envField.string({ context: 'client', access: 'public' }),
+      PUBLIC_CONTACT_FORM_ENDPOINT: envField.string({ context: 'client', access: 'public', default: '' }),
     }
   }
 });

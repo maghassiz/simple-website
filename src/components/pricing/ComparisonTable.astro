@@ -1,0 +1,54 @@
+---
+import { asset } from '../../lib/cdn';
+
+const PLANS = ['Custom Website', 'Booking Engine', 'Combined'];
+
+const ROWS = [
+  { label: 'Pricing', values: ['199.900 kr. / month', '1,8% / booking', '179.900 kr. / mo + 1,5%'] },
+  { label: 'Design', isGroup: true },
+  { label: 'Custom design', values: [true, true, true] },
+  { label: 'Checkout experience', values: ['Redirects', 'Matched UI', 'Seamless'] },
+  { label: 'Technical', isGroup: true },
+  { label: 'Analytics', values: ['Web traffic', 'Conversions', 'Full funnel'] },
+  { label: 'CMS access', values: ['2 seats', '2 seats', '2 seats'] },
+  { label: 'Web hosting', values: [true, true, true] },
+  { label: 'Support', isGroup: true },
+  { label: 'Onboarding', values: [true, true, true] },
+  { label: 'Slack Support', values: [true, true, true] },
+  { label: 'Growth', isGroup: true },
+  { label: 'Conversion Tuning', values: [false, false, true] },
+  { label: 'Content Engine', values: [false, false, '8 articles / month'] },
+];
+---
+
+<section class="flex flex-col items-center px-[100px] max-lg:px-10 max-md:px-4 py-16 max-lg:py-14 max-md:py-10 relative w-full bg-background">
+  <div class="w-full max-w-[1240px] overflow-x-auto">
+    <table class="w-full min-w-[720px] border-collapse">
+      <thead>
+        <tr class="bg-light-gray">
+          <th class="border border-border p-6 text-left font-body font-medium text-body-sm text-navy">Feature</th>
+          {PLANS.map((plan) => (
+            <th class="border border-border p-6 text-center font-body font-medium text-body-sm text-navy whitespace-nowrap">{plan}</th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {ROWS.map((row) => (
+          <tr>
+            <td class={`border border-border p-6 text-left font-body ${row.isGroup ? 'font-medium' : 'font-normal'} text-body-sm text-navy whitespace-nowrap`}>
+              {row.label}
+            </td>
+            {row.isGroup
+              ? PLANS.map(() => <td class="border border-border p-6" />)
+              : row.values!.map((value) => (
+                  <td class="border border-border p-6 text-center font-body font-normal text-body-sm text-navy whitespace-nowrap">
+                    {value === true && <img src={asset('images/home/pricing/icon-check-dark.svg')} alt="Included" class="size-5 mx-auto" />}
+                    {typeof value === 'string' && value}
+                  </td>
+                ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</section>
