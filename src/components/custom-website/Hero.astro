@@ -1,0 +1,55 @@
+---
+import Navigation from '../Navigation';
+import { asset } from '../../lib/cdn';
+---
+
+<div class="flex flex-col gap-[72px] max-lg:gap-12 items-center overflow-clip relative w-full bg-gradient-to-b from-[#3d2c99] to-[#654aff] to-[50%]">
+  <div aria-hidden class="absolute inset-0 pointer-events-none">
+    <div
+      class="absolute inset-0 mix-blend-overlay opacity-40 bg-top-left"
+      style={`background-image: url('${asset('images/home/hero/hero-bg-texture.webp')}'); background-size: 1920px 1080px;`}
+    ></div>
+  </div>
+
+  <div
+    aria-hidden
+    class="absolute flex h-[688px] max-lg:h-[500px] max-md:h-[420px] items-center justify-center left-[-348px] max-lg:left-[-220px] max-md:left-[-180px] top-[366px] max-lg:top-[300px] max-md:top-[280px] w-[2142px] max-lg:w-[1500px] max-md:w-[1200px] pointer-events-none"
+  >
+    <div class="rotate-[-4.09deg]">
+      <img src={asset('images/home/hero/decorative-blob.svg')} alt="" class="h-[539px] w-[2109px] block" />
+    </div>
+  </div>
+
+  <Navigation client:load />
+
+  <div class="flex flex-col gap-8 items-center px-[100px] max-lg:px-10 max-md:px-4 relative w-full max-w-[1032px] text-center">
+    <div class="flex flex-col gap-4 items-center text-background w-full">
+      <h1 class="font-heading text-h1 max-md:text-h3 w-full">Your hotel is unique. Your website should be too.</h1>
+      <p class="font-body font-normal text-body-lg max-md:text-[1.125rem] w-full">
+        We design and build award-winning hotel websites from scratch. No templates. Just bespoke, data-driven design engineered to bypass OTAs and capture direct bookings.
+      </p>
+    </div>
+    <div class="flex gap-4 items-start justify-center max-md:flex-col max-md:w-full">
+      <a href="#" class="bg-yellow flex gap-3 items-center justify-center rounded-lg px-4 py-3 max-md:w-full">
+        <img src={asset('images/home/hero/icon-chat.svg')} alt="" class="size-5" />
+        <span class="font-body font-medium text-navy text-body-md whitespace-nowrap">Contact us</span>
+      </a>
+      <a href="#pricing" class="bg-background flex gap-3 items-center justify-center rounded-lg pl-4 pr-5 py-3 max-md:w-full">
+        <img src={asset('images/custom-website/icon-tag.svg')} alt="" class="size-5" />
+        <span class="font-body font-medium text-navy text-body-md whitespace-nowrap">View pricing</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="relative w-full max-w-[1440px] px-[100px] max-lg:px-10 max-md:px-4 pb-[100px] max-lg:pb-16 max-md:pb-10">
+    {/* Flattened as one collage image (real portfolio site mockups), same treatment
+        ProductOfferings uses for its collage — the source has dozens of sub-pixel
+        nested elements never meant to be legible/functional on their own. */}
+    <img
+      src={asset('images/custom-website/hero/hero-collage.webp')}
+      alt="Collage of bespoke hotel websites designed and built by Hitels"
+      class="w-full rounded-2xl block"
+    />
+    <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-b from-transparent to-background rounded-b-2xl pointer-events-none"></div>
+  </div>
+</div>

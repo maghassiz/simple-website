@@ -1,0 +1,66 @@
+---
+import '../styles/global.css';
+import Hero from '../components/booking-engine/Hero.astro';
+import FeatureSection from '../components/booking-engine/FeatureSection.astro';
+import Pricing from '../components/home/Pricing.astro';
+import Footer from '../components/home/Footer.astro';
+
+// The label chip above each heading is a generic, uncustomized Figma component
+// ("Full name" placeholder) in every one of these sections — not real content.
+// Substituted a short topic label per section instead of shipping the placeholder.
+const FEATURES = [
+  {
+    label: 'Design',
+    heading: 'Flawless brand integration',
+    description: "Most booking engines look like an afterthought. We go further than our competitor to ensure a seamless transition from your website to the checkout. We meticulously tailor the typography, colors, and components so the engine feels like a natural, premium extension of your brand.",
+    image: 'images/booking-engine/features/brand-integration.webp',
+    imageAlt: 'Booking engine UI matched to a hotel brand',
+    imageFirst: false,
+  },
+  {
+    label: 'Revenue',
+    heading: 'Maximize revenue with custom add-ons',
+    description: "Don't just sell a room, sell an experience. Our platform easily handles custom up-sells during the checkout flow. Whether it's adding a bottle of champagne, booking spa access, applying coupon codes, or reserving multiple rooms, we help you increase your average order value effortlessly.",
+    image: 'images/booking-engine/features/addons.webp',
+    imageAlt: 'Checkout flow showing a champagne bottle add-on',
+    imageFirst: true,
+  },
+  {
+    label: 'Analytics',
+    heading: 'Stop guessing what works',
+    description: 'Our booking engine comes with built-in, granular event tracking. Easily monitor every step of the checkout process, track your conversion rates, and measure the exact ROI of your marketing campaigns so you can scale your direct bookings with confidence.',
+    image: 'images/booking-engine/features/analytics.webp',
+    imageAlt: 'Checkout funnel chart showing drop-off at each step',
+    imageFirst: false,
+  },
+  {
+    label: 'Security',
+    heading: 'Powerful & secure foundation',
+    description: 'Built on top of the robust Godo property management system, our engine combines enterprise-grade reliability with top-tier security. Your guests enjoy a safe, secure payment process, and you get the peace of mind that your backend is rock solid.',
+    image: 'images/booking-engine/features/security.webp',
+    imageAlt: 'Diagram linking the website, a secure checkout, and Godo',
+    imageFirst: true,
+  },
+];
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Hitels — A booking engine built to maximize direct revenue</title>
+	</head>
+	<body class="bg-background">
+		<header>
+			<Hero />
+		</header>
+		<main>
+			{FEATURES.map((feature) => <FeatureSection {...feature} />)}
+			<Pricing />
+		</main>
+		<Footer />
+	</body>
+</html>
