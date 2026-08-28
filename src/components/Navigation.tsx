@@ -2,15 +2,14 @@ import { useEffect, useState } from 'react';
 import { asset } from '../lib/cdn';
 
 // TODO: hrefs are placeholders until the corresponding pages exist
-// (Figma has About Us, Pricing, and Contact Us as distinct pages — routes
-// will follow once those are built).
+// (Figma has Resources as a distinct page — route will follow once it's built).
 const LINKS = [
   { label: 'Booking engine', href: '/booking-engine', badge: 'New' },
   { label: 'Custom website', href: '/custom-website' },
-  { label: 'Pricing', href: '#' },
-  { label: 'About us', href: '#' },
+  { label: 'Pricing', href: '/pricing' },
+  { label: 'About us', href: '/about-us' },
   { label: 'Resources', href: '#' },
-  { label: 'Contact us', href: '#' },
+  { label: 'Contact us', href: '/contact-us' },
 ];
 
 // Local mirror of shared/Button.astro's prop shape -- kept separate since
@@ -50,8 +49,16 @@ function CtaPill({
   );
 }
 
-export default function Navigation() {
+// 'dark' (default) is for the gradient/dark hero backgrounds every existing
+// page uses. 'light' is for pages like Blog Detail where the nav sits
+// directly on the plain page background (bg-background) instead of a hero.
+type NavigationProps = {
+  variant?: 'dark' | 'light';
+};
+
+export default function Navigation({ variant = 'dark' }: NavigationProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const isLight = variant === 'light';
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? 'hidden' : '';
@@ -75,13 +82,13 @@ export default function Navigation() {
         className={`backdrop-blur-[18px] flex items-center justify-between px-4 lg:px-[100px] py-4 relative w-full ${isOpen ? 'max-lg:invisible' : ''}`}
       >
         <a href="/" className="block h-6 w-[88px]">
-          <img src={asset('images/home/hero/hitels-logo.svg')} alt="Hitels" className="h-full w-full" />
+          <img src={asset(isLight ? 'images/home/nav/mobile-menu-logo-dark.svg' : 'images/home/hero/hitels-logo.svg')} alt="Hitels" className="h-full w-full" />
         </a>
 
         <div className="flex gap-6 items-center">
           <div className="hidden lg:flex gap-6 items-center">
             {LINKS.map((link) => (
-              <a key={link.label} href={link.href} className="font-body font-medium text-background text-body-sm whitespace-nowrap">
+              <a key={link.label} href={link.href} className={`font-body font-medium ${isLight ? 'text-navy' : 'text-background'} text-body-sm whitespace-nowrap`}>
                 {link.label}
               </a>
             ))}
@@ -90,8 +97,8 @@ export default function Navigation() {
           <CtaPill
             href="#"
             label="Book a demo"
-            icon="images/home/hero/icon-calendar-nav.svg"
-            variant="secondary"
+            icon={isLight ? 'images/home/hero/icon-calendar-nav-white.svg' : 'images/home/hero/icon-calendar-nav.svg'}
+            variant={isLight ? 'dark' : 'secondary'}
             padding="pl-3 pr-4 py-2"
             gap="gap-2"
             iconSize="size-4"
@@ -106,7 +113,7 @@ export default function Navigation() {
             aria-label="Open menu"
             onClick={() => setIsOpen(true)}
           >
-            <img src={asset('images/home/nav/mobile-nav-hamburger.svg')} alt="" className="size-full" />
+            <img src={asset(isLight ? 'images/home/nav/mobile-nav-hamburger-navy.svg' : 'images/home/nav/mobile-nav-hamburger.svg')} alt="" className="size-full" />
           </button>
         </div>
       </nav>

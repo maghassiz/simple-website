@@ -3,6 +3,17 @@ import { asset } from '../../lib/cdn';
 import Button from './Button.astro';
 import ArrowLink from './ArrowLink.astro';
 
+interface Props {
+  showHeading?: boolean;
+  showDetailsLink?: boolean;
+}
+
+// Home and About Us show this as a mid-page teaser (heading + "View pricing
+// details" link out to the dedicated Pricing page). The Pricing page itself
+// reuses the same cards but suppresses both, since its own Hero already
+// carries the "Pricing" heading and linking to itself would be circular.
+const { showHeading = true, showDetailsLink = true } = Astro.props;
+
 const CARDS = [
   {
     title: 'Custom website',
@@ -59,12 +70,14 @@ const CARDS = [
 ---
 
 <section id="pricing" class="flex flex-col gap-16 max-lg:gap-14 max-md:gap-8 items-center px-[100px] py-[112px] max-lg:px-10 max-lg:py-14 max-md:px-4 max-md:py-16 relative w-full bg-background">
-  <div class="flex flex-col gap-4 items-center text-center w-[792px] max-w-full">
-    <h2 class="font-heading text-h3 text-navy w-full">Affordable plans for every hotel</h2>
-    <p class="font-body font-normal text-body-md text-gray w-full">
-      Explore Hitels' flexible pricing plans, designed for hotels of all sizes. Boost direct bookings and online presence with our scalable solutions. Choose your perfect plan today!
-    </p>
-  </div>
+  {showHeading && (
+    <div class="flex flex-col gap-4 items-center text-center w-[792px] max-w-full">
+      <h2 class="font-heading text-h3 text-navy w-full">Affordable plans for every hotel</h2>
+      <p class="font-body font-normal text-body-md text-gray w-full">
+        Explore Hitels' flexible pricing plans, designed for hotels of all sizes. Boost direct bookings and online presence with our scalable solutions. Choose your perfect plan today!
+      </p>
+    </div>
+  )}
 
   <div class="flex gap-8 items-stretch max-lg:flex-col w-full max-w-[1240px]">
     {CARDS.map((card) => (
@@ -107,5 +120,5 @@ const CARDS = [
     ))}
   </div>
 
-  <ArrowLink href="#" label="View pricing details" />
+  {showDetailsLink && <ArrowLink href="/pricing" label="View pricing details" />}
 </section>

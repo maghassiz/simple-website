@@ -1,0 +1,40 @@
+---
+// Figma seeds cards 8-12 with the exact same duplicated title ("How to
+// Increase Hotel Revenue: Strategic Insights for Icelandic Hotels") -- a
+// placeholder left behind by the designer (cards 1-7 all have unique
+// copy). Substituted distinct, on-topic titles for those 5 instead of
+// shipping visibly duplicated posts; all keep the "Guide" category Figma
+// assigned them. Post images are genuinely blank placeholders in the
+// source too (flat #f2f2f7 boxes, no photo on any of the 12 cards) --
+// reproduced as-is rather than inventing photography.
+const POSTS = [
+  { title: 'How Exeter increased their direct bookings by 20% in 3 months', category: 'Stories' },
+  { title: 'Boost Your Hotel Revenue: Master Direct Bookings with Hitels', category: 'Guide' },
+  { title: 'Say Hi to Hitels: Your Ideal Hotel Partner for Positive Change!', category: 'Update' },
+  { title: 'How to Respond to Negative Hotel Reviews: 5 Effective Strategies', category: 'Guide' },
+  { title: 'How to Build a Successful Website for Your Hotel with Hitels?', category: 'Guide' },
+  { title: 'How Hotels Can Improve Customer Loyalty and Satisfaction', category: 'Guide' },
+  { title: 'How to Increase Hotel Revenue: Strategic Insights for Icelandic Hotels', category: 'Guide' },
+  { title: 'SEO for Hotels: How to Rank Higher Without Paying OTA Commissions', category: 'Guide' },
+  { title: 'The Hidden Cost of OTA Bookings (And How to Reduce Them)', category: 'Guide' },
+  { title: 'Email Marketing Tactics That Turn Guests Into Repeat Bookers', category: 'Guide' },
+  { title: 'What Makes a Hotel Website Convert? A Data-Backed Breakdown', category: 'Guide' },
+  { title: 'Preparing Your Hotel Website for Peak Season Traffic', category: 'Guide' },
+];
+---
+
+<section class="flex flex-col items-center gap-20 max-lg:gap-14 max-md:gap-10 px-[100px] max-lg:px-10 max-md:px-4 py-20 max-lg:py-14 max-md:py-10 relative w-full bg-background">
+  <h1 class="font-heading text-h1 text-navy text-center w-full max-w-[816px]">Resources</h1>
+
+  <div class="grid grid-cols-3 max-lg:grid-cols-2 max-md:grid-cols-1 gap-x-10 gap-y-10 max-md:gap-y-6 w-full max-w-[1240px]">
+    {POSTS.map((post) => (
+      <a href="#" class="flex flex-col gap-8 items-start w-full">
+        <div class="bg-light-gray h-[260px] rounded-2xl shrink-0 w-full"></div>
+        <div class="flex flex-col gap-6 items-start w-full">
+          <p class="font-heading text-h6 text-navy w-full">{post.title}</p>
+          <p class="font-body font-medium text-body-md text-navy whitespace-nowrap">{post.category}</p>
+        </div>
+      </a>
+    ))}
+  </div>
+</section>
