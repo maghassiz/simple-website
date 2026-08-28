@@ -1,6 +1,14 @@
 @import "tailwindcss";
 
 /*
+ * Inter — free (SIL Open Font License), self-hosted via @fontsource/inter
+ * (no R2/licensing workaround needed, unlike Garnett Medium below). Only
+ * weights 400/500 are used anywhere in the codebase (font-normal/font-medium).
+ */
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+
+/*
  * Hitels brand tokens — extracted from Figma (fileKey 0bx3Si4ObEyKJ6XgLEETra),
  * isolated from the hero section (node 122:28637) to avoid picking up colors
  * from embedded client-site mockups elsewhere in the file (Product Offerings
