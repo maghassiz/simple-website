@@ -4,7 +4,7 @@ import Button from '../shared/Button.astro';
 import { asset } from '../../lib/cdn';
 ---
 
-<div class="flex flex-col gap-[72px] max-lg:gap-12 h-[850px] max-lg:h-auto max-lg:pb-12 items-center overflow-clip relative w-full bg-navy">
+<div data-hero class="flex flex-col gap-[72px] max-lg:gap-12 h-[850px] max-lg:h-auto max-lg:pb-12 items-center overflow-clip relative w-full bg-navy">
   <div aria-hidden class="absolute inset-0 pointer-events-none">
     {/* The background is an animated gradient video (navy->purple->white), not a static
         fill — the Figma export silently drops video fills to an empty node, which is why
@@ -38,7 +38,7 @@ import { asset } from '../../lib/cdn';
 
   <Navigation client:load />
 
-  <div class="flex items-center justify-between px-[100px] max-lg:flex-col max-lg:px-10 max-md:px-4 max-lg:text-center relative w-full">
+  <div class="flex items-center justify-between px-[100px] max-lg:flex-col max-lg:px-10 max-md:px-4 max-lg:text-center relative w-full max-w-[1440px] mx-auto">
     <div class="flex flex-col gap-8 items-start max-lg:items-center w-[604px] max-lg:w-full mr-[-16px] max-lg:mr-0">
       <div class="flex flex-col gap-4 items-center text-background w-full">
         <p class="font-heading text-h1 w-full">Turn website visitors into direct bookings</p>
