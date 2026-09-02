@@ -85,7 +85,7 @@ export default function ContactForm() {
 
   if (status === 'success') {
     return (
-      <section className="flex justify-center px-[100px] max-lg:px-10 max-md:px-4 pb-[112px] max-lg:pb-14 max-md:pb-16 w-full bg-background">
+      <section className="flex justify-center px-[100px] max-lg:px-10 max-md:px-4 pt-20 max-lg:pt-14 max-md:pt-10 pb-[112px] max-lg:pb-14 max-md:pb-16 w-full bg-background">
         <div className="flex flex-col gap-2 items-center text-center max-w-[816px] w-full">
           <p className="font-heading text-h5 text-navy w-full">Thanks for reaching out</p>
           <p className="font-body font-normal text-body-md text-gray w-full">We'll get back to you shortly.</p>
@@ -95,7 +95,7 @@ export default function ContactForm() {
   }
 
   return (
-    <section className="flex justify-center px-[100px] max-lg:px-10 max-md:px-4 pb-[112px] max-lg:pb-14 max-md:pb-16 w-full bg-background">
+    <section className="flex justify-center px-[100px] max-lg:px-10 max-md:px-4 pt-20 max-lg:pt-14 max-md:pt-10 pb-[112px] max-lg:pb-14 max-md:pb-16 w-full bg-background">
       <form onSubmit={handleSubmit} className="flex flex-col gap-8 items-start w-full max-w-[816px]">
         <div className="flex gap-8 max-md:flex-col items-start w-full">
           <Field id="name" label="Name" placeholder="Full name" required value={name} onChange={setName} />
@@ -133,7 +133,7 @@ export default function ContactForm() {
         <button
           type="submit"
           disabled={status === 'submitting'}
-          className="bg-navy text-background flex gap-3 items-center justify-center rounded-lg px-5 py-3 disabled:opacity-60"
+          className="bg-navy text-background hover:bg-background hover:text-navy flex gap-3 items-center justify-center rounded-lg border-2 border-transparent hover:border-navy transition-colors duration-300 px-5 py-3 cursor-pointer disabled:cursor-not-allowed disabled:opacity-60"
         >
           <span className="font-body font-medium text-body-md whitespace-nowrap">
             {status === 'submitting' ? 'Sending…' : 'Send message'}

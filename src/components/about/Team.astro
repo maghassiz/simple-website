@@ -3,92 +3,186 @@ import { asset } from '../../lib/cdn';
 
 // Cards intentionally overflow their container (1558px of cards in a 1240px
 // content area, confirmed via real pixel widths in the source) -- a
-// horizontal-scroll row like Stories.astro, not a stack. The prev/next
-// buttons are a progressive-enhancement scroll nudge on top of native
-// touch/trackpad scroll.
+// horizontal-scroll row like Stories.astro, not a stack. The row also bleeds
+// edge-to-edge (it sits outside the max-w-[1440px] wrapper used by its
+// siblings) and loops seamlessly: it's rendered three times back-to-back and
+// the script snaps scrollLeft back by one set width whenever it crosses a
+// set boundary, so scrolling or clicking past either end wraps around
+// instead of stopping. The prev/next buttons are a progressive-enhancement
+// nudge on top of native touch/trackpad scroll.
 const TEAM = [
   {
     name: 'Arnar Hinriksson',
     role: 'Growth and Success',
     email: 'arnar@hitels.is',
     photo: 'images/about/team/arnar.webp',
-    inset: 'inset-[-5.36%_-43.01%_-11.01%_-31.12%]',
   },
   {
     name: 'Þórdís',
     role: 'Technology and Customer Success',
     email: 'thordis@hitels.is',
     photo: 'images/about/team/thordis.webp',
-    inset: 'inset-[5.36%_-8.39%_-23.81%_-9.79%]',
   },
   {
     name: 'Birgir',
     role: 'Strategy and Consultation',
     email: 'birgir@hitels.is',
     photo: 'images/about/team/birgir.webp',
-    inset: 'inset-[4.17%_-27.97%_-51.79%_-19.93%]',
   },
   {
     name: 'Salome',
     role: 'Customer Success & QA',
     email: 'hi@hitels.is',
     photo: 'images/about/team/salome.webp',
-    inset: 'inset-[-12.2%_-44.76%_-46.73%_-13.99%]',
   },
   {
     name: 'Bjarki',
     role: 'Designer',
     email: 'hi@hitels.is',
     photo: 'images/about/team/bjarki.webp',
-    inset: 'inset-[4.11%_-18.15%_-30.82%_-8.56%]',
   },
 ];
+
+const LOOP = [...TEAM, ...TEAM, ...TEAM];
 ---
 
-<section class="flex flex-col gap-[72px] max-lg:gap-10 max-md:gap-8 items-start px-[100px] py-[100px] max-lg:px-10 max-lg:py-10 max-md:px-4 max-md:py-10 relative w-full max-w-[1440px] mx-auto bg-background">
-  <div data-reveal class="flex flex-col gap-8 items-center text-center px-[211px] max-lg:px-0 relative w-full">
-    <h2 class="font-heading text-h3 text-navy w-full">People behind smarter hotel websites</h2>
-    <p class="font-body font-normal text-body-md text-gray w-full">
-      Most booking engines look like an afterthought. We go further than any competitor to ensure a seamless transition from your website to the checkout. Starting in Figma, we meticulously tailor the typography, colors, and UI components so the engine feels like a natural, premium extension of your brand.
-    </p>
+<section class="flex flex-col gap-[72px] max-lg:gap-10 max-md:gap-8 items-start py-[100px] max-lg:py-10 max-md:py-10 relative w-full bg-background">
+  <div class="w-full max-w-[1440px] mx-auto px-[100px] max-lg:px-10 max-md:px-4">
+    <div data-reveal class="flex flex-col gap-8 items-center text-center px-[211px] max-lg:px-0 relative w-full">
+      <h2 class="font-heading text-h3 text-navy w-full">People behind smarter hotel websites</h2>
+      <p class="font-body font-normal text-body-md text-gray w-full">
+        Most booking engines look like an afterthought. We go further than any competitor to ensure a seamless transition from your website to the checkout. Starting in Figma, we meticulously tailor the typography, colors, and UI components so the engine feels like a natural, premium extension of your brand.
+      </p>
+    </div>
   </div>
 
-  <div data-team-carousel class="flex gap-8 items-start w-full overflow-x-auto snap-x snap-mandatory pb-2 scroll-smooth">
-    {TEAM.map((member, i) => (
-      <div data-reveal style={`--reveal-delay: ${i * 100}ms`} class="flex flex-col gap-6 items-start shrink-0 snap-start w-[286px]">
-        <div class="h-[352px] relative rounded-lg shrink-0 w-full overflow-hidden bg-[linear-gradient(171deg,#33258c_1.7%,#654aff_37.3%,#eae8ff_94.3%)]">
-          <img src={asset(member.photo)} alt={member.name} class={`absolute ${member.inset} w-full h-full object-cover`} />
+  <div data-team-carousel class="flex gap-8 items-start w-full overflow-x-auto overflow-y-hidden snap-x snap-mandatory pb-2 scroll-smooth cursor-grab select-none">
+    {LOOP.map((member, i) => {
+      const isMain = Math.floor(i / TEAM.length) === 1;
+      return (
+        <div
+          data-reveal={isMain ? true : undefined}
+          style={isMain ? `--reveal-delay: ${(i % TEAM.length) * 100}ms` : undefined}
+          class="group flex flex-col gap-6 items-start shrink-0 snap-start w-[286px]"
+        >
+          <div class="h-[352px] relative rounded-lg shrink-0 w-full overflow-hidden bg-[linear-gradient(171deg,#33258c_1.7%,#654aff_37.3%,#eae8ff_94.3%)]">
+            <img
+              src={asset(member.photo)}
+              alt={member.name}
+              class="absolute inset-0 w-full h-full object-cover object-bottom transition-transform duration-300 ease-out group-hover:scale-105"
+            />
+          </div>
+          <div class="flex flex-col gap-2 items-start w-full">
+            <p class="font-heading text-h5 text-navy w-full">{member.name}</p>
+            <p class="font-body font-normal text-body-md text-gray w-full">{member.role}</p>
+            <p class="font-body font-normal text-body-md text-gray w-full">{member.email}</p>
+          </div>
         </div>
-        <div class="flex flex-col gap-2 items-start w-full">
-          <p class="font-heading text-h5 text-navy w-full">{member.name}</p>
-          <p class="font-body font-normal text-body-md text-gray w-full">{member.role}</p>
-          <p class="font-body font-normal text-body-md text-gray w-full">{member.email}</p>
-        </div>
-      </div>
-    ))}
+      );
+    })}
   </div>
 
-  <div class="flex gap-2.5 items-center">
-    <button type="button" aria-label="Scroll team members left" data-direction="-1" class="bg-light-gray flex items-center justify-center rounded-full p-3.5 size-12">
-      <img src={asset('images/home/testimonial/arrow-left.svg')} alt="" class="size-5" />
-    </button>
-    <button type="button" aria-label="Scroll team members right" data-direction="1" class="bg-light-gray flex items-center justify-center rounded-full p-3.5 size-12">
-      <img src={asset('images/home/testimonial/arrow-right.svg')} alt="" class="size-5" />
-    </button>
+  <div class="w-full max-w-[1440px] mx-auto px-[100px] max-lg:px-10 max-md:px-4">
+    <div class="flex gap-2.5 items-center">
+      <button type="button" aria-label="Scroll team members left" data-direction="-1" class="bg-light-gray flex items-center justify-center rounded-full p-3.5 size-12">
+        <img src={asset('images/home/testimonial/arrow-left.svg')} alt="" class="size-5" />
+      </button>
+      <button type="button" aria-label="Scroll team members right" data-direction="1" class="bg-light-gray flex items-center justify-center rounded-full p-3.5 size-12">
+        <img src={asset('images/home/testimonial/arrow-right.svg')} alt="" class="size-5" />
+      </button>
+    </div>
   </div>
 </section>
+
+<style>
+  [data-team-carousel] {
+    scrollbar-width: none;
+  }
+
+  [data-team-carousel]::-webkit-scrollbar {
+    display: none;
+  }
+
+  [data-team-carousel].is-dragging {
+    cursor: grabbing;
+    scroll-snap-type: none;
+  }
+</style>
 
 <script>
   document.querySelectorAll<HTMLElement>('[data-team-carousel]').forEach((carousel) => {
     const wrapper = carousel.parentElement;
-    if (!wrapper) return;
-    const card = carousel.querySelector<HTMLElement>(':scope > div');
-    const step = card ? card.offsetWidth + 32 : carousel.clientWidth;
+    const cards = Array.from(carousel.querySelectorAll<HTMLElement>(':scope > div'));
+    if (!cards.length) return;
 
-    wrapper.querySelectorAll<HTMLButtonElement>('[data-direction]').forEach((button) => {
-      button.addEventListener('click', () => {
-        carousel.scrollBy({ left: step * Number(button.dataset.direction), behavior: 'smooth' });
-      });
+    // Rendered as three back-to-back copies of the team so the row can loop
+    // seamlessly. setWidth is the pixel width of exactly one copy, measured
+    // from real layout rather than assumed card/gap math.
+    const setSize = cards.length / 3;
+    const setWidth = cards[setSize].offsetLeft - cards[0].offsetLeft;
+
+    const jumpTo = (left: number) => {
+      const prevBehavior = carousel.style.scrollBehavior;
+      carousel.style.scrollBehavior = 'auto';
+      carousel.scrollLeft = left;
+      carousel.style.scrollBehavior = prevBehavior;
+    };
+
+    // Start on the middle (real) copy so the initial view is unchanged.
+    jumpTo(setWidth);
+
+    let settleTimer: ReturnType<typeof setTimeout>;
+    carousel.addEventListener('scroll', () => {
+      clearTimeout(settleTimer);
+      settleTimer = setTimeout(() => {
+        if (carousel.scrollLeft <= 0) {
+          jumpTo(carousel.scrollLeft + setWidth);
+        } else if (carousel.scrollLeft >= setWidth * 2) {
+          jumpTo(carousel.scrollLeft - setWidth);
+        }
+      }, 120);
     });
+
+    if (wrapper) {
+      const step = cards[0].offsetWidth + 32;
+      wrapper.querySelectorAll<HTMLButtonElement>('[data-direction]').forEach((button) => {
+        button.addEventListener('click', () => {
+          carousel.scrollBy({ left: step * Number(button.dataset.direction), behavior: 'smooth' });
+        });
+      });
+    }
+
+    // Click-and-drag for mouse users; touch already scrolls natively, so
+    // dragging is scoped to mouse input to avoid fighting native touch
+    // scrolling/momentum.
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragStartScrollLeft = 0;
+
+    carousel.addEventListener('pointerdown', (event) => {
+      if (event.pointerType !== 'mouse') return;
+      isDragging = true;
+      dragStartX = event.clientX;
+      dragStartScrollLeft = carousel.scrollLeft;
+      carousel.setPointerCapture(event.pointerId);
+      carousel.classList.add('is-dragging');
+      carousel.style.scrollBehavior = 'auto';
+    });
+
+    carousel.addEventListener('pointermove', (event) => {
+      if (!isDragging) return;
+      carousel.scrollLeft = dragStartScrollLeft - (event.clientX - dragStartX);
+    });
+
+    const stopDragging = (event: PointerEvent) => {
+      if (!isDragging) return;
+      isDragging = false;
+      carousel.classList.remove('is-dragging');
+      carousel.style.scrollBehavior = '';
+      carousel.releasePointerCapture(event.pointerId);
+    };
+
+    carousel.addEventListener('pointerup', stopDragging);
+    carousel.addEventListener('pointercancel', stopDragging);
   });
 </script>

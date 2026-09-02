@@ -3,7 +3,10 @@ const STATS = [
   { value: '15', label: 'Employees' },
   { value: '4', label: 'Nationalities' },
   { value: '19+', label: 'Partners' },
-];
+].map((stat) => {
+  const [, target, suffix] = stat.value.match(/^(\d+(?:\.\d+)?)(.*)$/) ?? [null, stat.value, ''];
+  return { ...stat, target, suffix };
+});
 ---
 
 <section class="flex gap-[138px] items-center px-[100px] py-[100px] max-lg:flex-col max-lg:gap-10 max-lg:px-10 max-lg:py-10 max-md:px-4 max-md:py-10 relative w-full max-w-[1440px] mx-auto bg-background">
@@ -13,12 +16,56 @@ const STATS = [
       We are a group of digital experts with a deep passion for the hotel industry. We were founded with a vision of transforming the hotel industry from indirect bookings to direct.
     </p>
   </div>
-  <div class="flex flex-1 gap-8 max-md:gap-4 items-center w-full">
+  <div data-stats-reveal class="flex flex-1 gap-8 max-md:gap-4 items-center w-full">
     {STATS.map((stat, i) => (
       <div data-reveal style={`--reveal-delay: ${120 + i * 100}ms`} class="flex flex-1 flex-col gap-2 items-start">
-        <p class="font-heading text-[4rem] leading-[1.2] tracking-[-0.025em] max-md:text-h2 text-navy w-full">{stat.value}</p>
+        <p class="stat-count font-heading text-[4rem] leading-[1.2] tracking-[-0.025em] max-md:text-h2 text-navy w-full" data-target={stat.target} data-suffix={stat.suffix}>0{stat.suffix}</p>
         <p class="font-body font-normal text-body-md text-gray w-full">{stat.label}</p>
       </div>
     ))}
   </div>
 </section>
+
+<script>
+  const statsContainer = document.querySelector('[data-stats-reveal]');
+  const statEls = statsContainer?.querySelectorAll<HTMLElement>('.stat-count') ?? [];
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function animateCount(el: HTMLElement, duration = 1200) {
+    const target = parseFloat(el.dataset.target ?? '0');
+    const suffix = el.dataset.suffix ?? '';
+    const decimals = target % 1 !== 0 ? 1 : 0;
+
+    if (prefersReducedMotion) {
+      el.textContent = `${target.toFixed(decimals)}${suffix}`;
+      return;
+    }
+
+    const start = performance.now();
+
+    function tick(now: number) {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = `${(target * eased).toFixed(decimals)}${suffix}`;
+      if (progress < 1) requestAnimationFrame(tick);
+    }
+
+    requestAnimationFrame(tick);
+  }
+
+  if (statsContainer) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            statEls.forEach((el) => animateCount(el));
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.4 }
+    );
+    observer.observe(statsContainer);
+  }
+</script>
