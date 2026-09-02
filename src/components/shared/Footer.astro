@@ -28,10 +28,15 @@ import Button from './Button.astro';
       class="hidden max-lg:block absolute inset-0 mix-blend-overlay opacity-0 bg-top-left"
       style={`background-image: url('${asset('images/home/hero/hero-bg-texture.webp')}'); background-size: 1920px 1080px;`}
     ></div>
+    {/* Mirrors the Hero's bottom fade: on wide/large-desktop viewports object-cover
+        scales the video up to cover the full width, which crops out the start of its
+        own fade from the page background into purple, leaving a hard edge at the top
+        of the footer. This overlay guarantees a soft transition regardless of crop. */}
+    <div class="absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-background to-transparent max-lg:hidden"></div>
   </div>
   <div
     aria-hidden
-    class="absolute flex h-[500px] max-lg:h-[400px] items-center justify-center left-1/2 -translate-x-1/2 top-[-250px] max-lg:top-[-180px] w-[1600px] max-lg:w-[1200px] pointer-events-none rotate-180"
+    class="absolute flex h-[55.56vh] max-lg:h-[44.44vh] items-center justify-center left-1/2 -translate-x-1/2 top-[-250px] max-lg:top-[-180px] w-[111.11vw] max-lg:w-[83.33vw] pointer-events-none rotate-180"
   >
     <img src={asset('images/home/footer/decorative-blob.svg')} alt="" class="h-full w-full" />
   </div>

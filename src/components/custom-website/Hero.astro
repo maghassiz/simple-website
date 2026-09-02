@@ -4,7 +4,7 @@ import Button from '../shared/Button.astro';
 import { asset } from '../../lib/cdn';
 ---
 
-<div data-hero class="flex flex-col gap-[72px] max-lg:gap-12 items-center overflow-clip relative w-full bg-gradient-to-b from-[#3d2c99] to-[#654aff] to-[50%]">
+<div data-hero class="flex flex-col gap-[72px] max-lg:gap-12 items-center overflow-clip relative w-full bg-gradient-to-b from-[#3d2c99] to-[#654aff] to-50%">
   <div aria-hidden class="absolute inset-0 pointer-events-none">
     <div
       class="absolute inset-0 mix-blend-overlay opacity-40 bg-top-left"
@@ -12,12 +12,9 @@ import { asset } from '../../lib/cdn';
     ></div>
   </div>
 
-  <div
-    aria-hidden
-    class="absolute flex h-[688px] max-lg:h-[500px] max-md:h-[420px] items-center justify-center left-[-348px] max-lg:left-[-220px] max-md:left-[-180px] top-[366px] max-lg:top-[300px] max-md:top-[280px] w-[2142px] max-lg:w-[1500px] max-md:w-[1200px] pointer-events-none"
-  >
-    <div class="rotate-[-4.09deg]">
-      <img src={asset('images/home/hero/decorative-blob.svg')} alt="" class="h-[539px] w-[2109px] block" />
+  <div aria-hidden class="absolute h-[86.32vh] left-[-323px] top-[366px] w-[146.46vw] pointer-events-none">
+    <div class="absolute inset-[-22.4%_-8.25%]">
+      <img src={asset('images/booking-engine/hero/decorative-blob.svg')} alt="" class="block max-w-none w-full h-full" />
     </div>
   </div>
 
@@ -37,13 +34,34 @@ import { asset } from '../../lib/cdn';
   </div>
 
   <div data-reveal="fade" style="--reveal-delay: 250ms" class="relative w-full max-w-[1440px] px-[100px] max-lg:px-10 max-md:px-4 pb-[100px] max-lg:pb-16 max-md:pb-10">
-    {/* Flattened as one collage image (real portfolio site mockups), same treatment
-        ProductOfferings uses for its collage — the source has dozens of sub-pixel
-        nested elements never meant to be legible/functional on their own. */}
+    {/* Matches the Figma "Decorative Background": a solid rectangle starting
+        halfway down the image, not the whole section. The gaps baked into the
+        collage asset (opaque, no alpha) are colored to match the flat #654aff
+        the hero gradient holds below its 50% stop, so this rectangle's hard
+        edge only becomes visible once the image itself goes opaque again.
+        Full-bleed (w-screen, recentered) so it still reaches the viewport
+        edges above max-w-[1440px] instead of leaving purple gutters on large
+        desktop; the Hero's own overflow-clip trims any sub-pixel excess. */}
+    <div aria-hidden class="absolute left-1/2 -translate-x-1/2 w-screen bottom-0 top-1/2 bg-background -z-10 pointer-events-none"></div>
+    {/* Flattened as one collage image per breakpoint (real portfolio site mockups),
+        same treatment ProductOfferings uses for its collage — the source has dozens
+        of sub-pixel nested elements never meant to be legible/functional on their
+        own. Desktop/Tablet/Mobile are separate Figma frames (different crops, not
+        just a scaled-down desktop image), so each gets its own exported asset. */}
     <img
-      src={asset('images/custom-website/hero/hero-collage.webp')}
+      src={asset('images/custom-website/hero/hero-collage.png')}
       alt="Collage of bespoke hotel websites designed and built by Hitels"
-      class="w-full rounded-2xl block"
+      class="w-full rounded-2xl block max-lg:hidden"
+    />
+    <img
+      src={asset('images/custom-website/hero/tablet-hero-collage.png')}
+      alt="Collage of bespoke hotel websites designed and built by Hitels"
+      class="w-full rounded-2xl hidden max-lg:block max-md:hidden"
+    />
+    <img
+      src={asset('images/custom-website/hero/mobile-hero-collage.png')}
+      alt="Collage of bespoke hotel websites designed and built by Hitels"
+      class="w-full rounded-2xl hidden max-md:block"
     />
     <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-b from-transparent to-background rounded-b-2xl pointer-events-none"></div>
   </div>

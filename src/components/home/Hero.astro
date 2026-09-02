@@ -5,7 +5,7 @@ import HeroStories from './HeroStories.astro';
 import { asset } from '../../lib/cdn';
 ---
 
-<div data-hero class="flex flex-col gap-[72px] max-lg:gap-12 h-[850px] max-lg:h-auto max-lg:pb-12 items-center overflow-clip relative w-full bg-navy">
+<div data-hero class="flex flex-col gap-[72px] max-lg:gap-12 h-[85vh] min-h-[700px] max-h-[900px] max-lg:h-auto max-lg:pb-12 items-center overflow-clip relative w-full bg-navy">
   <div aria-hidden class="absolute inset-0 pointer-events-none">
     {/* The background is an animated gradient video (navy->purple->white), not a static
         fill — the Figma export silently drops video fills to an empty node, which is why
@@ -26,11 +26,17 @@ import { asset } from '../../lib/cdn';
       class="absolute inset-0 mix-blend-overlay opacity-10 max-lg:opacity-40 bg-top-left"
       style={`background-image: url('${asset('images/home/hero/hero-bg-texture.webp')}'); background-size: 1920px 1080px;`}
     ></div>
+    {/* The video's own baked-in fade to white is timed for its native aspect ratio —
+        on wide/large-desktop viewports object-cover scales the video up to cover the
+        full width, which crops out the tail end of that fade before it reaches white,
+        leaving a hard edge. This overlay guarantees a soft fade into the next section
+        regardless of how the video gets cropped. */}
+    <div class="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-b from-transparent to-background max-lg:hidden"></div>
   </div>
 
   <div
     aria-hidden
-    class="absolute flex h-[688.717px] items-center justify-center left-[-348.03px] top-[462.74px] w-[2142.156px] pointer-events-none"
+    class="absolute flex h-[100vh] items-center justify-center left-[-348.03px] top-[462.74px] w-[150vw] pointer-events-none"
   >
     <div class="rotate-[-4.09deg] h-full w-full">
       <img src={asset('images/home/hero/decorative-blob.svg')} alt="" class="h-full w-full block object-fill" />
